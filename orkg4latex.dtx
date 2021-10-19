@@ -127,7 +127,43 @@ and the derived files           orkg4latex.ins,
 %\begin{macro}{\orkgannotations}
 %\changes{v1.0}{2009/10/06}{Some change from the previous version}
 %    \begin{macrocode}
-\newenvironment{background}{$\ast$ }{$\ast$ }
+
+% \metadatamodification
+\newcount \metadatamodification
+\metadatamodification = 0
+
+% \metadataseparator
+\newcount \metadataseparator
+\metadataseparator    = `\;
+
+\directlua { 
+  MINIM_XMP = require('minim-xmp')
+  MINIM_XMP.add_namespace(
+    'ORKG ontology',
+    'orkg',
+    'http://orkg.org/core/',
+    {
+      hasResearchContribution = { 'ResearchContribution', 'a research contribution' },
+    },
+    {
+    }
+  )
+  MINIM_XMP.add_namespace(
+    'Pattern Ontology',
+    'po',
+    'http://purl.org/spar/po/',
+    {
+      contains = { 'Annotation', 'the annotation contained in a contribution' },
+    },
+    {}
+  )
+}
+
+\newenvironment{background}
+  {$\ast$ }
+  {$\ast$
+    \startmetadata orkg:hasResearchContribution {contribution1} /po:contains {annotation1} stopmetadata 
+  }
 \newenvironment{contribution}{$\star$ }{$\star$ }
 \newenvironment{methods}{$\circ$ }{$\circ$ }
 \newenvironment{problem statement}{$\diamond$ }{$\diamond$ }
