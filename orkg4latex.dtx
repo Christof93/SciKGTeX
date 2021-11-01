@@ -127,6 +127,7 @@ and the derived files           orkg4latex.ins,
 %\begin{macro}{\orkgannotations}
 %\changes{v1.0}{2009/10/06}{Some change from the previous version}
 %    \begin{macrocode}
+\usepackage{environ}
 
 % \metadatamodification
 \newcount \metadatamodification
@@ -137,37 +138,54 @@ and the derived files           orkg4latex.ins,
 \metadataseparator    = `\;
 
 \directlua { 
-  MINIM_XMP = require('minim-xmp')
-  MINIM_XMP.add_namespace(
-    'ORKG ontology',
-    'orkg',
-    'http://orkg.org/core/',
-    {
-      hasResearchContribution = { 'ResearchContribution', 'a research contribution' },
-    },
-    {
-    }
-  )
-  MINIM_XMP.add_namespace(
-    'Pattern Ontology',
-    'po',
-    'http://purl.org/spar/po/',
-    {
-      contains = { 'Annotation', 'the annotation contained in a contribution' },
-    },
-    {}
-  )
+  ORKG = require('orkg4latex')
 }
 
 \newenvironment{background}
-  {$\ast$ }
   {$\ast$
-    \startmetadata orkg:hasResearchContribution {contribution1} /po:contains {annotation1} stopmetadata 
+    \directlua{ORKG.remember_body()}
   }
-\newenvironment{contribution}{$\star$ }{$\star$ }
-\newenvironment{methods}{$\circ$ }{$\circ$ }
-\newenvironment{problem statement}{$\diamond$ }{$\diamond$ }
-\newenvironment{results}{$\bullet$ }{$\bullet$ }
+  { $\ast$ 
+    \directlua{ORKG.stop_remember_body()
+      ORKG.add_background(ORKG.get_environment_body())
+    }
+  }
+
+\newenvironment{contribution}
+  {$\star$
+    \directlua{ORKG.remember_body()}
+  }{$\star$
+    \directlua{ORKG.stop_remember_body()
+      ORKG.add_contribution(ORKG.get_environment_body())
+    }
+  }
+
+\newenvironment{methods}
+  {$\circ$
+    \directlua{ORKG.remember_body()}
+  }{$\circ$
+    \directlua{ORKG.stop_remember_body()
+      ORKG.add_methods(ORKG.get_environment_body())
+    }
+  }
+
+\newenvironment{problem statement}
+  {$\diamond$
+    \directlua{ORKG.remember_body()}
+  }{$\diamond$
+    \directlua{ORKG.stop_remember_body()
+      ORKG.add_problem_statement(ORKG.get_environment_body())
+    }
+  }
+
+\newenvironment{results}
+  {$\bullet$ 
+    \directlua{ORKG.remember_body()}
+  }{$\bullet$
+    \directlua{ORKG.stop_remember_body()
+      ORKG.add_results(ORKG.get_environment_body())
+    }
+  }
 
 %    \end{macrocode}
 %\end{macro}
