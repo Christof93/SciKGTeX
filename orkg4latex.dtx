@@ -127,66 +127,84 @@ and the derived files           orkg4latex.ins,
 %\begin{macro}{\orkgannotations}
 %\changes{v1.0}{2009/10/06}{Some change from the previous version}
 %    \begin{macrocode}
-\usepackage{environ}
 
-% \metadatamodification
-\newcount \metadatamodification
-\metadatamodification = 0
+\def\useignorespacesandallpars#1\ignorespaces\fi{%
+#1\fi\ignorespacesandallpars}
 
-% \metadataseparator
-\newcount \metadataseparator
-\metadataseparator    = `\;
+\makeatletter
+\def\ignorespacesandallpars{%
+  \@ifnextchar\par
+    {\expandafter\ignorespacesandallpars\@gobble}%
+    {}%
+}
+\makeatother
 
 \directlua { 
   ORKG = require('orkg4latex')
 }
 
 \newenvironment{background}
-  {$\ast$
+  {%
+    \ignorespaces
     \directlua{ORKG.remember_body()}
-  }
-  { $\ast$ 
-    \directlua{ORKG.stop_remember_body()
+  }{%
+    \directlua{
+      ORKG.stop_remember_body()
       ORKG.add_background(ORKG.get_environment_body())
     }
+    \ifhmode\unskip\fi
+    \aftergroup\useignorespacesandallpars
   }
 
 \newenvironment{contribution}
-  {$\star$
+  {%
+    \ignorespaces
     \directlua{ORKG.remember_body()}
-  }{$\star$
-    \directlua{ORKG.stop_remember_body()
+  }{%
+    \directlua{
+      ORKG.stop_remember_body()
       ORKG.add_contribution(ORKG.get_environment_body())
     }
+    \ifhmode\unskip\fi
+    \aftergroup\useignorespacesandallpars
   }
 
 \newenvironment{methods}
-  {$\circ$
+  {%
+    \ignorespaces
     \directlua{ORKG.remember_body()}
-  }{$\circ$
-    \directlua{ORKG.stop_remember_body()
+  }{%
+    \directlua{
+      ORKG.stop_remember_body()
       ORKG.add_methods(ORKG.get_environment_body())
     }
+    \ifhmode\unskip\fi
+    \aftergroup\useignorespacesandallpars
   }
 
 \newenvironment{problem statement}
-  {$\diamond$
+  {%
+    \ignorespaces
     \directlua{ORKG.remember_body()}
-  }{$\diamond$
+  }{%
     \directlua{ORKG.stop_remember_body()
       ORKG.add_problem_statement(ORKG.get_environment_body())
     }
+    \ifhmode\unskip\fi
+    \aftergroup\useignorespacesandallpars
   }
 
 \newenvironment{results}
-  {$\bullet$ 
+  {%
+    \ignorespaces
     \directlua{ORKG.remember_body()}
-  }{$\bullet$
+  }{%
     \directlua{ORKG.stop_remember_body()
       ORKG.add_results(ORKG.get_environment_body())
     }
+    \ifhmode\unskip\fi
+    \aftergroup\useignorespacesandallpars
   }
-
 %    \end{macrocode}
 %\end{macro}
 %

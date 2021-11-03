@@ -5,13 +5,13 @@ MY_XMP.add_contribution('contribution1')
 local Annotation_object = {}
 Annotation_object.whole_string = ""
 
-function Annotation_object.add_input_line(input_line)
-    Annotation_object.whole_string = Annotation_object.whole_string .. input_line .. " " 
-end
+local function trim(s)
+    return (s:gsub("^%s*(.-)%s*$", "%1"))
+ end
 
 function Annotation_object.get_environment_body()
     local str_without_end = Annotation_object.whole_string:gsub("\\end{.*}\n?","")
-    return (str_without_end)
+    return (trim(str_without_end))
 end
 
 function Annotation_object.remember_body()
@@ -24,6 +24,10 @@ end
 
 function Annotation_object.stop_remember_body()
     luatexbase.remove_from_callback("process_input_buffer", "add_input_line")
+end
+
+function Annotation_object.add_input_line(input_line)
+    Annotation_object.whole_string = Annotation_object.whole_string .. input_line .. " " 
 end
 
 function Annotation_object.add_background(sentence)
