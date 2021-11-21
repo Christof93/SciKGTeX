@@ -128,6 +128,7 @@ and the derived files           orkg4latex.ins,
 %\changes{v1.0}{2009/10/06}{Some change from the previous version}
 %    \begin{macrocode}
 
+% fix the spaces after environment 
 \def\useignorespacesandallpars#1\ignorespaces\fi{%
 #1\fi\ignorespacesandallpars}
 
@@ -146,7 +147,10 @@ and the derived files           orkg4latex.ins,
 \newenvironment{background}
   {%
     \ignorespaces
-    \directlua{ORKG.remember_body()}
+    \directlua{
+      ORKG.remember_body()
+      ORKG.register_environment('background')
+    }
   }{%
     \directlua{
       ORKG.stop_remember_body()
@@ -159,7 +163,10 @@ and the derived files           orkg4latex.ins,
 \newenvironment{contribution}
   {%
     \ignorespaces
-    \directlua{ORKG.remember_body()}
+    \directlua{
+      ORKG.remember_body()
+      ORKG.register_environment('contribution')
+    }
   }{%
     \directlua{
       ORKG.stop_remember_body()
@@ -172,7 +179,10 @@ and the derived files           orkg4latex.ins,
 \newenvironment{methods}
   {%
     \ignorespaces
-    \directlua{ORKG.remember_body()}
+    \directlua{
+      ORKG.remember_body()
+      ORKG.register_environment('methods')
+    }
   }{%
     \directlua{
       ORKG.stop_remember_body()
@@ -185,7 +195,10 @@ and the derived files           orkg4latex.ins,
 \newenvironment{problem statement}
   {%
     \ignorespaces
-    \directlua{ORKG.remember_body()}
+    \directlua{
+      ORKG.remember_body()
+      ORKG.register_environment('problem statement')
+    }
   }{%
     \directlua{ORKG.stop_remember_body()
       ORKG.add_problem_statement(ORKG.get_environment_body())
@@ -197,7 +210,10 @@ and the derived files           orkg4latex.ins,
 \newenvironment{results}
   {%
     \ignorespaces
-    \directlua{ORKG.remember_body()}
+    \directlua{
+      ORKG.remember_body()
+      ORKG.register_environment('results')
+    }
   }{%
     \directlua{ORKG.stop_remember_body()
       ORKG.add_results(ORKG.get_environment_body())
@@ -205,6 +221,7 @@ and the derived files           orkg4latex.ins,
     \ifhmode\unskip\fi
     \aftergroup\useignorespacesandallpars
   }
+
 %    \end{macrocode}
 %\end{macro}
 %
