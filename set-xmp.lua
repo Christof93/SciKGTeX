@@ -1,9 +1,6 @@
 local XMP = {}
 XMP.lines = {}
 
-local alloc = require('minim-alloc')
-alloc.remember('set-xmp')
-
 local xmp_top = [[<?xpacket begin="" id="b0e1b454-39bf-11ec-8d3d-0242ac130003"?>
 <x:xmpmeta xmlns:x="adobe:ns:meta/">
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
