@@ -144,6 +144,21 @@ and the derived files           orkg4latex.ins,
   ORKG = require('orkg4latex')
 }
 
+\newcommand{\ORKGaddproperty}[2][]{%
+  \directlua{ORKG:add_property_to_list("\luaescapestring{\unexpanded{#2}}")}
+  % make a new command with name given by #1
+  \expandafter\newcommand\csname #2\endcsname[2][]{%
+    \directlua{%
+      local property_type = "\luaescapestring{\unexpanded{#2}}"
+      local property_URI = "\luaescapestring{\unexpanded{#1}}"
+      local content = "\luaescapestring{\unexpanded{##2}}"
+      local belongs_to_contribution = "\luaescapestring{\unexpanded{##1}}"
+      ORKG.XMP:add_annotation(property_type, property_URI, content, 'annotation-id')
+    }
+    ##2%
+  }
+}
+
 \newenvironment{background}
   {%
     \ignorespaces
@@ -200,7 +215,8 @@ and the derived files           orkg4latex.ins,
       ORKG.register_environment('problem statement')
     }
   }{%
-    \directlua{ORKG.stop_remember_body()
+    \directlua{
+      ORKG.stop_remember_body()
       ORKG.add_problem_statement(ORKG.get_environment_body())
     }
     \ifhmode\unskip\fi
@@ -215,7 +231,8 @@ and the derived files           orkg4latex.ins,
       ORKG.register_environment('results')
     }
   }{%
-    \directlua{ORKG.stop_remember_body()
+    \directlua{
+      ORKG.stop_remember_body()
       ORKG.add_results(ORKG.get_environment_body())
     }
     \ifhmode\unskip\fi
