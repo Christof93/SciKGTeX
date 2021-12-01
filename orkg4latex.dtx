@@ -153,7 +153,8 @@ and the derived files           orkg4latex.ins,
       local property_URI = "\luaescapestring{\unexpanded{#1}}"
       local content = "\luaescapestring{\unexpanded{##2}}"
       local belongs_to_contribution = "\luaescapestring{\unexpanded{##1}}"
-      ORKG.XMP:add_annotation(property_type, property_URI, content, 'annotation-id')
+      print(belongs_to_contribution)
+      ORKG.XMP:add_annotation(belongs_to_contribution, property_type, property_URI, content, 'annotation-id')
     }
     ##2%
   }

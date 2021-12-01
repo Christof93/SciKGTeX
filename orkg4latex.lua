@@ -1,3 +1,18 @@
+local function trim(s)
+    return (s:gsub("^%s*(.-)%s*$", "%1"))
+end
+
+function string:split(sep)
+    if sep == nil then
+        sep = "%s"
+    end
+    local t = {}
+    for str in self:gmatch("([^"..sep.."]+)") do
+        table.insert(t, str)
+    end
+    return t
+end
+
 local Annotation_object = {}
 Annotation_object.whole_string = ""
 
@@ -36,17 +51,22 @@ function XMP:add_paper_node(paper_iri)
     self.paper.id = paper_iri
 end
 
-function XMP:add_contribution(contribution_iri)
+function XMP:add_contribution(key, contribution_iri)
     local contribution = {}
     contribution.annotations = {}
-    contribution.id = contribution_iri
-    table.insert(XMP.paper.contributions, contribution)
+    contribution.id = contribution_iri:gsub("<(default_contribution)>","ORKG_default")
+    XMP.paper.contributions[key] = contribution
 end
 
-function XMP:add_annotation(annotation_type, annotation_type_uri, content, annotation_id)
+function XMP:add_annotation(contribution_ids, annotation_type, annotation_type_uri, content, annotation_id)
     local annotation = {}
     annotation.content = content
     annotation.id = annotation_id
+    if contribution_ids == '' then
+        contribution_ids = '<default_contribution>'
+    end
+    print(contribution_ids)
+    contributions_ids_t = contribution_ids:split(',%s?')
 
     if annotation_type_uri == '' then
         annotation_type_uri = 'https://www.orkg.org/orkg/property'
@@ -57,8 +77,14 @@ function XMP:add_annotation(annotation_type, annotation_type_uri, content, annot
     end
     annotation.type_uri = annotation_type_uri .. '#' .. annotation_type
     Annotation_object:register_property(annotation_type)
-    print(annotation.content)
-    table.insert(XMP.paper.contributions[1].annotations, annotation)
+    -- add the annotations at the specified contribution
+    for i, contribution_id in ipairs(contributions_ids_t) do
+        print(contribution_id)
+        if self.paper.contributions[contribution_id] == nil then
+            self:add_contribution(contribution_id, 'contribution_'..contribution_id)
+        end
+        table.insert(self.paper.contributions[contribution_id].annotations, annotation)
+    end
 end
 
 function Annotation_object:add_property_to_list(p)
@@ -67,8 +93,12 @@ function Annotation_object:add_property_to_list(p)
 end
 
 function escape_xml_content(s)
-    s = string.gsub(s, '&', '&amp;')
-    return string.gsub(s, '<', '&lt;')
+    s = s:gsub('&', '&amp;')
+    return s:gsub('<', '&lt;')
+end
+
+function remove_latex_commands(s)
+    return s:gsub('\\.-%s?{(.-)}','%1')
 end
 
 function uri_valid(s)
@@ -92,14 +122,14 @@ function XMP:generate_output()
     if XMP.paper then
         XMP:add_line('  <rdf:Description rdf:about="%s">', XMP.paper.id)
         XMP:add_line('    <rdf:type rdf:resource="http://orkg.org/core#Paper"/>')
-        for i, contribution in ipairs(XMP.paper.contributions) do
+        for cb_id, contribution in pairs(XMP.paper.contributions) do
             XMP:add_line('    <orkg:hasResearchContribution>')
             XMP:add_line('      <orkg:ResearchContribution rdf:about="%s">', contribution.id)
             for j, annotation in ipairs(contribution.annotations) do
                 XMP:add_line('        <po:contains>')
                 XMP:add_line('          <orkg:Annotation rdf:about="%s">', annotation.id)
                 XMP:add_line('            <rdf:type rdf:resource="%s"/>', annotation.type_uri)
-                XMP:add_line('            <c4o:hasContent>%s</c4o:hasContent>', escape_xml_content(annotation.content))
+                XMP:add_line('            <c4o:hasContent>%s</c4o:hasContent>', escape_xml_content(remove_latex_commands(annotation.content)))
                 XMP:add_line('          </orkg:Annotation>')
                 XMP:add_line('        </po:contains>')
             end
@@ -127,11 +157,6 @@ function XMP:make_metadata_object()
 end
 
 XMP:add_paper_node('R1234565')
-XMP:add_contribution('contribution1')
-
-local function trim(s)
-    return (s:gsub("^%s*(.-)%s*$", "%1"))
- end
 
 function Annotation_object:register_property(prop_type)
     self.properties_used[prop_type] = true
@@ -156,26 +181,6 @@ end
 
 function Annotation_object:add_input_line(input_line)
     Annotation_object.whole_string = Annotation_object.whole_string .. input_line .. " " 
-end
-
-function Annotation_object.add_background(sentence)
-    XMP:add_annotation(envs[1], sentence, 'annotation1')
-end
-
-function Annotation_object.add_contribution(sentence)
-    XMP:add_annotation(envs[2], sentence, 'annotation2')
-end
-
-function Annotation_object.add_methods(sentence)
-    XMP:add_annotation(envs[5], sentence, 'annotation3')
-end
-
-function Annotation_object.add_problem_statement(sentence)
-    XMP:add_annotation(envs[3], sentence, 'annotation4')
-end
-
-function Annotation_object:add_results(sentence)
-    XMP:add_annotation(envs[4], sentence, 'annotation5')
 end
 
 function Annotation_object:warn_unused_environments()
