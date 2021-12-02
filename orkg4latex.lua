@@ -26,20 +26,18 @@ end
 local XMP = {}
 XMP.lines = {}
 
-local xmp_top = [[<?xpacket begin="" id="b0e1b454-39bf-11ec-8d3d-0242ac130003"?>
-<x:xmpmeta xmlns:x="adobe:ns:meta/">
+local PACKET_START = [[<?xpacket begin="" id="b0e1b454-39bf-11ec-8d3d-0242ac130003"?>]]
+local XMP_TOP = [[<x:xmpmeta xmlns:x="adobe:ns:meta/">
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-  xmlns:orkg="http://orkg.org/core/"
-  xmlns:po="http://purl.org/spar/po/"
-  xmlns:c4o="http://purl.org/spar/c4o"
-  xmlns:deo="http://purl.org/spar/deo">
-  <rdf:Description rdf:about="" xmlns:dc="http://purl.org/dc/elements/1.1/">
-    <dc:format>application/pdf</dc:format>
-  </rdf:Description>]]
+  xmlns:orkg="http://orkg.org/core#"
+  xmlns:orkg_property="http://orkg.org/property"
+  xmlns:po="http://purl.org/spar/po#"
+  xmlns:c4o="http://purl.org/spar/c4o#"
+  xmlns:deo="http://purl.org/spar/deo#">]]
 
-local xmp_bottom = [[</rdf:RDF>
-</x:xmpmeta>
-<?xpacket end="r"?>]]
+local XMP_BOTTOM = [[</rdf:RDF>
+</x:xmpmeta>]]
+local PACKET_END = [[<?xpacket end="r"?>]]
 
 function XMP:add_line(...)
     table.insert(XMP.lines, string.format(...))
@@ -53,7 +51,7 @@ end
 
 function XMP:add_contribution(key, contribution_iri)
     local contribution = {}
-    contribution.annotations = {}
+    contribution.properties = {}
     contribution.id = contribution_iri:gsub("<(default_contribution)>","ORKG_default")
     XMP.paper.contributions[key] = contribution
 end
@@ -73,9 +71,10 @@ function XMP:add_annotation(contribution_ids, annotation_type, annotation_type_u
     elseif not uri_valid(annotation_type_uri) then 
         message = [[The given URI %s is not a valid choice!
             Please use a resolvable URI starting with 'http']]
-        orkg_warn(message, s)
+        orkg_warn(message, annotation_type_uri)
     end
-    annotation.type_uri = annotation_type_uri .. '#' .. annotation_type
+
+    annotation.type = annotation_type
     Annotation_object:register_property(annotation_type)
     -- add the annotations at the specified contribution
     for i, contribution_id in ipairs(contributions_ids_t) do
@@ -83,7 +82,7 @@ function XMP:add_annotation(contribution_ids, annotation_type, annotation_type_u
         if self.paper.contributions[contribution_id] == nil then
             self:add_contribution(contribution_id, 'contribution_'..contribution_id)
         end
-        table.insert(self.paper.contributions[contribution_id].annotations, annotation)
+        table.insert(self.paper.contributions[contribution_id].properties, annotation)
     end
 end
 
@@ -114,9 +113,9 @@ function orkg_warn(warning_message, ...)
                 [[Package orkg4latex Warning: ]] .. string.format(warning_message, ...))
 end 
 
-function XMP:generate_output()
+function XMP:generate_xmp_string()
     output_string = ""
-    XMP:add_line(xmp_top)
+    XMP:add_line(XMP_TOP)
     --print(debug.traceback())
 
     if XMP.paper then
@@ -125,38 +124,32 @@ function XMP:generate_output()
         for cb_id, contribution in pairs(XMP.paper.contributions) do
             XMP:add_line('    <orkg:hasResearchContribution>')
             XMP:add_line('      <orkg:ResearchContribution rdf:about="%s">', contribution.id)
-            for j, annotation in ipairs(contribution.annotations) do
-                XMP:add_line('        <po:contains>')
-                XMP:add_line('          <orkg:Annotation rdf:about="%s">', annotation.id)
-                XMP:add_line('            <rdf:type rdf:resource="%s"/>', annotation.type_uri)
-                XMP:add_line('            <c4o:hasContent>%s</c4o:hasContent>', escape_xml_content(remove_latex_commands(annotation.content)))
-                XMP:add_line('          </orkg:Annotation>')
-                XMP:add_line('        </po:contains>')
+            for j, property in ipairs(contribution.properties) do
+                XMP:add_line('          <orkg_property:%s>%s</orkg_property:%s>', property.type, 
+                    escape_xml_content(remove_latex_commands(property.content)), property.type)
             end
             XMP:add_line('      </orkg:ResearchContribution>')
             XMP:add_line('    </orkg:hasResearchContribution>')
         end
         XMP:add_line('  </rdf:Description>')
     end
-    XMP:add_line(xmp_bottom)
+    XMP:add_line(XMP_BOTTOM)
     return table.concat(XMP.lines, '\n')
 
 end
 
 function XMP:make_metadata_object()
-    local xmp_string = XMP:generate_output()
+    local xmp_string = XMP:generate_xmp_string()
     local new_pdf = pdf.obj {
         type = 'stream',
         attr = '/Type/Metadata /Subtype/XML',
         immediate = true,
         compresslevel = 0,
-        string = xmp_string,
+        string = PACKET_START .. xmp_string .. PACKET_END,
     }
     XMP.lines = nil
     return new_pdf
 end
-
-XMP:add_paper_node('R1234565')
 
 function Annotation_object:register_property(prop_type)
     self.properties_used[prop_type] = true
@@ -185,7 +178,7 @@ end
 
 function Annotation_object:warn_unused_environments()
     warning_message = [[No %s annotation found!
-    Are you sure you don't want to mark a sentence with the %s environment?]]
+    Are you sure you don't want to mark an entity with %s?]]
     for env, val in pairs(self.properties_used) do
         if not val then
             orkg_warn(warning_message, env, env);
@@ -206,6 +199,9 @@ luatexbase.add_to_callback('finish_pdffile', function()
         pdf.setcatalog(catalog..string.format('/Metadata %s 0 R', metadata_obj))
     end
 end, 'finish')
+
+-- TODO: real identifier assigned
+XMP:add_paper_node('R1234565')
 
 Annotation_object.XMP = XMP
 return Annotation_object
