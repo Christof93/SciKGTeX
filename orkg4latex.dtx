@@ -140,6 +140,8 @@ and the derived files           orkg4latex.ins,
 }
 \makeatother
 
+\usepackage{verbatim}
+
 \directlua { 
   ORKG = require('orkg4latex')
 }
@@ -158,6 +160,11 @@ and the derived files           orkg4latex.ins,
     }
     ##2%
   }
+}
+
+\newcommand{\ORKGrenderxmp}{%
+  \newpage  
+  \verbatiminput{xmp_metadata.xml}
 }
 
 \newenvironment{background}

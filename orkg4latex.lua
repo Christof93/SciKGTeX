@@ -1,3 +1,33 @@
+local PRODUCE_XMP_FILE = true
+local XMP = {}
+XMP.lines = {}
+
+local Annotation_object = {}
+Annotation_object.whole_string = ""
+
+-- predetermined properties
+Annotation_object.properties = {}
+
+Annotation_object.properties_used = {}
+for i, env in pairs(Annotation_object.properties) do 
+    Annotation_object.properties_used[env] = false
+end
+
+local PACKET_START = [[<?xpacket begin="" id="b0e1b454-39bf-11ec-8d3d-0242ac130003"?>]]
+
+local XMP_TOP = [[<x:xmpmeta xmlns:x="adobe:ns:meta/">
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:orkg="http://orkg.org/core#"
+  xmlns:orkg_property="http://orkg.org/property"
+  xmlns:po="http://purl.org/spar/po#"
+  xmlns:c4o="http://purl.org/spar/c4o#"
+  xmlns:deo="http://purl.org/spar/deo#">]]
+
+local XMP_BOTTOM = [[</rdf:RDF>
+</x:xmpmeta>]]
+
+local PACKET_END = [[<?xpacket end="r"?>]]
+
 local function trim(s)
     return (s:gsub("^%s*(.-)%s*$", "%1"))
 end
@@ -13,34 +43,8 @@ function string:split(sep)
     return t
 end
 
-local Annotation_object = {}
-Annotation_object.whole_string = ""
-
-Annotation_object.properties = {}
-
-Annotation_object.properties_used = {}
-for i, env in pairs(Annotation_object.properties) do 
-    Annotation_object.properties_used[env] = false
-end 
-
-local XMP = {}
-XMP.lines = {}
-
-local PACKET_START = [[<?xpacket begin="" id="b0e1b454-39bf-11ec-8d3d-0242ac130003"?>]]
-local XMP_TOP = [[<x:xmpmeta xmlns:x="adobe:ns:meta/">
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-  xmlns:orkg="http://orkg.org/core#"
-  xmlns:orkg_property="http://orkg.org/property"
-  xmlns:po="http://purl.org/spar/po#"
-  xmlns:c4o="http://purl.org/spar/c4o#"
-  xmlns:deo="http://purl.org/spar/deo#">]]
-
-local XMP_BOTTOM = [[</rdf:RDF>
-</x:xmpmeta>]]
-local PACKET_END = [[<?xpacket end="r"?>]]
-
 function XMP:add_line(...)
-    table.insert(XMP.lines, string.format(...))
+    table.insert(self.lines, string.format(...))
 end
 
 function XMP:add_paper_node(paper_iri) 
@@ -53,7 +57,7 @@ function XMP:add_contribution(key, contribution_iri)
     local contribution = {}
     contribution.properties = {}
     contribution.id = contribution_iri:gsub("<(default_contribution)>","ORKG_default")
-    XMP.paper.contributions[key] = contribution
+    self.paper.contributions[key] = contribution
 end
 
 function XMP:add_annotation(contribution_ids, annotation_type, annotation_type_uri, content, annotation_id)
@@ -113,32 +117,36 @@ function orkg_warn(warning_message, ...)
                 [[Package orkg4latex Warning: ]] .. string.format(warning_message, ...))
 end 
 
-function XMP:generate_xmp_string()
+function XMP:generate_xmp_string(lb_char)
+    lb_char = lb_char or "\n"
+    if lb_char == "r" then
+        lb_char = "\r"
+    end
     output_string = ""
-    XMP:add_line(XMP_TOP)
+    self:add_line(XMP_TOP)
     --print(debug.traceback())
 
-    if XMP.paper then
-        XMP:add_line('  <rdf:Description rdf:about="%s">', XMP.paper.id)
-        XMP:add_line('    <rdf:type rdf:resource="http://orkg.org/core#Paper"/>')
+    if self.paper then
+        self:add_line('  <rdf:Description rdf:about="%s">', self.paper.id)
+        self:add_line('    <rdf:type rdf:resource="http://orkg.org/core#Paper"/>')
         for cb_id, contribution in pairs(XMP.paper.contributions) do
-            XMP:add_line('    <orkg:hasResearchContribution>')
-            XMP:add_line('      <orkg:ResearchContribution rdf:about="%s">', contribution.id)
+            self:add_line('    <orkg:hasResearchContribution>')
+            self:add_line('      <orkg:ResearchContribution rdf:about="%s">', contribution.id)
             for j, property in ipairs(contribution.properties) do
-                XMP:add_line('          <orkg_property:%s>%s</orkg_property:%s>', property.type, 
+                self:add_line('          <orkg_property:%s>%s</orkg_property:%s>', property.type, 
                     escape_xml_content(remove_latex_commands(property.content)), property.type)
             end
-            XMP:add_line('      </orkg:ResearchContribution>')
-            XMP:add_line('    </orkg:hasResearchContribution>')
+            self:add_line('      </orkg:ResearchContribution>')
+            self:add_line('    </orkg:hasResearchContribution>')
         end
-        XMP:add_line('  </rdf:Description>')
+        self:add_line('  </rdf:Description>')
     end
-    XMP:add_line(XMP_BOTTOM)
-    return table.concat(XMP.lines, '\n')
+    self:add_line(XMP_BOTTOM)
+    return table.concat(self.lines, lb_char)
 
 end
 
-function XMP:make_metadata_object()
+function XMP:attach_metadata_pdfstream()
     local xmp_string = XMP:generate_xmp_string()
     local new_pdf = pdf.obj {
         type = 'stream',
@@ -147,8 +155,17 @@ function XMP:make_metadata_object()
         compresslevel = 0,
         string = PACKET_START .. xmp_string .. PACKET_END,
     }
-    XMP.lines = nil
+    self.lines = {}
     return new_pdf
+end
+
+function XMP:dump_metadata()
+    local xmp_string = XMP:generate_xmp_string()
+    f = io.open('xmp_metadata.xml','w')
+    io.output(f)
+    --io.write([[<?xml version="1.0" encoding="UTF-8"?>\n]])
+    io.write(xmp_string)
+    io.close(f)
 end
 
 function Annotation_object:register_property(prop_type)
@@ -194,9 +211,12 @@ end, 'at_end')
 -- 1 Writing metadata packets
 luatexbase.add_to_callback('finish_pdffile', function()
     if XMP.paper then
-        local metadata_obj = XMP:make_metadata_object()
+        local metadata_obj = XMP:attach_metadata_pdfstream()
         local catalog = pdf.getcatalog() or ''
         pdf.setcatalog(catalog..string.format('/Metadata %s 0 R', metadata_obj))
+        if PRODUCE_XMP_FILE then
+            XMP:dump_metadata()
+        end
     end
 end, 'finish')
 
