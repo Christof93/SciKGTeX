@@ -1,17 +1,14 @@
 local PRODUCE_XMP_FILE = true
+local WARNING_LEVEL = 1
 local XMP = {}
 XMP.lines = {}
 
 local Annotation_object = {}
 Annotation_object.whole_string = ""
 
--- predetermined properties
-Annotation_object.properties = {}
+
 
 Annotation_object.properties_used = {}
-for i, env in pairs(Annotation_object.properties) do 
-    Annotation_object.properties_used[env] = false
-end
 
 local PACKET_START = [[<?xpacket begin="" id="b0e1b454-39bf-11ec-8d3d-0242ac130003"?>]]
 
@@ -67,7 +64,6 @@ function XMP:add_annotation(contribution_ids, annotation_type, annotation_type_u
     if contribution_ids == '' then
         contribution_ids = '<default_contribution>'
     end
-    print(contribution_ids)
     contributions_ids_t = contribution_ids:split(',%s?')
 
     if annotation_type_uri == '' then
@@ -82,7 +78,6 @@ function XMP:add_annotation(contribution_ids, annotation_type, annotation_type_u
     Annotation_object:register_property(annotation_type)
     -- add the annotations at the specified contribution
     for i, contribution_id in ipairs(contributions_ids_t) do
-        print(contribution_id)
         if self.paper.contributions[contribution_id] == nil then
             self:add_contribution(contribution_id, 'contribution_'..contribution_id)
         end
@@ -90,9 +85,16 @@ function XMP:add_annotation(contribution_ids, annotation_type, annotation_type_u
     end
 end
 
+function Annotation_object:set_warning_level(wl)
+    WARNING_LEVEL = wl
+end
+
 function Annotation_object:add_property_to_list(p)
-    self.properties_used[p] = false
-    table.insert(self.properties,p)
+    if self.properties_used[p]~=nil then
+        orkg_warn([[Command %s already exists!]], p)
+    else
+        self.properties_used[p] = false
+    end
 end
 
 function escape_xml_content(s)
@@ -113,8 +115,10 @@ function uri_valid(s)
 end
 
 function orkg_warn(warning_message, ...)
-    texio.write_nl("term and log", 
+    if WARNING_LEVEL > 0 then
+        texio.write_nl("term and log", 
                 [[Package orkg4latex Warning: ]] .. string.format(warning_message, ...))
+    end
 end 
 
 function XMP:generate_xmp_string(lb_char)
