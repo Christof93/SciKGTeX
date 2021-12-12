@@ -141,25 +141,73 @@ and the derived files           orkg4latex.ins,
 \makeatother
 
 \usepackage{verbatim}
+\errorcontextlines=5
 
-\directlua { 
+
+\directlua {
   ORKG = require('orkg4latex')
 }
 
+
+\newcommand{\declarecommand}[2][]{
+    \renewcommand{\foo}[1]{bar: #1}
+  \else
+    \newcommand{\foo}[1]{bar: #1}
+  \fi
+}
+
 \newcommand{\ORKGaddproperty}[2][]{%
-  \directlua{ORKG:add_property_to_list("\luaescapestring{\unexpanded{#2}}")}
-  % make a new command with name given by #1
-  \expandafter\newcommand\csname #2\endcsname[2][]{%
-    \directlua{%
-      local property_type = "\luaescapestring{\unexpanded{#2}}"
-      local property_URI = "\luaescapestring{\unexpanded{#1}}"
-      local content = "\luaescapestring{\unexpanded{##2}}"
-      local belongs_to_contribution = "\luaescapestring{\unexpanded{##1}}"
-      print(belongs_to_contribution)
-      ORKG.XMP:add_annotation(belongs_to_contribution, property_type, property_URI, content, 'annotation-id')
-    }
-    ##2%
+  \directlua{
+    local new_property = "\luaescapestring{\unexpanded{#2}}"
+    ORKG:add_property_to_list(new_property)
   }
+  % if the command is already defined
+  \ifcsname #2\endcsname
+    % renew command with name given by #1, e.g \background
+    \expandafter\renewcommand\csname #2\endcsname[2][]{%
+      \directlua{%
+        local property_type = "\luaescapestring{\unexpanded{#2}}"
+        local property_URI = "\luaescapestring{\unexpanded{#1}}"
+        local content = "\luaescapestring{\unexpanded{##2}}"
+        local belongs_to_contribution = "\luaescapestring{\unexpanded{##1}}"
+        ORKG.XMP:add_annotation(belongs_to_contribution, property_type, property_URI, content, 'annotation-id')
+      }
+      ##2%
+    }
+    % renew second command with name given by #1 + *, e.g. \background*
+    \expandafter\renewcommand\csname #2*\endcsname[2][]{%
+      \directlua{%
+        local property_type = "\luaescapestring{\unexpanded{#2}}"
+        local property_URI = "\luaescapestring{\unexpanded{#1}}"
+        local content = "\luaescapestring{\unexpanded{##2}}"
+        local belongs_to_contribution = "\luaescapestring{\unexpanded{##1}}"
+        ORKG.XMP:add_annotation(belongs_to_contribution, property_type, property_URI, content, 'annotation-id')
+      }
+    }
+  % if the command has not been defined yet
+  \else
+    % make a new command with name given by #1, e.g \background
+    \expandafter\newcommand\csname #2\endcsname[2][]{%
+      \directlua{%
+        local property_type = "\luaescapestring{\unexpanded{#2}}"
+        local property_URI = "\luaescapestring{\unexpanded{#1}}"
+        local content = "\luaescapestring{\unexpanded{##2}}"
+        local belongs_to_contribution = "\luaescapestring{\unexpanded{##1}}"
+        ORKG.XMP:add_annotation(belongs_to_contribution, property_type, property_URI, content, 'annotation-id')
+      }
+      ##2%
+    }
+    % make a second command with name given by #1 + *, e.g. \background*
+    \expandafter\newcommand\csname #2*\endcsname[2][]{%
+      \directlua{%
+        local property_type = "\luaescapestring{\unexpanded{#2}}"
+        local property_URI = "\luaescapestring{\unexpanded{#1}}"
+        local content = "\luaescapestring{\unexpanded{##2}}"
+        local belongs_to_contribution = "\luaescapestring{\unexpanded{##1}}"
+        ORKG.XMP:add_annotation(belongs_to_contribution, property_type, property_URI, content, 'annotation-id')
+      }
+    }
+  \fi
 }
 
 \newcommand{\ORKGrenderxmp}{%
@@ -246,6 +294,11 @@ and the derived files           orkg4latex.ins,
     \ifhmode\unskip\fi
     \aftergroup\useignorespacesandallpars
   }
+
+\ORKGaddproperty{ORKGresearchproblem}
+\ORKGaddproperty{ORKGresult}
+\ORKGaddproperty{ORKGmethod}
+\ORKGaddproperty{ORKGbackground}
 
 %    \end{macrocode}
 %\end{macro}
