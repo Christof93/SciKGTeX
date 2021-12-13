@@ -1,0 +1,16 @@
+<x:xmpmeta xmlns:x="adobe:ns:meta/">
+<rdf:RDF 
+  xmlns:ex="http://www.example.org"
+  xmlns:orkg="http://orkg.org/core#"
+  xmlns:orkg_property="http://orkg.org/property"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="R1234565">
+    <rdf:type rdf:resource="http://orkg.org/core#Paper"/>
+    <orkg:hasResearchContribution>
+      <orkg:ResearchContribution rdf:about="contribution_ORKG_default">
+          <ex:ORKGexample>This is an example.</ex:ORKGexample>
+      </orkg:ResearchContribution>
+    </orkg:hasResearchContribution>
+  </rdf:Description>
+</rdf:RDF>
+</x:xmpmeta>
