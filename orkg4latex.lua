@@ -142,6 +142,7 @@ function XMP:generate_rdf_root()
     root_string = root_string .. [[>]]
     return root_string
 end
+
 function XMP:generate_xmp_string(lb_char)
     lb_char = lb_char or "\n"
     if lb_char == "r" then
