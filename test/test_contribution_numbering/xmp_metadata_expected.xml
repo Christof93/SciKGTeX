@@ -6,6 +6,11 @@
   <rdf:Description rdf:about="R1234565">
     <rdf:type rdf:resource="http://orkg.org/core#Paper"/>
     <orkg:hasResearchContribution>
+      <orkg:ResearchContribution rdf:about="contribution_ORKG_default">
+          <orkg_property:ORKGresearchproblem>This is another problem statement without a number.</orkg_property:ORKGresearchproblem>
+      </orkg:ResearchContribution>
+    </orkg:hasResearchContribution>
+    <orkg:hasResearchContribution>
       <orkg:ResearchContribution rdf:about="contribution_c1">
           <orkg_property:ORKGbackground>This is the background of our research.</orkg_property:ORKGbackground>
           <orkg_property:ORKGresearchproblem>This is the first problem statement of our research.</orkg_property:ORKGresearchproblem>

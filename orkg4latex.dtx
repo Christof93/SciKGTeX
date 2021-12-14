@@ -151,12 +151,13 @@ and the derived files           orkg4latex.ins,
 }
 
 \newcommand{\ORKGaddproperty}[2][]{%
-  \directlua{
-    local new_property = "\luaescapestring{\unexpanded{#2}}"
-    local ns = "\luaescapestring{\unexpanded{#1}}"
-    ORKG:make_new_property(new_property, ns)
-  }
-}
+  \directlua{%
+    local new_property = "\luaescapestring{\unexpanded{#2}}"%
+    local ns = "\luaescapestring{\unexpanded{#1}}"%
+    ORKG:make_new_property(new_property, ns)%
+  }%
+  \ignorespaces
+}%
 
 \newcommand{\ORKGrenderxmp}{%
   \newpage  
