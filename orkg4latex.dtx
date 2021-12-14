@@ -150,164 +150,19 @@ and the derived files           orkg4latex.ins,
   ORKG = require('orkg4latex')
 }
 
-
-\newcommand{\ORKGbuildcommand}[2][]{
-  % make a new command with name given by #1, e.g \background
-  \expandafter\newcommand\csname #2\endcsname[2][]{%
-    \directlua{%
-      local property_type = "\luaescapestring{\unexpanded{#2}}"
-      local property_URI = "\luaescapestring{\unexpanded{#1}}"
-      local content = "\luaescapestring{\unexpanded{##2}}"
-      local belongs_to_contribution = "\luaescapestring{\unexpanded{##1}}"
-      ORKG.XMP:add_annotation(belongs_to_contribution, property_type, property_URI, content, 'annotation-id')
-    }
-  ##2%
-  }
-}
-
-\newcommand{\ORKGbuildstarcommand}[2][]{
-  % make a second command with name given by #1 + *, e.g. \background*
-  \expandafter\newcommand\csname #2*\endcsname[2][]{%
-    \directlua{%
-      local property_type = "\luaescapestring{\unexpanded{#2}}"
-      local property_URI = "\luaescapestring{\unexpanded{#1}}"
-      local content = "\luaescapestring{\unexpanded{##2}}"
-      local belongs_to_contribution = "\luaescapestring{\unexpanded{##1}}"
-      ORKG.XMP:add_annotation(belongs_to_contribution, property_type, property_URI, content, 'annotation-id')
-    }
-  }
-}
-
-\newcommand{\ORKGoverridecommand}[2][]{
-  % make a new command with name given by #1, e.g \background
-  \expandafter\renewcommand\csname #2\endcsname[2][]{%
-    \directlua{%
-      local property_type = "\luaescapestring{\unexpanded{#2}}"
-      local property_URI = "\luaescapestring{\unexpanded{#1}}"
-      local content = "\luaescapestring{\unexpanded{##2}}"
-      local belongs_to_contribution = "\luaescapestring{\unexpanded{##1}}"
-      ORKG.XMP:add_annotation(belongs_to_contribution, property_type, property_URI, content, 'annotation-id')
-    }
-  ##2%
-  }
-}
-
-\newcommand{\ORKGoverridestarcommand}[2][]{
-  % make a second command with name given by #1 + *, e.g. \background*
-  \expandafter\renewcommand\csname #2*\endcsname[2][]{%
-    \directlua{%
-      local property_type = "\luaescapestring{\unexpanded{#2}}"
-      local property_URI = "\luaescapestring{\unexpanded{#1}}"
-      local content = "\luaescapestring{\unexpanded{##2}}"
-      local belongs_to_contribution = "\luaescapestring{\unexpanded{##1}}"
-      ORKG.XMP:add_annotation(belongs_to_contribution, property_type, property_URI, content, 'annotation-id')
-    }
-  }
-}
-
 \newcommand{\ORKGaddproperty}[2][]{%
-  \directlua{
-    local new_property = "\luaescapestring{\unexpanded{#2}}"
-    local ns = "\luaescapestring{\unexpanded{#1}}"
-    ORKG:add_property_to_list(new_property)
-  }
-  % if the command is already defined
-  \ifcsname #2\endcsname
-    % renew command with name given by #1, e.g \background
-    \ORKGoverridestarcommand[#1]{#2}
-    \ORKGoverridecommand[#1]{#2}
-  % if the command has not been defined yet
-  \else
-    % make a new command with name given by #2, e.g \background
-    \ORKGbuildstarcommand[#1]{#2}
-    \ORKGbuildcommand[#1]{#2}
-  \fi
-}
+  \directlua{%
+    local new_property = "\luaescapestring{\unexpanded{#2}}"%
+    local ns = "\luaescapestring{\unexpanded{#1}}"%
+    ORKG:make_new_property(new_property, ns)%
+  }%
+  \ignorespaces
+}%
 
 \newcommand{\ORKGrenderxmp}{%
   \newpage  
   \verbatiminput{xmp_metadata.xml}
 }
-
-\newenvironment{background}
-  {%
-    \ignorespaces
-    \directlua{
-      ORKG.remember_body()
-      ORKG.register_environment('background')
-    }
-  }{%
-    \directlua{
-      ORKG.stop_remember_body()
-      ORKG.add_background(ORKG.get_environment_body())
-    }
-    \ifhmode\unskip\fi
-    \aftergroup\useignorespacesandallpars
-  }
-
-\newenvironment{contribution}
-  {%
-    \ignorespaces
-    \directlua{
-      ORKG.remember_body()
-      ORKG.register_environment('contribution')
-    }
-  }{%
-    \directlua{
-      ORKG.stop_remember_body()
-      ORKG.add_contribution(ORKG.get_environment_body())
-    }
-    \ifhmode\unskip\fi
-    \aftergroup\useignorespacesandallpars
-  }
-
-\newenvironment{methods}
-  {%
-    \ignorespaces
-    \directlua{
-      ORKG.remember_body()
-      ORKG.register_environment('methods')
-    }
-  }{%
-    \directlua{
-      ORKG.stop_remember_body()
-      ORKG.add_methods(ORKG.get_environment_body())
-    }
-    \ifhmode\unskip\fi
-    \aftergroup\useignorespacesandallpars
-  }
-
-\newenvironment{problem statement}
-  {%
-    \ignorespaces
-    \directlua{
-      ORKG.remember_body()
-      ORKG.register_environment('problem statement')
-    }
-  }{%
-    \directlua{
-      ORKG.stop_remember_body()
-      ORKG.add_problem_statement(ORKG.get_environment_body())
-    }
-    \ifhmode\unskip\fi
-    \aftergroup\useignorespacesandallpars
-  }
-
-\newenvironment{results}
-  {%
-    \ignorespaces
-    \directlua{
-      ORKG.remember_body()
-      ORKG.register_environment('results')
-    }
-  }{%
-    \directlua{
-      ORKG.stop_remember_body()
-      ORKG.add_results(ORKG.get_environment_body())
-    }
-    \ifhmode\unskip\fi
-    \aftergroup\useignorespacesandallpars
-  }
 
 \ORKGaddproperty{ORKGresearchproblem}
 \ORKGaddproperty{ORKGresult}
