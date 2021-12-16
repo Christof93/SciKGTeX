@@ -8,6 +8,13 @@ Additionally the contributions can easily be added to the knowledge graph by jus
 ## Installation
 
 ## Using the LaTeX package
-Contributions in the ORKG can have different properties like *research problem*, *methods* or *result*. A scientific paper typically has a small number of one or a few contributions.
+Contributions in the ORKG can have 5 standard properties
+* research problem 
+* background
+* methods
+* result
+* conclusion
+
+A scientific paper typically has a small number of one or a few contributions.
 Let's look at an example:
 
