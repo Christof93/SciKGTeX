@@ -16,16 +16,40 @@ In Overleaf it can be configured like this for example:
 <img src="documentation/pictures/lualatex_overleaf.png?raw=true" alt="setting lualatex on overleaf" width="500"/>
 
 ## Using the LaTeX package
-Contributions in the ORKG can have 5 standard properties
-* research problem 
-* background
-* methods
-* result
-* conclusion
+Each specified contribution has 5 standard properties which should be assigned to sentences in the text:
+* _research problem_ 
+* _background_
+* _method_
+* _result_
+* _conclusion_
+
+For each of these properties there exists a corresponding LaTeX command:
+* `\ORKGresearchproblem{..}`
+* `\ORKGbackground{..}`
+* `\ORKGmethod{..}`
+* `\ORKGresult{..}`
+* `\ORKGconclusion{..}`
+
+Additional to that, there are a big number of more specific properties like _p-value_ or _accuracy_ for contributions which concern statistical examinations.
+If a property is not already predefined, it is possible to declare new properties in your document preamble with `\ORKGaddproperty`. These properties can then be used to describe a contribution with a command just like the predefined commands.
+
+For example a minimal LaTeX file could look like this:
+
+```
+\documentclass{article}
+\usepackage{orkg4latex}
+\title{My Newest Research}
+\begin{document}
+
+\section{Introduction}
+\ORKGbackground{This is the background of our research.}
+\ORKGresearchproblem{This is the problem statement of our research.}
+\ORKGmethod{These are the methods of our research.}
+\ORKGresult{These are the results of our research.}
+
+\end{document}
+```
 
 A scientific paper typically has a small number of contributions.
 Let's look at an example paper:
-```
-
-```
 
