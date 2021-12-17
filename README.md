@@ -7,12 +7,14 @@ Additionally the contributions can easily be added to the knowledge graph by jus
 
 ## Installation
 1. Clone this repository
-2. Move the orkg4latex.lua and orkg4latex.sty files to your latex project
-3. use \usepackage{orkg4latex} to use the package
+2. Move the `orkg4latex.lua` and `orkg4latex.sty` files to your latex project
+3. use `\usepackage{orkg4latex}` in your document preamble to use the package
 
-It is necessary to compile your LaTeX source with LuaLaTeX for the package to work. This is typically straightforward with most modern LaTeX editors.
+It is necessary to compile your LaTeX source with LuaLaTeX for the package to work. This is typically straightforward with most modern LaTeX environments.
 In Overleaf it can be configured like this for example:
-![Alt-Text](documentation/pictures/lualatex_overleaf.png?raw=true)
+
+<img src="documentation/pictures/lualatex_overleaf.png?raw=true" alt="setting lualatex on overleaf" width="500"/>
+
 ## Using the LaTeX package
 Contributions in the ORKG can have 5 standard properties
 * research problem 
@@ -21,6 +23,9 @@ Contributions in the ORKG can have 5 standard properties
 * result
 * conclusion
 
-A scientific paper typically has a small number of one or a few contributions.
-Let's look at an example:
+A scientific paper typically has a small number of contributions.
+Let's look at an example paper:
+```
+
+```
 
