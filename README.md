@@ -6,7 +6,13 @@ The ORKG information triples are embedded into the PDF's XMP metadata where they
 Additionally the contributions can easily be added to the knowledge graph by just uploading the annotated document to the ORKG web portal.
 
 ## Installation
+1. Clone this repository
+2. Move the orkg4latex.lua and orkg4latex.sty files to your latex project
+3. use \usepackage{orkg4latex} to use the package
 
+It is necessary to compile your LaTeX source with LuaLaTeX for the package to work. This is typically straightforward with most modern LaTeX editors.
+In Overleaf it can be configured like this for example:
+![Alt-Text](documentation/pictures/lualatex_overleaf.png?raw=true)
 ## Using the LaTeX package
 Contributions in the ORKG can have 5 standard properties
 * research problem 
