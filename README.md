@@ -16,7 +16,8 @@ In Overleaf it can be configured like this for example:
 <img src="documentation/pictures/lualatex_overleaf.png?raw=true" alt="setting lualatex on overleaf" width="500"/>
 
 ## Using the LaTeX package
-Each specified contribution has 5 standard properties which should be assigned to sentences in the text:
+To create a contributions we have to assign one the 5 standard properties to sentences or statements in the text:
+
 * _research problem_ 
 * _background_
 * _method_
@@ -24,14 +25,26 @@ Each specified contribution has 5 standard properties which should be assigned t
 * _conclusion_
 
 For each of these properties there exists a corresponding LaTeX command:
+
 * `\ORKGresearchproblem{..}`
 * `\ORKGbackground{..}`
 * `\ORKGmethod{..}`
 * `\ORKGresult{..}`
 * `\ORKGconclusion{..}`
 
-Additional to that, there are a big number of more specific properties like _p-value_ or _accuracy_ for contributions which concern statistical examinations.
-If a property is not already predefined, it is possible to declare new properties in your document preamble with `\ORKGaddproperty`. These properties can then be used to describe a contribution with a command just like the predefined commands.
+Additional to that, there are a big number of more specific properties which can be used optionally and are generally used in a specific domain of science. For example properties of _p-value_ or _accuracy_ can be used with `\ORKGpvalue{}` and `ORKGaccuracy{}` which is useful for studies that include statistical examinations. A comprehensive list of ORKG properties cna be found here:.  
+
+If a property is not already predefined, it is possible to declare new properties in your document preamble with `\ORKGaddproperty`. These properties can then be used to describe a contribution with a command just like the predefined commands. To avoid clashes with already existing commands, you should use the prefix _ORKG_ in the property name. 
+
+For example a minimal LaTeX file could look like this:
+
+```
+\documentclass{article}
+\usepackage{orkg4latex}
+\ORKGaddproperty{precision}
+\begin{document}
+...
+```
 
 For example a minimal LaTeX file could look like this:
 
