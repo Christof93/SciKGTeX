@@ -15,8 +15,9 @@ In Overleaf it can be configured like this for example:
 
 <img src="documentation/pictures/lualatex_overleaf.png?raw=true" alt="setting lualatex on overleaf" width="500"/>
 
-## Using the LaTeX package
-To create a contributions we have to assign one the 5 standard properties to sentences or statements in the text:
+## Using the LaTeX Package
+### Minimal Example
+To create a contribution we have to assign one the 5 standard properties to sentences or statements in the text:
 
 * _research problem_ 
 * _background_
@@ -32,10 +33,10 @@ For each of these properties there exists a corresponding LaTeX command:
 * `\ORKGresult{..}`
 * `\ORKGconclusion{..}`
 
-So we can mark passages in the text with these commands as illustrated by this example of a summarized research article.
+Now we can mark passages in the text with these commands as illustrated by this example of a summarized research article.
 Wald, Ellen R., David Nash, and Jens Eickhoff. “Effectiveness of Amoxicillin/Clavulanate Potassium in the Treatment of Acute Bacterial Sinusitis in Children.” Pediatrics, vol. 124, no. 1, 2009, pp. 9-15.:
 
-```
+```latex
 \documentclass{article}
 \usepackage{orkg4latex}
 
@@ -68,13 +69,44 @@ ABS is a common complication of viral upper respiratory infections. \ORKGconclus
 \end{document}
 ```
 
-Additional to that, there are a big number of more specific properties which can be used optionally and are generally used in a specific domain of science. For example properties of _p-value_ or _accuracy_ can be used with `\ORKGpvalue{}` and `ORKGaccuracy{}` which is useful for studies that include statistical examinations. A comprehensive list of ORKG properties cna be found here:.  
+The produced document will then look like this:
 
+<img src="documentation/pictures/rendered_example.png?raw=true" alt="how it looks rendered" width="500"/>
+
+As can be seen in the rendered pdf the marked properties can not be distinguished from the other sentences in the text. They can be inspected however in the file `xmp_metdata.xml` which is also directly embedded into the pdf metadata. For our example the content of the metadata will look as such:
+
+```xml
+<x:xmpmeta xmlns:x="adobe:ns:meta/">
+<rdf:RDF 
+  xmlns:orkg="http://orkg.org/core#"
+  xmlns:orkg_property="http://orkg.org/property"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="R1234565">
+    <rdf:type rdf:resource="http://orkg.org/core#Paper"/>
+    <orkg:hasResearchContribution>
+      <orkg:ResearchContribution rdf:about="contribution_ORKG_default">
+          <orkg_property:ORKGbackground>The role of antibiotic therapy in managing acute bacterial sinusitis (ABS) in children is controversial</orkg_property:ORKGbackground>
+          <orkg_property:ORKGresearchproblem>effectiveness of high-dose amoxicillin/potassium clavulanate in the treatment of children diagnosed with ABS</orkg_property:ORKGresearchproblem>
+          <orkg_property:ORKGmethod>randomized, double-blind, placebo-controlled study</orkg_property:ORKGmethod>
+          <orkg_property:ORKGmethod>Patients were stratified according to age (&lt;6 or ≥6 years) and clinical severity and randomly assigned to receive either amoxicillin (90 mg/kg) with potassium clavulanate (6.4 mg/kg) or placebo</orkg_property:ORKGmethod>
+          <orkg_property:ORKGresult>Children receiving the antibiotic were more likely to be cured (50vs 14and less likely to have treatment failure (14vs 68than children receiving the placebo</orkg_property:ORKGresult>
+      </orkg:ResearchContribution>
+    </orkg:hasResearchContribution>
+  </rdf:Description>
+</rdf:RDF>
+</x:xmpmeta>
+```
+
+### Optional Properties
+
+Additional to 5 standard ones, there are a big number of more specific properties which are optional and are generally used in a specific domain of science. For example properties of _p-value_ or _accuracy_ are useful for studies that include statistical examinations and can be used with `\ORKGpvalue{}` and `ORKGaccuracy{}`. A comprehensive list of ORKG properties can be found [here](https://www.orkg.org/orkg/).  
+
+### Defining Custom Properties
 If a property is not already predefined, it is possible to declare new properties in your document preamble with `\ORKGaddproperty`. These properties can then be used to describe a contribution with a command just like the predefined commands. To avoid clashes with already existing commands, you should use the prefix _ORKG_ in the property name. 
 
 For example a minimal LaTeX file could look like this:
 
-```
+```latex
 \documentclass{article}
 \usepackage{orkg4latex}
 \ORKGaddproperty{precision}
@@ -82,23 +114,9 @@ For example a minimal LaTeX file could look like this:
 ...
 ```
 
-For example a minimal LaTeX file could look like this:
+### Contribution Numbering
+A scientific paper typically has a small number of contributions. If we want to distinguish more than one contribution we can number the contributions as an argument of the marked properties. An annotation of `ORKGresearchproblem[1]{..}` and `ORKGresearchproblem[2]{..}` adds two contributions with the respective research problems. These two contributions can have their own background, methods and results which must be numbered accordingly.
 
-```
-\documentclass{article}
-\usepackage{orkg4latex}
-\title{My Newest Research}
-\begin{document}
+If two problems have the same background, or methods, we can assign the same property to two contributions using a comma between the arguments:  `ORKGmethod[1,2]{..}`.
 
-\section{Introduction}
-\ORKGbackground{This is the background of our research.}
-\ORKGresearchproblem{This is the problem statement of our research.}
-\ORKGmethod{These are the methods of our research.}
-\ORKGresult{These are the results of our research.}
-
-\end{document}
-```
-
-A scientific paper typically has a small number of contributions.
-Let's look at an example paper:
-
+### Invisible Markup
