@@ -1,18 +1,18 @@
 # ORKG4LaTeX
 ORKG4LaTeX makes it possible to annotate specific **research contributions** directly in the LaTeX source code. The idea of extracting research contributions from scholarly publications is derived from the Open Research Knowledge Graph (ORKG).
 
-With ORKG4Latex, authors of scientific publications can enrich their documents with structured, reduced and machine-readable information which represents the key points of the content they want to communicate.  The production of this additional information improves electronic archiving of the information for the future and boosts discoverability in search engines and recommendation engines.
+With ORKG4LaTeX, authors of scientific publications can enrich their documents with structured, reduced and machine-readable information which represents the key points of the content they want to communicate.  The production of this additional information improves electronic archiving of the information for the future and boosts discoverability in search engines and recommendation engines.
 The ORKG contribution data is embedded into the PDF's XMP metadata where they can be retrieved by anyone who obtains the PDF document and persist for the lifetime of the document.
 Additionally the contributions can easily be added to the actual ORKG knowledge graph by just uploading the annotated document to the ORKG web portal.
 
 ##### Table of Contents
 - [Installation](#installation)
 -  [Using the LaTeX Package](#using-the-latex-package)
-  * [Minimal Example](#minimal-example)
-  * [Optional Properties](#optional-properties)
-  * [Defining Custom Properties](#defining-custom-properties)
-  * [Contribution Numbering](#contribution-numbering)
-  * [Invisible Markup](#invisible-markup)
+    * [Minimal Example](#minimal-example)
+    * [Optional Properties](#optional-properties)
+    * [Defining Custom Properties](#defining-custom-properties)
+    * [Contribution Numbering](#contribution-numbering)
+    * [Invisible Markup](#invisible-markup)
 
 ## Installation
 1. Clone this repository
