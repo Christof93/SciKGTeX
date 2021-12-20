@@ -5,6 +5,15 @@ With ORKG4Latex, authors of scientific publications can enrich their documents w
 The ORKG contribution data is embedded into the PDF's XMP metadata where they can be retrieved by anyone who obtains the PDF document and persist for the lifetime of the document.
 Additionally the contributions can easily be added to the actual ORKG knowledge graph by just uploading the annotated document to the ORKG web portal.
 
+##### Table of Contents
+- [Installation](#installation)
+-  [Using the LaTeX Package](#using-the-latex-package)
+  * [Minimal Example](#minimal-example)
+  * [Optional Properties](#optional-properties)
+  * [Defining Custom Properties](#defining-custom-properties)
+  * [Contribution Numbering](#contribution-numbering)
+  * [Invisible Markup](#invisible-markup)
+
 ## Installation
 1. Clone this repository
 2. Move the `orkg4latex.lua` and `orkg4latex.sty` files to your latex project
@@ -15,6 +24,7 @@ In Overleaf it can be configured like this for example:
 
 <img src="documentation/pictures/lualatex_overleaf.png?raw=true" alt="setting lualatex on overleaf" width="500"/>
 
+  
 ## Using the LaTeX Package
 ### Minimal Example
 To create a contribution we have to assign one the 5 standard properties to sentences or statements in the text:
@@ -96,6 +106,7 @@ As can be seen in the rendered pdf the marked properties can not be distinguishe
 </rdf:RDF>
 </x:xmpmeta>
 ```
+<a name="optional-properties"/>
 
 ### Optional Properties
 
@@ -109,7 +120,7 @@ For example a minimal LaTeX file could look like this:
 ```latex
 \documentclass{article}
 \usepackage{orkg4latex}
-\ORKGaddproperty{precision}
+\ORKGaddproperty{ORKGprecision}
 \begin{document}
 ...
 ```
