@@ -150,7 +150,7 @@ For example, in the sentence 'the p-value was 0.01% higher than in the earlier e
 In such a case we can mark the p-value like this:
 
 ```latex
-... the p-value was 0.01% higher \ORKGpvalue*{0.06} than in the earlier experiment ...
+... the p-value was 0.01\% higher \ORKGpvalue*{0.06} than in the earlier experiment ...
 ```
 In the rendered sentence the content of the annotation will be invisible.
 
