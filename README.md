@@ -71,9 +71,9 @@ ABS is a common complication of viral upper respiratory infections. \ORKGconclus
 
 The produced document will then look like this:
 
-<img src="documentation/pictures/rendered_example.png?raw=true" alt="how it looks rendered" width="500"/>
+<img src="documentation/pictures/rendered_example.png?raw=true" alt="how it looks rendered" width="800"/>
 
-As can be seen in the rendered pdf the marked properties can not be distinguished from the other sentences in the text. They can be inspected however in the file `xmp_metdata.xml` which is also directly embedded into the pdf metadata. For our example the content of the metadata will look as such:
+As can be seen in the rendered pdf the marked properties can not be distinguished from the other sentences in the text. They can be inspected however in the file `xmp_metdata.xml` which is directly embedded into the pdf metadata. For our example the content of the metadata will look as such:
 
 ```xml
 <x:xmpmeta xmlns:x="adobe:ns:meta/">
@@ -99,7 +99,7 @@ As can be seen in the rendered pdf the marked properties can not be distinguishe
 
 ### Optional Properties
 
-Additional to 5 standard ones, there are a big number of more specific properties which are optional and are generally used in a specific domain of science. For example properties of _p-value_ or _accuracy_ are useful for studies that include statistical examinations and can be used with `\ORKGpvalue{}` and `ORKGaccuracy{}`. A comprehensive list of ORKG properties can be found [here](https://www.orkg.org/orkg/).  
+Additional to the 5 standard ones, there are a big number of more specific properties which are optional and are generally used in a specific domain of science. For example properties of _p-value_ or _accuracy_ are useful for studies that include statistical examinations and can be used with `\ORKGpvalue{}` and `ORKGaccuracy{}`. A comprehensive list of ORKG properties can be found [here](https://www.orkg.org/orkg/).  
 
 ### Defining Custom Properties
 If a property is not already predefined, it is possible to declare new properties in your document preamble with `\ORKGaddproperty`. These properties can then be used to describe a contribution with a command just like the predefined commands. To avoid clashes with already existing commands, you should use the prefix _ORKG_ in the property name. 
@@ -120,3 +120,4 @@ A scientific paper typically has a small number of contributions. If we want to 
 If two problems have the same background, or methods, we can assign the same property to two contributions using a comma between the arguments:  `ORKGmethod[1,2]{..}`.
 
 ### Invisible Markup
+
