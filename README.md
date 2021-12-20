@@ -7,17 +7,18 @@ Additionally the contributions can easily be added to the actual ORKG knowledge 
 
 ##### Table of Contents
 - [Installation](#installation)
--  [Using the LaTeX Package](#using-the-latex-package)
+- [Using the LaTeX Package](#using-the-latex-package)
     * [Minimal Example](#minimal-example)
     * [Optional Properties](#optional-properties)
     * [Defining Custom Properties](#defining-custom-properties)
     * [Contribution Numbering](#contribution-numbering)
     * [Invisible Markup](#invisible-markup)
+- [Testing](#testing)
 
 ## Installation
 1. Clone this repository
 2. Move the `orkg4latex.lua` and `orkg4latex.sty` files to your latex project
-3. use `\usepackage{orkg4latex}` in your document preamble to use the package
+3. Set `\usepackage{orkg4latex}` in your document preamble to use the package
 
 It is necessary to compile your LaTeX source with LuaLaTeX for the package to work. This is typically straightforward with most modern LaTeX environments.
 In Overleaf it can be configured like this for example:
@@ -106,7 +107,6 @@ As can be seen in the rendered pdf the marked properties can not be distinguishe
 </rdf:RDF>
 </x:xmpmeta>
 ```
-<a name="optional-properties"/>
 
 ### Optional Properties
 
@@ -125,10 +125,34 @@ For example a minimal LaTeX file could look like this:
 ...
 ```
 
-### Contribution Numbering
-A scientific paper typically has a small number of contributions. If we want to distinguish more than one contribution we can number the contributions as an argument of the marked properties. An annotation of `ORKGresearchproblem[1]{..}` and `ORKGresearchproblem[2]{..}` adds two contributions with the respective research problems. These two contributions can have their own background, methods and results which must be numbered accordingly.
+In the XMP metadata file, the self-defined properties will be added to the namespace `http://orkg.org/property`. If you want to use a property which is already defined semantically on the web, it is also possible to give your own namespace.
+For example, suppose we want to use a property of an already existing ontology like the [argument model ontology](https://sparontologies.github.io/amo/current/amo.html). We can use their property `has_claim` by defining it in our preamble as follows.
 
-If two problems have the same background, or methods, we can assign the same property to two contributions using a comma between the arguments:  `ORKGmethod[1,2]{..}`.
+```latex
+\documentclass{article}
+\usepackage{orkg4latex}
+\ORKGaddproperty[http://purl.org/spar/amo]{ORKGhasclaim}
+\begin{document}
+...
+```
+
+The metadata will list the custom namespace and correctly apply it to the annotations of the property.
+
+### Contribution Numbering
+A scientific paper typically has a small number of contributions. If we want to distinguish more than one contribution, we can number the contributions in the arguments of the marked properties. For example, an annotation of `ORKGresearchproblem[1]{..}` and `ORKGresearchproblem[2]{..}` adds two contributions with the respective research problems. These two contributions can have their own background, methods and results which must be numbered accordingly.
+
+If two problems have a property in common (e.g. the same background, or methods), we can assign the same property to two contributions using a comma between the arguments. Example: `ORKGmethod[1,2]{..}`.
 
 ### Invisible Markup
+At some point, especially for advanced modeling, it will be desirable to add annotations to the metadata which are not explicitly rendered in text. This can be achieved using the starred variant of the defined or self-defined LaTeX commands.
+
+For example, in the sentence 'the p-value was 0.01% higher than in the earlier experiment', we may want to report the actual p-value in the metdata since it is more clean. There might be many more subtle examples where for some reason you want the information in the metadata to look slightly different than in text.
+In such a case we can mark the p-value like this:
+
+```latex
+... the p-value was 0.01% higher \ORKGpvalue*{0.06} than in the earlier experiment ...
+```
+In the rendered sentence the content of the annotation will be invisible.
+
+## Testing
 
