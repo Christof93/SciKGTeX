@@ -1,19 +1,16 @@
-%%
-%% This is file `orkg4latex.sty',
-%% generated with the docstrip utility.
-%%
-%% The original source files were:
-%%
-%% orkg4latex.dtx  (with options: `package')
 %% ----------------------------------------------------------------
-%% orkg4latex --- description text
-%% E-mail: you@your.domain
+%% orkg4latex --- ORKG4LaTeX makes it possible to annotate specific
+%% research contributions directly in the LaTeX source code. The 
+%% idea of extracting research contributions from scholarly 
+%% publications is derived from the Open Research Knowledge Graph 
+%% (ORKG).
+%% E-mail: christofbless@gmail.com
 %% Released under the LaTeX Project Public License v1.3c or later
 %% See http://www.latex-project.org/lppl.txt
 %% ----------------------------------------------------------------
 %% 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{orkg4latex}[2009/10/06 v1.0 description text]
+\ProvidesPackage{orkg4latex}[2021/12/21 v1.0]
 
 \def\useignorespacesandallpars#1\ignorespaces\fi{%
 #1\fi\ignorespacesandallpars}
@@ -26,6 +23,7 @@
 }
 \makeatother
 
+% used to display the  
 \usepackage{verbatim}
 \usepackage{suffix}
 
@@ -53,9 +51,9 @@
 \ORKGaddproperty{ORKGresult}
 \ORKGaddproperty{ORKGmethod}
 \ORKGaddproperty{ORKGbackground}
-
-%% 
-%% Copyright (C) 2009 by You <you@your.domain>
+\ORKGaddproperty{ORKGconclusion}
+ 
+%% Copyright (C) 2021 by You christofbless@gmail.com
 %% 
 %% This work may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License (LPPL), either
@@ -67,10 +65,8 @@
 %% This work is "maintained" (as per LPPL maintenance status) by
 %% You.
 %% 
-%% This work consists of the file  orkg4latex.dtx
-%% and the derived files           orkg4latex.ins,
-%%                                 orkg4latex.pdf and
-%%                                 orkg4latex.sty.
+%% This work consists of the file orkg4latex.sty
+%% and the lua file               orkg4latex.lua.
 %% 
 %%
 %% End of file `orkg4latex.sty'.
