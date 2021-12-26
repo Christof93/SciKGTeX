@@ -157,7 +157,7 @@ In such a case we can mark the p-value like this:
 In the rendered sentence the content of the annotation (0.06) will be invisible. Since it is not rendered, it does not matter where in the document we put the command. 
 
 ### Referring to Entities
-Instead of using natural language to represent objects, we usually prefer URIs which uniquely identify objects in the Semantic Web. If we want to assign a URI as a property, we can use the `\ORKGuri{}` command inside an annotation. 
+Instead of using natural language to represent objects, we usually prefer URIs which uniquely identify resources in the Semantic Web. If we want to assign a URI as a property, we can use the `\ORKGuri{}` command inside an annotation. 
 
 ```latex
 \documentclass{article}
