@@ -13,6 +13,7 @@ Additionally the contributions can easily be added to the actual ORKG knowledge 
     * [Defining Custom Properties](#defining-custom-properties)
     * [Contribution Numbering](#contribution-numbering)
     * [Invisible Markup](#invisible-markup)
+    * [Referring to Entities](#referring-to-entities)
 - [Testing](#testing)
 
 ## Installation
@@ -91,7 +92,8 @@ As can be seen in the rendered pdf the marked properties can not be distinguishe
 <rdf:RDF 
   xmlns:orkg="http://orkg.org/core#"
   xmlns:orkg_property="http://orkg.org/property"
-  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
   <rdf:Description rdf:about="R1234565">
     <rdf:type rdf:resource="http://orkg.org/core#Paper"/>
     <orkg:hasResearchContribution>
@@ -152,7 +154,7 @@ In such a case we can mark the p-value like this:
 ```latex
 ... the p-value was 0.01\% higher \ORKGpvalue*{0.06} than in the earlier experiment ...
 ```
-In the rendered sentence the content of the annotation (0.06) will be invisible.
+In the rendered sentence the content of the annotation (0.06) will be invisible. Since it is not rendered, it does not matter where in the document we put the command. 
 
 ### Referring to Entities
 Instead of using natural language to represent objects, we usually prefer URIs which uniquely identify objects in the Semantic Web. If we want to assign a URI as a property, we can use the `\ORKGuri{}` command inside an annotation. 
@@ -162,17 +164,36 @@ Instead of using natural language to represent objects, we usually prefer URIs w
 \usepackage{orkg4latex}
 \ORKGaddproperty{ORKGrefersto}
 \begin{document}
-% adds a link to the 
+% adds a link to the URI of an entity as background
 The role of \ORKGbackground{\ORKGuri{https://www.orkg.org/orkg/resource/R12259}{antibiotic therapy}} in managing acute bacterial sinusitis (ABS) in children is controversial...
 \end{document}
 ```
 
+The `\ORKGuri`command takes the URI of an entity as a first argument and an optional label as the second. If a label is given, it is rendered as a hyperlink to the URI as can be seen in the picture.
+<img src="documentation/pictures/entity_linking_rendered.png?raw=true" alt="how it looks rendered" width="800"/>
+
+In the XMP metadata file this will result in a new node either with or without a label.
+```xml
+...
+<orkg_property:ORKGbackground>
+   <rdf:Description rdf:about="https://www.orkg.org/orkg/resource/R12259">
+      <rdfs:label>antibiotic therapy</rdfs:label>
+   </rdf:Description>
+</orkg_property:ORKGbackground>
+...
+```
+To add the entity without the hyperlink we can specify the entity with invisible markup like this for example:
+
+```latex
+The role of \ORKGbackground*{\ORKGuri{https://www.orkg.org/orkg/resource/R12259}} antibiotic therapy in managing acute bacterial sinusitis (ABS) in children is controversial...
+```
+
 ## Testing
-A number of integration tests can be run with
+A number of integration tests can be run with:
 ```
 sh test/run.sh
 ```
-If desired individual test can be run with
+If desired individual test can be run with:
 ```
 sh test/run.sh <directory_name_of_test>
 ```
