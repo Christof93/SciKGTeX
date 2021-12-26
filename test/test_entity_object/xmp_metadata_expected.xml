@@ -8,10 +8,8 @@
     <rdf:type rdf:resource="http://orkg.org/core#Paper"/>
     <orkg:hasResearchContribution>
       <orkg:ResearchContribution rdf:about="contribution_ORKG_default">
-          <orkg_property:ORKGbackground>This is the background of our research.</orkg_property:ORKGbackground>
-          <orkg_property:ORKGresearchproblem>This  is &amp; the &amp; problem statment &amp; of &amp; our research &amp; &amp;   .</orkg_property:ORKGresearchproblem>
-          <orkg_property:ORKGmethod>These are the methods of our $>>>$ research.</orkg_property:ORKGmethod>
-          <orkg_property:ORKGresult>These are the resultshttp://url.com of our research.</orkg_property:ORKGresult>
+          <orkg_property:ORKGrefersto><rdf:Description rdf:about="https://www.orkg.org/orkg/paper/R36109/R36112"></rdf:Description></orkg_property:ORKGrefersto>
+          <orkg_property:ORKGbackground><rdf:Description rdf:about="https://www.orkg.org/orkg/resource/R12259"><rdfs:label>antibiotic therapy</rdfs:label></rdf:Description></orkg_property:ORKGbackground>
       </orkg:ResearchContribution>
     </orkg:hasResearchContribution>
   </rdf:Description>
