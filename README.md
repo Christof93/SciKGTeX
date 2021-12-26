@@ -28,7 +28,7 @@ In Overleaf it can be configured like this for example:
   
 ## Using the LaTeX Package
 ### Minimal Example
-To create a contribution we have to assign one the 5 standard properties to sentences or statements in the text:
+To create a contribution we have to assign one of the 5 standard properties to sentences or statements in the text:
 
 * _research problem_ 
 * _background_
@@ -84,7 +84,7 @@ The produced document will then look like this:
 
 <img src="documentation/pictures/rendered_example.png?raw=true" alt="how it looks rendered" width="800"/>
 
-As can be seen in the rendered pdf the marked properties can not be distinguished from the other sentences in the text. They can be inspected however in the file `xmp_metdata.xml` which is directly embedded into the pdf metadata. For our example the content of the metadata will look as such:
+As can be seen in the rendered pdf the marked properties can not be distinguished from the other sentences in the text. The annotations can be inspected in the file `xmp_metadata.xml`. The XMP file can be used as an inspection possibility for the user but it is not necessary to distribute it since the whole content is also directly embedded into the produced PDF file in the creation process. For our example the content of the metadata will look as such:
 
 ```xml
 <x:xmpmeta xmlns:x="adobe:ns:meta/">
@@ -139,20 +139,41 @@ For example, suppose we want to use a property of an already existing ontology l
 The metadata will list the custom namespace and correctly apply it to the annotations of the property.
 
 ### Contribution Numbering
-A scientific paper typically has a small number of contributions. If we want to distinguish more than one contribution, we can number the contributions in the arguments of the marked properties. For example, an annotation of `ORKGresearchproblem[1]{..}` and `ORKGresearchproblem[2]{..}` adds two contributions with the respective research problems. These two contributions can have their own background, methods and results which must be numbered accordingly.
+A scientific paper typically has a small number of distinct contributions. If we want to distinguish more than one contribution, we can number the contributions in the arguments of the marked properties. For example, an annotation of `ORKGresearchproblem[1]{..}` and `ORKGresearchproblem[2]{..}` adds two contributions with the respective research problems. These two contributions can have their own background, methods and results which must be numbered accordingly.
 
 If two problems have a property in common (e.g. the same background, or methods), we can assign the same property to two contributions using a comma between the arguments. Example: `ORKGmethod[1,2]{..}`.
 
 ### Invisible Markup
 At some point, especially for advanced modeling, it will be desirable to add annotations to the metadata which are not explicitly rendered in text. This can be achieved using the starred variant of the defined or self-defined LaTeX commands.
 
-For example, in the sentence 'the p-value was 0.01% higher than in the earlier experiment', we may want to report the actual p-value in the metdata since it is more clean. There might be many more subtle examples where for some reason you want the information in the metadata to look slightly different than in text.
+For example, in the sentence 'the p-value was 0.01% higher than in the earlier experiment', we may want to report the actual p-value in the metadata since it is more clean. There might be many more subtle examples where for some reason you want the information in the metadata to look slightly different than in text.
 In such a case we can mark the p-value like this:
 
 ```latex
 ... the p-value was 0.01\% higher \ORKGpvalue*{0.06} than in the earlier experiment ...
 ```
-In the rendered sentence the content of the annotation will be invisible.
+In the rendered sentence the content of the annotation (0.06) will be invisible.
+
+### Referring to Entities
+Instead of using natural language to represent objects, we usually prefer URIs which uniquely identify objects in the Semantic Web. If we want to assign a URI as a property, we can use the `\ORKGuri{}` command inside an annotation. 
+
+```latex
+\documentclass{article}
+\usepackage{orkg4latex}
+\ORKGaddproperty{ORKGrefersto}
+\begin{document}
+% adds a link to the 
+The role of \ORKGbackground{\ORKGuri{https://www.orkg.org/orkg/resource/R12259}{antibiotic therapy}} in managing acute bacterial sinusitis (ABS) in children is controversial...
+\end{document}
+```
 
 ## Testing
-
+A number of integration tests can be run with
+```
+sh test/run.sh
+```
+If desired individual test can be run with
+```
+sh test/run.sh <directory_name_of_test>
+```
+To create a new test, make a new directory starting with the word test and copy the `run_test.sh` script into it. Then, add your LaTeX file called `test.tex` and a file with the expected metadata you want to test against (`xmp_metadata_expected.xml`). Make changes to `run_test.sh` to change the integration test as you see fit.
