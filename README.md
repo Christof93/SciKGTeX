@@ -154,6 +154,19 @@ In such a case we can mark the p-value like this:
 ```
 In the rendered sentence the content of the annotation (0.06) will be invisible.
 
+### Referring to Entities
+Instead of using natural language to represent objects, we usually prefer URIs which uniquely identify objects in the Semantic Web. If we want to assign a URI as a property, we can use the `\ORKGuri{}` command inside an annotation. 
+
+```latex
+\documentclass{article}
+\usepackage{orkg4latex}
+\ORKGaddproperty{ORKGrefersto}
+\begin{document}
+% adds a link to the 
+The role of antibiotic therapy \ORKGbackground*{\ORKGuri{https://www.orkg.org/orkg/resource/R12259}} in managing acute bacterial sinusitis (ABS) in children is controversial...
+\end{document}
+```
+
 ## Testing
 A number of integration tests can be run with
 ```
