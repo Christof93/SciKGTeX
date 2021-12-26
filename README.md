@@ -163,7 +163,7 @@ Instead of using natural language to represent objects, we usually prefer URIs w
 \ORKGaddproperty{ORKGrefersto}
 \begin{document}
 % adds a link to the 
-The role of antibiotic therapy \ORKGbackground*{\ORKGuri{https://www.orkg.org/orkg/resource/R12259}} in managing acute bacterial sinusitis (ABS) in children is controversial...
+The role of \ORKGbackground{\ORKGuri{https://www.orkg.org/orkg/resource/R12259}{antibiotic therapy}} in managing acute bacterial sinusitis (ABS) in children is controversial...
 \end{document}
 ```
 
