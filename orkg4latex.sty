@@ -26,6 +26,7 @@
 % used to display the  
 \usepackage{verbatim}
 \usepackage{suffix}
+\usepackage{hyperref}
 
 \errorcontextlines=5
 
@@ -45,6 +46,14 @@
 \newcommand{\ORKGrenderxmp}{%
   \newpage
   \verbatiminput{xmp_metadata.xml}
+}
+
+\newcommand{\ORKGuri}[2]{%
+  \directlua{%
+    local label = "\luaescapestring{\unexpanded{#2}}"%
+    local uri = "\luaescapestring{\unexpanded{#1}}"%
+    ORKG:print_entity(uri, label)%
+  }
 }
 
 \ORKGaddproperty{ORKGresearchproblem}

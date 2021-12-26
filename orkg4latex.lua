@@ -57,6 +57,23 @@ function uri_valid(s)
     end
 end 
 
+function resolve_entity(s)
+    uri, found = s:gsub('\\ORKGuri%s*{(.*)}%s*{.*}', '%1')
+    if found == 1 then
+        label = s:gsub('\\ORKGuri%s*{.*}%s*{(.*)}', '%1')
+        entity = string.format('<rdf:Description rdf:about=\"%s\"><rdfs:label>%s</rdfs:label></rdf:Description>', uri, label)
+        return entity
+    else
+        uri, found = s:gsub('\\ORKGuri%s*{(.*)}', '%1')
+        if found == 1 then
+            entity = string.format('<rdf:Description rdf:about=\"%s\"></rdf:Description>', uri)
+            return entity
+        else
+            return false
+        end
+    end
+end
+
 ---------------------------- Main class methods -------------------------------
 
 function ORKG:set_warning_level(wl)
@@ -164,6 +181,14 @@ function ORKG:warn_unused_command()
     end
 end
 
+function ORKG:print_entity(uri, label)
+    if label ~= "" then
+        tex.print(string.format('\\href{%s}{%s}',uri , label))
+    else
+        tex.print(string.format('\\url{%s}',uri))
+    end
+end
+
 ---------------------------- XMP class methods -------------------------------
 
 function XMP:add_line(...)
@@ -215,8 +240,12 @@ function XMP:extract_namespace_prefix(ns_arg)
     return uri_and_prefix[1] 
 end
 
-function XMP:clean_content(c)
+function XMP:process_content(c)
     c = escape_xml_content(c)
+    entity = resolve_entity(c)
+    if entity ~= false then
+        return entity
+    end
     c = remove_latex_commands(c)
     return c
 end
@@ -287,7 +316,7 @@ function XMP:generate_xmp_string(lb_char)
             self:add_line('      <orkg:ResearchContribution rdf:about="%s">', contribution.id)
             for j, property in ipairs(contribution.properties) do
                 self:add_line('          <%s:%s>%s</%s:%s>', property.prefix, property.type, 
-                    self:clean_content(property.content), property.prefix, property.type)
+                    self:process_content(property.content), property.prefix, property.type)
             end
             self:add_line('      </orkg:ResearchContribution>')
             self:add_line('    </orkg:hasResearchContribution>')
@@ -340,6 +369,7 @@ end, 'finish')
 -- TODO: real identifier assigned
 XMP:add_paper_node('R1234565')
 XMP:add_namespace("rdf","http://www.w3.org/1999/02/22-rdf-syntax-ns#")
+XMP:add_namespace("rdfs","http://www.w3.org/2000/01/rdf-schema#")
 XMP:add_namespace("orkg","http://orkg.org/core#")
 XMP:add_namespace("orkg_property","http://orkg.org/property")
 
