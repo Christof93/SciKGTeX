@@ -12,6 +12,7 @@
           <orkg_property:ORKGresearchproblem>This is the problem statement of our research.</orkg_property:ORKGresearchproblem>
           <orkg_property:ORKGmethod>These are the methods of our research.</orkg_property:ORKGmethod>
           <orkg_property:ORKGresult>These are the results of our research.</orkg_property:ORKGresult>
+          <orkg_property:ORKGconclusion>This is the conclusion of our research.</orkg_property:ORKGconclusion>
       </orkg:ResearchContribution>
     </orkg:hasResearchContribution>
   </rdf:Description>
