@@ -1,6 +1,7 @@
 #!/bin/bash
 cp orkg4latex.sty test
 cp orkg4latex.lua test
+cp eciRGB_v2.icc test
 cd test
 
 if [ ! -z $1 ] 
