@@ -162,7 +162,7 @@ Instead of using natural language to represent objects, we usually prefer URIs w
 ```latex
 \documentclass{article}
 \usepackage{orkg4latex}
-\ORKGaddproperty{ORKGrefersto}
+
 \begin{document}
 % adds a link to the URI of an entity as background
 The role of \ORKGbackground{\ORKGuri{https://www.orkg.org/orkg/resource/R12259}{antibiotic therapy}} in managing acute bacterial sinusitis (ABS) in children is controversial...
