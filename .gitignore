@@ -1,0 +1,11 @@
+*.log
+*.aux
+*.pdf
+*.glo
+*.out
+*.idx
+*.hd
+test/*/xmp_metadata.xml
+test/orkg4latex.lua
+test/orkg4latex.sty
+.DS_Store
