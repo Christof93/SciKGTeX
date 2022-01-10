@@ -112,7 +112,7 @@ As can be seen in the rendered pdf the marked properties can not be distinguishe
 
 ### Optional Properties
 
-Additional to the 5 standard ones, there are a big number of more specific properties which are optional and are generally used in a specific domain of science. For example properties of _p-value_ or _accuracy_ are useful for studies that include statistical examinations and can be used with `\ORKGpvalue{}` and `ORKGaccuracy{}`. A comprehensive list of ORKG properties can be found [here](https://www.orkg.org/orkg/).  
+Additional to the 5 standard ones, there are a big number of more specific properties which are optional and are generally used in a specific domain of science. For example properties of _p-value_ or _accuracy_ are useful for studies that include statistical examinations and can be used with `\ORKGpvalue{}` and `ORKGaccuracy{}`. A comprehensive list of ORKG properties can be found [here](https://www.orkg.org/orkg/properties).  
 
 ### Defining Custom Properties
 If a property is not already predefined, it is possible to declare new properties in your document preamble with `\ORKGaddproperty`. These properties can then be used to describe a contribution with a command just like the predefined commands. To avoid clashes with already existing commands, you should use the prefix _ORKG_ in the property name. 
