@@ -1,3 +1,7 @@
+RANDOM_SEED = math.randomseed(os.time())
+MATRIX_AND = {{0,0},{0,1} }
+MATRIX_OR = {{0,1},{1,1}}
+HEXES = '0123456789abcdef'
 local ORKG = {}
 ORKG.whole_string = ""
 ORKG.properties_used = {}
@@ -7,13 +11,64 @@ ORKG.WARNING_LEVEL = 1
 local XMP = {}
 XMP.lines = {}
 XMP.namespaces = {}
-XMP.PACKET_START = [[<?xpacket begin="" id="b0e1b454-39bf-11ec-8d3d-0242ac130003"?>]]
 XMP.XMP_TOP = [[<x:xmpmeta xmlns:x="adobe:ns:meta/">]]
 XMP.XMP_BOTTOM = [[</rdf:RDF>
 </x:xmpmeta>]]
 XMP.PACKET_END = [[<?xpacket end="r"?>]]
 
+local UUID = {}
+
 ---------------------------- utilities -------------------------------
+
+
+
+-- performs the bitwise operation specified by truth matrix on two numbers.
+function BITWISE(x, y, matrix)
+  local z = 0
+  local pow = 1
+  while x > 0 or y > 0 do
+    z = z + (matrix[x%2+1][y%2+1] * pow)
+    pow = pow * 2
+    x = math.floor(x/2)
+    y = math.floor(y/2)
+  end
+  return z
+end
+
+function INT2HEX(x)
+  local s,base,pow = '',16,0
+  local d
+  while x > 0 do
+    d = x % base + 1
+    x = math.floor(x/base)
+    s = string.sub(HEXES, d, d)..s
+  end
+  if #s == 1 then s = "0" .. s end
+  return s
+end
+
+function read_header_of_file(path)
+    local fh = io.open(path, "rb")
+    if fh then
+        local first_line = assert(fh:read())
+        fh:close()
+        return first_line
+    else
+        print ("No xmp metadata file found!")
+        return nil 
+    end
+end
+  
+function extract_uuid_from_header(header)
+    print("extrcated header:", header)
+    return header:gsub('.*id=\"(.-)\".*','%1')
+end
+
+function generate_UUID()
+    UUID:initialize('00:0c:29:69:41:c6')
+    return UUID:toString()
+end
+
 function string:split(sep)
     if sep == nil then
         sep = "%s"
@@ -73,6 +128,51 @@ function resolve_entity(s)
         end
     end
 end
+
+---------------------------- UUID class methods  -------------------------------------
+
+-- hwaddr is a string: hexes delimited by colons. e.g.: 00:0c:29:69:41:c6
+function UUID:initialize(hwaddr)
+    -- bytes are treated as 8bit unsigned bytes.
+    self._bytes = {
+      math.random(0, 255),
+      math.random(0, 255),
+      math.random(0, 255),
+      math.random(0, 255),
+      math.random(0, 255),
+      math.random(0, 255),
+      math.random(0, 255),
+      math.random(0, 255),
+      math.random(0, 255),
+      math.random(0, 255),
+      -- no split() in lua. :(
+      tonumber(hwaddr:sub(1, 2), 16),
+      tonumber(hwaddr:sub(4, 5), 16),
+      tonumber(hwaddr:sub(7, 8), 16),
+      tonumber(hwaddr:sub(10, 11), 16),
+      tonumber(hwaddr:sub(13, 14), 16),
+      tonumber(hwaddr:sub(16, 17), 16)
+    }
+    -- set the version
+    self._bytes[7] = BITWISE(self._bytes[7], 0x0f, MATRIX_AND)
+    self._bytes[7] = BITWISE(self._bytes[7], 0x40, MATRIX_OR)
+    -- set the variant
+    self._bytes[9] = BITWISE(self._bytes[7], 0x3f, MATRIX_AND)
+    self._bytes[9] = BITWISE(self._bytes[7], 0x80, MATRIX_OR)
+    self._string = nil
+  end
+  
+  -- lazy string creation.
+  function UUID:toString()
+    if self._string == nil then
+      self._string = INT2HEX(self._bytes[1])..INT2HEX(self._bytes[2])..INT2HEX(self._bytes[3])..INT2HEX(self._bytes[4]).."-"..
+           INT2HEX(self._bytes[5])..INT2HEX(self._bytes[6]).."-"..
+           INT2HEX(self._bytes[7])..INT2HEX(self._bytes[8]).."-"..
+           INT2HEX(self._bytes[9])..INT2HEX(self._bytes[10]).."-"..
+           INT2HEX(self._bytes[11])..INT2HEX(self._bytes[12])..INT2HEX(self._bytes[13])..INT2HEX(self._bytes[14])..INT2HEX(self._bytes[15])..INT2HEX(self._bytes[16])
+    end
+    return self._string
+  end
 
 ---------------------------- Main class methods -------------------------------
 
@@ -303,7 +403,7 @@ function XMP:generate_xmp_string(lb_char)
         table.insert(sorted_contributions,cb_id)
     end
     table.sort(sorted_contributions)
-
+    self:add_line('<?xpacket begin="?" id="%s"?>',self.paper.id)
     self:add_line(self.XMP_TOP)
     self:add_line(self:generate_rdf_root())
     --print(debug.traceback())
@@ -324,6 +424,8 @@ function XMP:generate_xmp_string(lb_char)
         self:add_line('  </rdf:Description>')
     end
     self:add_line(self.XMP_BOTTOM)
+    self:add_line(self.PACKET_END)
+
     return table.concat(self.lines, lb_char)
 
 end
@@ -335,7 +437,7 @@ function XMP:attach_metadata_pdfstream()
         attr = '/Type/Metadata /Subtype/XML',
         immediate = true,
         compresslevel = 0,
-        string = self.PACKET_START .. xmp_string .. self.PACKET_END,
+        string = xmp_string,
     }
     self.lines = {}
     return new_pdf
@@ -343,7 +445,7 @@ end
 
 function XMP:dump_metadata()
     local xmp_string = self:generate_xmp_string()
-    f = io.open('xmp_metadata.xml','w')
+    f = io.open(tex.jobname .. '.xmp_metadata.xml','w')
     io.output(f)
     --io.write([[<?xml version="1.0" encoding="UTF-8"?>\n]])
     io.write(xmp_string)
@@ -354,7 +456,7 @@ luatexbase.add_to_callback('stop_run', function()
     ORKG:warn_unused_command()
 end, 'at_end')
 
--- 1 Writing metadata packets
+--  Writing metadata packets
 luatexbase.add_to_callback('finish_pdffile', function()
     if XMP.paper then
         local metadata_obj = XMP:attach_metadata_pdfstream()
@@ -367,7 +469,19 @@ luatexbase.add_to_callback('finish_pdffile', function()
 end, 'finish')
 
 -- TODO: real identifier assigned
-XMP:add_paper_node('R1234565')
+
+-- get the id or generate UUID
+local header = read_header_of_file(tex.jobname .. '.xmp_metadata.xml')
+if  header ~= nil then
+    id = extract_uuid_from_header(header)
+end
+if id == nil then
+    id = generate_UUID()
+    print('generate new id:', id)
+end
+print('paper id:',id)
+print(tex.jobname)
+XMP:add_paper_node(id)
 XMP:add_namespace("rdf","http://www.w3.org/1999/02/22-rdf-syntax-ns#")
 XMP:add_namespace("rdfs","http://www.w3.org/2000/01/rdf-schema#")
 XMP:add_namespace("orkg","http://orkg.org/core#")
