@@ -60,7 +60,6 @@ function read_header_of_file(path)
 end
   
 function extract_uuid_from_header(header)
-    print("extrcated header:", header)
     return header:gsub('.*id=\"(.-)\".*','%1')
 end
 
@@ -408,7 +407,7 @@ function XMP:generate_xmp_string(lb_char)
     self:add_line(self:generate_rdf_root())
     --print(debug.traceback())
     if self.paper then
-        self:add_line('  <rdf:Description rdf:about="%s">', self.paper.id)
+        self:add_line('  <rdf:Description rdf:about="https://www.orkg.org/orkg/paper/%s">', self.paper.id)
         self:add_line('    <rdf:type rdf:resource="http://orkg.org/core#Paper"/>')
         for i, cb_id in pairs(sorted_contributions) do
             contribution = XMP.paper.contributions[cb_id]
@@ -479,8 +478,6 @@ if id == nil then
     id = generate_UUID()
     print('generate new id:', id)
 end
-print('paper id:',id)
-print(tex.jobname)
 XMP:add_paper_node(id)
 XMP:add_namespace("rdf","http://www.w3.org/1999/02/22-rdf-syntax-ns#")
 XMP:add_namespace("rdfs","http://www.w3.org/2000/01/rdf-schema#")
