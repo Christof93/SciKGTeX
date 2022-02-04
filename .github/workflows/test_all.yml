@@ -24,8 +24,7 @@ jobs:
       - name: install luatex
         run: |
           sudo apt-get update
-          sudo apt-get install texlive-base 
-          sudo apt-get install texlive-luatex
+          sudo apt-get install texlive 
 
       # Runs a single command using the runners shell
       - name: run the testing environment
