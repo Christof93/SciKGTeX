@@ -309,9 +309,8 @@ function XMP:extract_namespace_prefix(ns_arg)
     if ns_arg == '' then
         return nil
     end
-    print("namespace argument: ", ns_arg)
     uri_and_prefix = ns_arg:split(',%s+?')
-    print("namespace argument split: ", uri_and_prefix)
+
     if #uri_and_prefix < 2 then
         ORKG:error([[Method ORKGaddproperty: No prefix found.
     Unknown prefix, URI specification: %s.
