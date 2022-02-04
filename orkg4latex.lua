@@ -312,12 +312,12 @@ function XMP:extract_namespace_prefix(ns_arg)
     print("namespace argument: ", ns_arg)
     uri_and_prefix = ns_arg:split(',%s+?')
     print("namespace argument split: ", uri_and_prefix)
-    if table.getn(uri_and_prefix) < 2 then
+    if #uri_and_prefix < 2 then
         ORKG:error([[Method ORKGaddproperty: No prefix found.
     Unknown prefix, URI specification: %s.
     Please specify the arguments as [prefix, URI]!]], ns_arg)
         return nil
-    elseif table.getn(uri_and_prefix) > 2 then
+    elseif #uri_and_prefix > 2 then
         ORKG:warn([[Method ORKGaddproperty: Too many arguments.
     Too many arguments in prefix, URI specification: %s.
     Excess arguments are ignored.]], ns_arg)
