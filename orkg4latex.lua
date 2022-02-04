@@ -20,8 +20,6 @@ local UUID = {}
 
 ---------------------------- utilities -------------------------------
 
-
-
 -- performs the bitwise operation specified by truth matrix on two numbers.
 function BITWISE(x, y, matrix)
   local z = 0
@@ -311,9 +309,9 @@ function XMP:extract_namespace_prefix(ns_arg)
     if ns_arg == '' then
         return nil
     end
-    
+    print("namespace argument: ", ns_arg)
     uri_and_prefix = ns_arg:split(',%s+?')
-    
+    print("namespace argument split: ", uri_and_prefix)
     if table.getn(uri_and_prefix) < 2 then
         ORKG:error([[Method ORKGaddproperty: No prefix found.
     Unknown prefix, URI specification: %s.
