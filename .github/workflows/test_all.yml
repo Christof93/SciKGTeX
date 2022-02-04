@@ -20,8 +20,10 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      
       - name: install luatex
-        run: sudo apt-get install -y texlive-luatex
+        run: sudo apt-get install texlive-base 
+
       # Runs a single command using the runners shell
       - name: run the testing environment
         run: ./test/run.sh
