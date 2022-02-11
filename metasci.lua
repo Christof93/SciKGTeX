@@ -2,11 +2,11 @@ RANDOM_SEED = math.randomseed(os.time())
 MATRIX_AND = {{0,0},{0,1} }
 MATRIX_OR = {{0,1},{1,1}}
 HEXES = '0123456789abcdef'
-local ORKG = {}
-ORKG.whole_string = ""
-ORKG.properties_used = {}
-ORKG.PRODUCE_XMP_FILE = true
-ORKG.WARNING_LEVEL = 1
+local MetaSci = {}
+MetaSci.whole_string = ""
+MetaSci.properties_used = {}
+MetaSci.PRODUCE_XMP_FILE = true
+MetaSci.WARNING_LEVEL = 1
 
 local XMP = {}
 XMP.lines = {}
@@ -110,13 +110,13 @@ function uri_valid(s)
 end 
 
 function resolve_entity(s)
-    uri, found = s:gsub('\\ORKGuri%s*{(.*)}%s*{.*}', '%1')
+    uri, found = s:gsub('\\uri%s*{(.*)}%s*{.*}', '%1')
     if found == 1 then
-        label = s:gsub('\\ORKGuri%s*{.*}%s*{(.*)}', '%1')
+        label = s:gsub('\\uri%s*{.*}%s*{(.*)}', '%1')
         entity = string.format('<rdf:Description rdf:about=\"%s\"><rdfs:label>%s</rdfs:label></rdf:Description>', uri, label)
         return entity
     else
-        uri, found = s:gsub('\\ORKGuri%s*{(.*)}', '%1')
+        uri, found = s:gsub('\\uri%s*{(.*)}', '%1')
         if found == 1 then
             entity = string.format('<rdf:Description rdf:about=\"%s\"></rdf:Description>', uri)
             return entity
@@ -173,11 +173,11 @@ function UUID:initialize(hwaddr)
 
 ---------------------------- Main class methods -------------------------------
 
-function ORKG:set_warning_level(wl)
+function MetaSci:set_warning_level(wl)
     self.WARNING_LEVEL = wl
 end
 
-function ORKG:warn(warning_message, ...)
+function MetaSci:warn(warning_message, ...)
     if self.WARNING_LEVEL > 0 then
         texio.write_nl("term and log", 
                 [[Package orkg4latex Warning: ]] .. string.format(warning_message, ...))
@@ -185,30 +185,30 @@ function ORKG:warn(warning_message, ...)
     end
 end
 
-function ORKG:error(warning_message, ...)
+function MetaSci:error(warning_message, ...)
     tex.error([[Package orkg4latex Error: ]] .. string.format(warning_message, ...))
 end
 
-ORKG.command_factory = {}
+MetaSci.command_factory = {}
 
-ORKG.command_factory.cmd_top = [[\newcommand{\%s}[2][]{]]
+MetaSci.command_factory.cmd_top = [[\newcommand{\%s}[2][]{]]
  
-ORKG.command_factory.cmd_top_star = [[\WithSuffix\newcommand\%s*[2][]{]]
+MetaSci.command_factory.cmd_top_star = [[\WithSuffix\newcommand\%s*[2][]{]]
  
-ORKG.command_factory.cmd_top_override = [[\renewcommand{\%s}[2][]{]]
+MetaSci.command_factory.cmd_top_override = [[\renewcommand{\%s}[2][]{]]
 
-ORKG.command_factory.cmd_top_star_override = [[\WithSuffix\renewcommand\%s*[2][]{]]
+MetaSci.command_factory.cmd_top_star_override = [[\WithSuffix\renewcommand\%s*[2][]{]]
 
-ORKG.command_factory.directlua_part = [[  \directlua{
+MetaSci.command_factory.directlua_part = [[  \directlua{
     local content = "\luaescapestring{\unexpanded{#2}}"
     local belongs_to_contribution = "\luaescapestring{\unexpanded{#1}}"
-    ORKG.XMP:add_annotation(belongs_to_contribution, '%s', '%s', content, 'annotation-id')
+    MetaSci.XMP:add_annotation(belongs_to_contribution, '%s', '%s', content, 'annotation-id')
   }]]
 
-ORKG.command_factory.cmd_bottom = [[}]]
-ORKG.command_factory.cmd_bottom_star = [[\ignorespaces}]]
+MetaSci.command_factory.cmd_bottom = [[}]]
+MetaSci.command_factory.cmd_bottom_star = [[\ignorespaces}]]
 
-function ORKG.command_factory:build_command(command_name, property_URI)
+function MetaSci.command_factory:build_command(command_name, property_URI)
     full_cmd = self.cmd_top .. "\n" .. self.directlua_part .. "\n  #2\n" .. self.cmd_bottom
     formatted_cmd = string.format(full_cmd, command_name, command_name, property_URI)
     for i, line in ipairs(formatted_cmd:split("\n")) do
@@ -216,7 +216,7 @@ function ORKG.command_factory:build_command(command_name, property_URI)
     end
 end
 
-function ORKG.command_factory:build_star_command(command_name, property_URI)
+function MetaSci.command_factory:build_star_command(command_name, property_URI)
     full_cmd = self.cmd_top_star .. "\n" .. self.directlua_part .. "\n" .. self.cmd_bottom_star
     formatted_cmd = string.format(full_cmd, command_name, command_name, property_URI)
     for i, line in ipairs(formatted_cmd:split("\n")) do
@@ -224,7 +224,7 @@ function ORKG.command_factory:build_star_command(command_name, property_URI)
     end
 end
 
-function ORKG.command_factory:override_command(command_name, property_URI)
+function MetaSci.command_factory:override_command(command_name, property_URI)
     full_cmd = self.cmd_top_override .. "\n" .. self.directlua_part .. "\n  #2\n" .. self.cmd_bottom
     formatted_cmd = string.format(full_cmd, command_name, command_name, property_URI)
     for i, line in ipairs(formatted_cmd:split("\n")) do
@@ -232,7 +232,7 @@ function ORKG.command_factory:override_command(command_name, property_URI)
     end
 end
 
-function ORKG.command_factory:override_star_command(command_name, property_URI)
+function MetaSci.command_factory:override_star_command(command_name, property_URI)
     full_cmd = self.cmd_top_star_override .. "\n" .. self.directlua_part .. "\n" .. self.cmd_bottom_star
     formatted_cmd = string.format(full_cmd, command_name, command_name, property_URI)
     for i, line in ipairs(formatted_cmd:split("\n")) do
@@ -240,19 +240,10 @@ function ORKG.command_factory:override_star_command(command_name, property_URI)
     end
 end
 
-function ORKG:make_new_property(new_property, namespace)
-    -- Prepend the ORKG namespace if not already specified
-    if new_property:sub(1,4) ~= 'ORKG' then
-        ORKG:error([[Method ORKGaddproperty: Missing Prefix.
-    Command %s could be ambiguous!
-    You can still use the command with ORKG%s{}.
-    Prepend 'ORKG' already in the property definition to avoid this error.]], new_property, new_property)
-    new_property = 'ORKG' .. new_property
-
-    end
+function MetaSci:make_new_property(new_property, namespace)
     -- check if property already exists
     if self.properties_used[new_property]~=nil then
-        self:warn([[Method ORKGaddproperty: Repeated definition.
+        self:warn([[Method addmetaproperty: Repeated definition.
     Command %s already exists!
     Are you sure you want to override it?]], new_property)
         self.command_factory:override_command(new_property, namespace)
@@ -264,11 +255,11 @@ function ORKG:make_new_property(new_property, namespace)
     end
 end
 
-function ORKG:register_property(prop_type)
+function MetaSci:register_property(prop_type)
     self.properties_used[prop_type] = true
 end
 
-function ORKG:warn_unused_command()
+function MetaSci:warn_unused_command()
     warning_message = [[No %s annotation found!
     Are you sure you don't want to mark an entity with %s?]]
     for env, val in pairs(self.properties_used) do
@@ -278,7 +269,7 @@ function ORKG:warn_unused_command()
     end
 end
 
-function ORKG:print_entity(uri, label)
+function MetaSci:print_entity(uri, label)
     if label ~= "" then
         tex.print(string.format('\\href{%s}{%s}',uri , label))
     else
@@ -312,21 +303,21 @@ function XMP:extract_namespace_prefix(ns_arg)
     uri_and_prefix = ns_arg:split(',%s+?')
 
     if #uri_and_prefix < 2 then
-        ORKG:error([[Method ORKGaddproperty: No prefix found.
+        MetaSci:error([[Method addmetaproperty: No prefix found.
     Unknown prefix, URI specification: %s.
     Please specify the arguments as [prefix, URI]!]], ns_arg)
         return nil
     elseif #uri_and_prefix > 2 then
-        ORKG:warn([[Method ORKGaddproperty: Too many arguments.
+        MetaSci:warn([[Method addmetaproperty: Too many arguments.
     Too many arguments in prefix, URI specification: %s.
     Excess arguments are ignored.]], ns_arg)
     end
 
     if not uri_valid(uri_and_prefix[2]) then 
-        message = [[Method ORKGaddproperty: Invalid URI.
+        message = [[Method addmetaproperty: Invalid URI.
     The given URI %s is not a valid choice!
     Please use a resolvable URI starting with 'http'.]]
-        ORKG:error(message, uri_and_prefix[2])
+        MetaSci:error(message, uri_and_prefix[2])
         return nil
     end
     -- add the namespace if it has not been added yet    
@@ -359,7 +350,7 @@ function XMP:add_annotation(contribution_ids, annotation_type, annotation_type_u
     annotation.prefix = self:extract_namespace_prefix(annotation_type_uri) or 'orkg_property'
 
     -- register the use of the property in text
-    ORKG:register_property(annotation_type)
+    MetaSci:register_property(annotation_type)
 
     -- add the annotations at the specified contribution
     for i, contribution_id in ipairs(contributions_ids_t) do
@@ -449,7 +440,7 @@ function XMP:dump_metadata()
 end
 
 luatexbase.add_to_callback('stop_run', function()
-    ORKG:warn_unused_command()
+    MetaSci:warn_unused_command()
 end, 'at_end')
 
 --  Writing metadata packets
@@ -458,7 +449,7 @@ luatexbase.add_to_callback('finish_pdffile', function()
         local metadata_obj = XMP:attach_metadata_pdfstream()
         local catalog = pdf.getcatalog() or ''
         pdf.setcatalog(catalog..string.format('/Metadata %s 0 R', metadata_obj))
-        if ORKG.PRODUCE_XMP_FILE then
+        if MetaSci.PRODUCE_XMP_FILE then
             XMP:dump_metadata()
         end
     end
@@ -479,7 +470,7 @@ XMP:add_paper_node(id)
 XMP:add_namespace("rdf","http://www.w3.org/1999/02/22-rdf-syntax-ns#")
 XMP:add_namespace("rdfs","http://www.w3.org/2000/01/rdf-schema#")
 XMP:add_namespace("orkg","http://orkg.org/core#")
-XMP:add_namespace("orkg_property","http://orkg.org/property")
+XMP:add_namespace("orkg_property","http://orkg.org/property/")
 
-ORKG.XMP = XMP
-return ORKG
+MetaSci.XMP = XMP
+return MetaSci

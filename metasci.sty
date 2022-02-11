@@ -1,5 +1,5 @@
 %% ----------------------------------------------------------------
-%% orkg4latex --- ORKG4LaTeX makes it possible to annotate specific
+%% metasci --- MetaSci makes it possible to annotate specific
 %% research contributions directly in the LaTeX source code. The 
 %% idea of extracting research contributions from scholarly 
 %% publications is derived from the Open Research Knowledge Graph 
@@ -10,7 +10,7 @@
 %% ----------------------------------------------------------------
 %% 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{orkg4latex}[2021/12/21 v1.0]
+\ProvidesPackage{metasci}[2021/12/21 v1.0]
 
 \def\useignorespacesandallpars#1\ignorespaces\fi{%
 #1\fi\ignorespacesandallpars}
@@ -23,44 +23,55 @@
 }
 \makeatother
 
-% used to display the  
-\usepackage{verbatim}
-\usepackage{suffix}
-\usepackage{hyperref}
+\RequirePackage{suffix}
+\RequirePackage{hyperref}
 
 \errorcontextlines=5
 
 \directlua {
-  ORKG = require('orkg4latex')
+  MetaSci = require('metasci')
 }
 
-\newcommand{\ORKGaddproperty}[2][]{%
+\newcommand{\addmetaproperty}[2][]{%
   \directlua{%
     local new_property = "\luaescapestring{\unexpanded{#2}}"%
     local ns = "\luaescapestring{\unexpanded{#1}}"%
-    ORKG:make_new_property(new_property, ns)%
+    MetaSci:make_new_property(new_property, ns)%
   }%
   \ignorespaces
 }%
 
-\newcommand{\ORKGrenderxmp}{%
-  \newpage
-  \verbatiminput{xmp_metadata.xml}
-}
-
-\newcommand{\ORKGuri}[2]{%
+\newcommand{\uri}[2]{%
   \directlua{%
     local label = "\luaescapestring{\unexpanded{#2}}"%
     local uri = "\luaescapestring{\unexpanded{#1}}"%
-    ORKG:print_entity(uri, label)%
+    MetaSci:print_entity(uri, label)%
   }%
 }%
 
-\ORKGaddproperty{ORKGresearchproblem}
-\ORKGaddproperty{ORKGresult}
-\ORKGaddproperty{ORKGmethod}
-\ORKGaddproperty{ORKGbackground}
-\ORKGaddproperty{ORKGconclusion}
+\newcommand{\contribution}[3][]{%
+  \directlua{%
+    local contrib_n = "\luaescapestring{\unexpanded{#1}}"%
+    local property = "\luaescapestring{\unexpanded{#2}}"%
+    local value = "\luaescapestring{\unexpanded{#3}}"%
+    MetaSci:add_annotation(contrib_n, property, 'orkg_property', value, 'annotation-id')%
+  }%
+}%
+
+\WithSuffix\newcommand\contribution*[3][]{%
+  \directlua{%
+    local contrib_n = "\luaescapestring{\unexpanded{#1}}"%
+    local property = "\luaescapestring{\unexpanded{#2}}"%
+    local value = "\luaescapestring{\unexpanded{#3}}"%
+    MetaSci:add_annotation(contrib_n, property, 'orkg_property', value, 'annotation-id')%
+  }%
+}%
+
+\addmetaproperty{researchproblem}
+\addmetaproperty{result}
+\addmetaproperty{method}
+\addmetaproperty{background}
+\addmetaproperty{conclusion}
  
 %% Copyright (C) 2021 by You christofbless@gmail.com
 %% 
@@ -74,8 +85,8 @@
 %% This work is "maintained" (as per LPPL maintenance status) by
 %% You.
 %% 
-%% This work consists of the file orkg4latex.sty
-%% and the lua file               orkg4latex.lua.
+%% This work consists of the file metasci.sty
+%% and the lua file               metasci.lua.
 %% 
 %%
-%% End of file `orkg4latex.sty'.
+%% End of file `metasci.sty'.

@@ -1,6 +1,6 @@
 #!/bin/bash
-cp orkg4latex.sty test
-cp orkg4latex.lua test
+cp metasci.sty test
+cp metasci.lua test
 cd test
 
 if [ ! -z $1 ] 

@@ -3,17 +3,17 @@
 <rdf:RDF 
   xmlns:new="http://www.new-uri.org"
   xmlns:orkg="http://orkg.org/core#"
-  xmlns:orkg_property="http://orkg.org/property"
+  xmlns:orkg_property="http://orkg.org/property/"
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
   <rdf:Description rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6">
     <rdf:type rdf:resource="http://orkg.org/core#Paper"/>
     <orkg:hasResearchContribution>
       <orkg:ResearchContribution rdf:about="contribution_ORKG_default">
-          <orkg_property:ORKGbackground>This is the background of our research.</orkg_property:ORKGbackground>
-          <new:ORKGresearchproblem>This is the problem statement of our research.</new:ORKGresearchproblem>
-          <orkg_property:ORKGmethod>These are the methods of our research.</orkg_property:ORKGmethod>
-          <orkg_property:ORKGresult>These are the results of our research.</orkg_property:ORKGresult>
+          <orkg_property:background>This is the background of our research.</orkg_property:background>
+          <new:researchproblem>This is the problem statement of our research.</new:researchproblem>
+          <orkg_property:method>These are the methods of our research.</orkg_property:method>
+          <orkg_property:result>These are the results of our research.</orkg_property:result>
       </orkg:ResearchContribution>
     </orkg:hasResearchContribution>
   </rdf:Description>

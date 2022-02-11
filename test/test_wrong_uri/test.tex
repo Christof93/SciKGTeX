@@ -1,12 +1,12 @@
 \documentclass{article}
-\usepackage{orkg4latex}
+\usepackage{metasci}
 
 % no namespace
-\ORKGaddproperty[http://www.example.org]{ORKGexampleI}
+\addmetaproperty[http://www.example.org]{ORKGexampleI}
 % wrong uri (not resolvable)
-\ORKGaddproperty[ex, example]{ORKGexampleII}
+\addmetaproperty[ex, example]{ORKGexampleII}
 % too many arguments
-\ORKGaddproperty[ex, http://www.example.org, ex2]{ORKGexampleIII} 
+\addmetaproperty[ex, http://www.example.org, ex2]{ORKGexampleIII} 
 
 \begin{document}
 \section{Our research}

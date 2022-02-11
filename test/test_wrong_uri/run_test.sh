@@ -13,7 +13,7 @@ else
     exit 0
 fi
 
-if grep -q "Package orkg4latex Warning: Method ORKGaddproperty: Too many arguments." $1/test.log; then
+if grep -q "Package orkg4latex Warning: Method addmetaproperty: Too many arguments." $1/test.log; then
     printf "\n\033[0;32m----------------------------### wrong uri test PASS: XMP as expected! Successful warning! ###----------------------------------------\033[0m\n"
 else
     printf "\n\033[0;31m----------------------------### wrong uri test FAIL: No warning produced! ###------------------------------------\033[0m\n"

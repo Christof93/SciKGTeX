@@ -12,4 +12,5 @@ if [[ "$(head -1 $1/test.xmp_metadata.xml)" != "$(head -1 $1/xmp_metadata_expect
     printf "\n\033[0;32m----------------------------### uuid generation test PASS: New UUID generated! ###----------------------------------------\033[0m\n"
 else
     printf "\n\033[0;31m----------------------------### uuid generation test FAIL: No new UUID generated! ###------------------------------------\033[0m\n"
+    exit 1
 fi

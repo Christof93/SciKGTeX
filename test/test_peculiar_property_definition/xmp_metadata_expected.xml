@@ -2,16 +2,15 @@
 <x:xmpmeta xmlns:x="adobe:ns:meta/">
 <rdf:RDF 
   xmlns:orkg="http://orkg.org/core#"
-  xmlns:orkg_property="http://orkg.org/property"
+  xmlns:orkg_property="http://orkg.org/property/"
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
   <rdf:Description rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6">
     <rdf:type rdf:resource="http://orkg.org/core#Paper"/>
     <orkg:hasResearchContribution>
       <orkg:ResearchContribution rdf:about="contribution_ORKG_default">
-          <orkg_property:ORKGexampleII>This another example.</orkg_property:ORKGexampleII>
-          <orkg_property:ORKGsection>This is the problem statement of our research.</orkg_property:ORKGsection>
-          <orkg_property:ORKGexampleIII>This another example.</orkg_property:ORKGexampleIII>
+          <orkg_property:exampleII>This another example.</orkg_property:exampleII>
+          <orkg_property:exampleIII>This another example.</orkg_property:exampleIII>
       </orkg:ResearchContribution>
     </orkg:hasResearchContribution>
   </rdf:Description>

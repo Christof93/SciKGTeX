@@ -2,7 +2,7 @@
 <x:xmpmeta xmlns:x="adobe:ns:meta/">
 <rdf:RDF 
   xmlns:orkg="http://orkg.org/core#"
-  xmlns:orkg_property="http://orkg.org/property"
+  xmlns:orkg_property="http://orkg.org/property/"
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
   <rdf:Description rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6">
@@ -10,7 +10,7 @@
     <orkg:hasResearchContribution>
       <orkg:ResearchContribution rdf:about="contribution_ORKG_default">
           <orkg_property:ORKGrefersto><rdf:Description rdf:about="https://www.orkg.org/orkg/paper/R36109/R36112"></rdf:Description></orkg_property:ORKGrefersto>
-          <orkg_property:ORKGbackground><rdf:Description rdf:about="https://www.orkg.org/orkg/resource/R12259"><rdfs:label>antibiotic therapy</rdfs:label></rdf:Description></orkg_property:ORKGbackground>
+          <orkg_property:background><rdf:Description rdf:about="https://www.orkg.org/orkg/resource/R12259"><rdfs:label>antibiotic therapy</rdfs:label></rdf:Description></orkg_property:background>
       </orkg:ResearchContribution>
     </orkg:hasResearchContribution>
   </rdf:Description>
