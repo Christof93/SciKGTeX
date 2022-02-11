@@ -54,7 +54,7 @@
     local contrib_n = "\luaescapestring{\unexpanded{#1}}"%
     local property = "\luaescapestring{\unexpanded{#2}}"%
     local value = "\luaescapestring{\unexpanded{#3}}"%
-    MetaSci.XMP:add_annotation(contrib_n, property, 'orkg_property', value, 'annotation-id')%
+    MetaSci.XMP:add_annotation(contrib_n, property, '', value, 'annotation-id')%
   }%
   #3%
 }%
@@ -64,7 +64,7 @@
     local contrib_n = "\luaescapestring{\unexpanded{#1}}"%
     local property = "\luaescapestring{\unexpanded{#2}}"%
     local value = "\luaescapestring{\unexpanded{#3}}"%
-    MetaSci.XMP:add_annotation(contrib_n, property, 'orkg_property', value, 'annotation-id')%
+    MetaSci.XMP:add_annotation(contrib_n, property, '', value, 'annotation-id')%
   }%
   \ignorespaces
 }%

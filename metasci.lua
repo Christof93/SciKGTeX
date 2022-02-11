@@ -5,6 +5,7 @@ HEXES = '0123456789abcdef'
 local MetaSci = {}
 MetaSci.whole_string = ""
 MetaSci.properties_used = {}
+MetaSci.property_commands = {}
 MetaSci.PRODUCE_XMP_FILE = true
 MetaSci.WARNING_LEVEL = 1
 
@@ -86,22 +87,84 @@ function escape_xml_content(s)
     return s:gsub('<', '&lt;')
 end
 
+
+function remove_environments(s)
+    s,c = s:gsub('\\begin%s*{.-}{.-}%s*','')
+    s,c = s:gsub('\\begin%s*{.-}%s*','')
+    s,c = s:gsub('\\end%s*{.-}%s*','')
+    return s
+end
+
+function remove_any_latex_command(s)
+    s, c = s:gsub('\\%w+%s*%[%d*%]%s*{(.*)}','%1')
+    if c > 0 then
+        return remove_latex_commands(s)
+    end
+    s, c = s:gsub('\\%w+%s*{(.*)}','%1')
+    if c > 0 then
+        return remove_latex_commands(s)
+    end
+    s, c = s:gsub('\\%w+%s*','')
+    if c > 0 then
+        return remove_latex_commands(s)
+    end
+    return s
+end
+
+function find_first_occurence(s, repls)
+    occurences = {}
+    for pattern, repl in pairs(repls) do
+        i, j = s:find(pattern)
+        if i ~= nil then
+            table.insert(occurences, {i,j,pattern})
+        end
+    end
+    table.sort(occurences, function(l, r) return l[1]<r[1] end)
+    if #occurences > 0 then
+        return occurences[1]
+    else
+        return nil
+    end
+end
+
+function exhaustively_replace_first_occurence_of_pattern(s, repls)
+    first_occurence = find_first_occurence(s, repls)
+    if first_occurence ~= nil then
+        starts, ends, pattern = table.unpack(first_occurence)
+        to_replace = s:sub(starts,ends)
+    else
+        return s
+    end
+    new_string = s:sub(0,starts-1) .. to_replace:gsub(pattern, repls[pattern], 1) .. s:sub(ends+1)
+    return exhaustively_replace_first_occurence_of_pattern(new_string, repls)
+end
+
 function remove_latex_commands(s)
-    s = s:gsub('\\begin%s+{.-}{.-}','')
-    s = s:gsub('\\begin%s+{.-}','')
-    s = s:gsub('\\end%s+{.-}','')
-    s, c = s:gsub('\\.-{(.-)}','%1')
-    if c > 0 then
-        return remove_latex_commands(s)
+    replacements = {
+        -- contribution with * and []
+        ['\\contribution%s*%*%s*%[%d*%]%s*{.-}{.*}%s*'] = '',
+        -- contribution with *
+        ['\\contribution%s*%*%s*{.-}%s*{.*}%s*'] = '',
+        -- contribution with []
+        ['\\contribution%s*%[%d*%]%s*{.-}{(.*)}'] = '%1',
+        -- contribution normal
+        ['\\contribution%s*{.-}%s*{(.*)}'] = '%1',
+    }
+    for i,cmd in ipairs(MetaSci.property_commands) do
+        -- []
+        replacements['\\'.. cmd .. '%s*%[%d*%]%s*{(.*)}'] = '%1'
+        -- normal command 
+        replacements['\\'.. cmd .. '%s*{(.*)}'] = '%1'
+        -- with * and []
+        replacements['\\'.. cmd .. '%s*%*%s*%[%d*%]%s*{.*}%s*'] = ''
+        -- with *
+        replacements['\\'.. cmd .. '%s*%*%s*{.*}%s*'] =''
     end
-    s, c = s:gsub('\\.-%s+{(.-)}','%1')
-    if c > 0 then
-        return remove_latex_commands(s)
-    end
-    s, c = s:gsub('\\.-%s','')
-    if c > 0 then
-        return remove_latex_commands(s)
-    end
+    s = remove_environments(s)
+    s = exhaustively_replace_first_occurence_of_pattern(s, replacements)    
+    s = remove_any_latex_command(s)
+    -- remove escape chars
+    s = s:gsub('\\','')
     return s
 end
 
@@ -254,6 +317,7 @@ function MetaSci:make_new_property(new_property, namespace)
         self.command_factory:override_star_command(new_property, namespace)
     else
         self.properties_used[new_property] = false
+        table.insert(self.property_commands, new_property)
         self.command_factory:build_command(new_property, namespace)
         self.command_factory:build_star_command(new_property, namespace)
     end

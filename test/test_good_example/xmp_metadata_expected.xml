@@ -13,7 +13,7 @@
           <orkg_property:researchproblem>effectiveness of high-dose amoxicillin/potassium clavulanate in the treatment of children diagnosed with ABS</orkg_property:researchproblem>
           <orkg_property:method>randomized, double-blind, placebo-controlled study</orkg_property:method>
           <orkg_property:method>Patients were stratified according to age (&lt;6 or ≥6 years) and clinical severity and randomly assigned to receive either amoxicillin (90 mg/kg) with potassium clavulanate (6.4 mg/kg) or placebo</orkg_property:method>
-          <orkg_property:result>Children receiving the antibiotic were more likely to be cured (50vs 14and less likely to have treatment failure (14vs 68than children receiving the placebo</orkg_property:result>
+          <orkg_property:result>Children receiving the antibiotic were more likely to be cured (50% vs 14%) and less likely to have treatment failure (14% vs 68%) than children receiving the placebo</orkg_property:result>
           <orkg_property:conclusion>Amoxicillin/potassium clavulanate results in significantly more cures and fewer failures than placebo</orkg_property:conclusion>
       </orkg:ResearchContribution>
     </orkg:hasResearchContribution>

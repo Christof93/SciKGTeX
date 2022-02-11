@@ -10,7 +10,7 @@
     <orkg:hasResearchContribution>
       <orkg:ResearchContribution rdf:about="contribution_ORKG_default">
           <orkg_property:background>This is the background of our research.</orkg_property:background>
-          <orkg_property:researchproblem>This  is &amp; the &amp; problem statment &amp; of &amp; our research &amp; &amp;   .</orkg_property:researchproblem>
+          <orkg_property:researchproblem>This is &amp; the &amp; problem  statment &amp; of &amp; our  research &amp; &amp; .</orkg_property:researchproblem>
           <orkg_property:method>These are the methods of our $>>>$ research.</orkg_property:method>
           <orkg_property:result>These are the resultshttp://url.com of our research.</orkg_property:result>
       </orkg:ResearchContribution>
