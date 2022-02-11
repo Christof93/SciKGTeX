@@ -14,7 +14,7 @@
     </orkg:hasResearchContribution>
     <orkg:hasResearchContribution>
       <orkg:ResearchContribution rdf:about="contribution_3">
-          <orkg_property:p-value>0.01</orkg_property:p-value>
+          <orkg_property:p_value>0.01</orkg_property:p_value>
       </orkg:ResearchContribution>
     </orkg:hasResearchContribution>
     <orkg:hasResearchContribution>

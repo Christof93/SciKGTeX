@@ -77,6 +77,10 @@ function string:split(sep)
     return t
 end
 
+function spaces_to_underscores(s)
+    return s:gsub('%s+','_')
+end
+
 function escape_xml_content(s)
     s = s:gsub('&', '&amp;')
     return s:gsub('<', '&lt;')
@@ -346,7 +350,7 @@ function XMP:add_annotation(contribution_ids, annotation_type, annotation_type_u
 
     annotation.content = content
     annotation.id = annotation_id
-    annotation.type = annotation_type
+    annotation.type = self:process_content(spaces_to_underscores(annotation_type))
     annotation.prefix = self:extract_namespace_prefix(annotation_type_uri) or 'orkg_property'
 
     -- register the use of the property in text
