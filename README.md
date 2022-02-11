@@ -6,8 +6,6 @@ The contribution data is embedded into the PDF's XMP metadata where it can be re
 Additionally the contributions can easily be added to the actual ORKG knowledge graph by just uploading the annotated document to the ORKG web portal.
 
 ##### Table of Contents
-- [MetaSci](#metasci)
-        - [Table of Contents](#table-of-contents)
   - [Installation](#installation)
   - [Using the LaTeX Package](#using-the-latex-package)
     - [Minimal Example](#minimal-example)
