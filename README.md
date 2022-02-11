@@ -179,8 +179,9 @@ For example a minimal LaTeX file could look like this:
 ```latex
 \documentclass{article}
 \usepackage{metasci}
-\addmetaproperty{MetaSciprecision}
+\addmetaproperty{MetaSciPrecision}
 \begin{document}
+We achieved a precision of \MetaSciPrecision{0.75}.
 ...
 ```
 
