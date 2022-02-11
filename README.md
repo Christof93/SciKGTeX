@@ -1,7 +1,7 @@
-# ORKG4LaTeX
-ORKG4LaTeX makes it possible to annotate specific **research contributions** directly in the LaTeX source code. The idea of extracting research contributions from scholarly publications is derived from the [Open Research Knowledge Graph (ORKG)](https://www.orkg.org/orkg/).
+# MetaSci
+MetaSci makes it possible to annotate specific **research contributions** directly in the LaTeX source code. The idea of extracting research contributions from scholarly publications is derived from the [Open Research Knowledge Graph (ORKG)](https://www.orkg.org/orkg/).
 
-With ORKG4LaTeX, authors of scientific publications can enrich their documents with structured, reduced and machine-readable information which represents the key points of the content they want to communicate.  The production of this additional information improves electronic archiving of the information for the future and boosts discoverability in search engines and recommendation engines.
+With MetaSci, authors of scientific publications can enrich their documents with structured, reduced and machine-readable information which represents the key points of the content they want to communicate.  The production of this additional information improves electronic archiving of the information for the future and boosts discoverability in search engines and recommendation engines.
 The ORKG contribution data is embedded into the PDF's XMP metadata where it can be retrieved by anyone who obtains the PDF document and persist for the lifetime of the document.
 Additionally the contributions can easily be added to the actual ORKG knowledge graph by just uploading the annotated document to the ORKG web portal.
 
@@ -18,8 +18,8 @@ Additionally the contributions can easily be added to the actual ORKG knowledge 
 
 ## Installation
 1. Clone this repository
-2. Move the `orkg4latex.lua` and `orkg4latex.sty` files to your latex project
-3. Set `\usepackage{orkg4latex}` in your document preamble to use the package
+2. Move the `metasci.lua` and `metasci.sty` files to your latex project
+3. Set `\usepackage{metasci}` in your document preamble to use the package
 
 It is necessary to compile your LaTeX source with LuaLaTeX for the package to work. This is typically straightforward with most modern LaTeX environments.
 In Overleaf it can be configured like this for example:
@@ -39,18 +39,18 @@ To create a contribution we have to assign one of the 5 standard properties to s
 
 For each of these properties there exists a corresponding LaTeX command:
 
-* `\ORKGresearchproblem{..}`
-* `\ORKGbackground{..}`
-* `\ORKGmethod{..}`
-* `\ORKGresult{..}`
-* `\ORKGconclusion{..}`
+* `\researchproblem{..}`
+* `\background{..}`
+* `\method{..}`
+* `\result{..}`
+* `\conclusion{..}`
 
 Now we can mark passages in the text with these commands as illustrated by this example of a summarized research article.
 Wald, Ellen R., David Nash, and Jens Eickhoff. “Effectiveness of Amoxicillin/Clavulanate Potassium in the Treatment of Acute Bacterial Sinusitis in Children.” Pediatrics, vol. 124, no. 1, 2009, pp. 9-15.:
 
 ```latex
 \documentclass{article}
-\usepackage{orkg4latex}
+\usepackage{metasci}
 
 \title{Effectiveness of Amoxicillin/Clavulanate Potassium in the Treatment of Acute Bacterial Sinusitis in Children.}
 \author{Ellen R. Wald \and David Nash \and Jens Eickhoff}
@@ -121,8 +121,8 @@ For example a minimal LaTeX file could look like this:
 
 ```latex
 \documentclass{article}
-\usepackage{orkg4latex}
-\ORKGaddproperty{ORKGprecision}
+\usepackage{metasci}
+\addmetaproperty{precision}
 \begin{document}
 ...
 ```
@@ -132,7 +132,7 @@ For example, suppose we want to use a property of an already existing ontology l
 
 ```latex
 \documentclass{article}
-\usepackage{orkg4latex}
+\usepackage{metasci}
 \ORKGaddproperty[http://purl.org/spar/amo]{ORKGhasclaim}
 \begin{document}
 ...
