@@ -192,6 +192,7 @@ For example, suppose we want to use a property of an already existing ontology l
 \usepackage{metasci}
 \addmetaproperty[http://purl.org/spar/amo]{AMOhasclaim}
 \begin{document}
+We make the claim that the \AMOhasclaim{earth is round}.
 ...
 ```
 
