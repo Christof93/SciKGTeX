@@ -468,7 +468,7 @@ function XMP:generate_xmp_string(lb_char)
         for i, cb_id in pairs(sorted_contributions) do
             contribution = self.paper.contributions[cb_id]
             self:add_line('    <orkg:hasResearchContribution>')
-            self:add_line('      <orkg:ResearchContribution rdf:about="%s">', 
+            self:add_line('      <orkg:ResearchContribution rdf:about=""https://www.orkg.org/orkg/paper/%s">', 
                 self.paper.id .. "/" ..contribution.id)
             for j, property in ipairs(contribution.properties) do
                 self:add_line('          <%s:%s>%s</%s:%s>', property.prefix, property.type, 
