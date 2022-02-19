@@ -8,7 +8,7 @@
   <rdf:Description rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6">
     <rdf:type rdf:resource="http://orkg.org/core#Paper"/>
     <orkg:hasResearchContribution>
-      <orkg:ResearchContribution rdf:about="contribution_ORKG_default">
+      <orkg:ResearchContribution rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6/contribution_ORKG_default">
           <orkg_property:ORKGrefersto><rdf:Description rdf:about="https://www.orkg.org/orkg/paper/R36109/R36112"></rdf:Description></orkg_property:ORKGrefersto>
           <orkg_property:background><rdf:Description rdf:about="https://www.orkg.org/orkg/resource/R12259"><rdfs:label>antibiotic therapy</rdfs:label></rdf:Description></orkg_property:background>
       </orkg:ResearchContribution>

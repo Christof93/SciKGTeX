@@ -8,7 +8,7 @@
   <rdf:Description rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6">
     <rdf:type rdf:resource="http://orkg.org/core#Paper"/>
     <orkg:hasResearchContribution>
-      <orkg:ResearchContribution rdf:about="contribution_ORKG_default">
+      <orkg:ResearchContribution rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6/contribution_ORKG_default">
           <orkg_property:background>This is the secret background of our research.</orkg_property:background>
           <orkg_property:researchproblem>This is the secret problem statement of our research.</orkg_property:researchproblem>
           <orkg_property:method>These are the secret methods of our research.</orkg_property:method>
