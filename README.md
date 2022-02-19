@@ -13,7 +13,7 @@ Additionally the contributions can easily be added to the actual ORKG knowledge 
     - [Contribution Numbering](#contribution-numbering)
     - [Invisible Markup](#invisible-markup)
     - [Referring to Entities](#referring-to-entities)
-    - [Defining Custom Property Commands](#defining-custom-property-commands)
+    - [Defining Custom Properties](#defining-custom-property-commands)
   - [Testing](#testing)
 
 ## Installation
@@ -116,9 +116,9 @@ As can be seen in the rendered pdf the marked properties can not be distinguishe
 Additional to the 5 standard ones, there are a big number of more specific properties which are optional and are generally used in a specific domain of science. For example properties of _p-value_ or _accuracy_ are useful for studies that include statistical examinations and can be attached to a contribution with `\contribution{p-value}{0.05}` and `\contribution{accuracy}{0.876}`. It is far more valuabe to use properties which were also used by other people. Consult the [ORKG web portal](https://www.orkg.org/orkg/) to find properties which are already used on papers related to your work.  
 
 ### Contribution Numbering
-A scientific paper typically has a small number of distinct contributions. If we want to distinguish more than one contribution, we can number the contributions in the arguments of the marked properties. For example, an annotation of `researchproblem[1]{..}` and `researchproblem[2]{..}` adds two contributions with the respective research problems. These two contributions can have their own background, methods and results which must be numbered accordingly.
+A scientific paper typically has a small number of distinct contributions. If we want to distinguish more than one contribution, we can number the contributions in the arguments of the marked properties. For example, an annotation of `\researchproblem[1]{..}` and `\researchproblem[2]{..}` adds two contributions with the respective research problems. These two contributions can have their own background, methods and results which must be numbered accordingly.
 
-If two problems have a property in common (e.g. the same background, or methods), we can assign the same property to two contributions using a comma between the arguments. Example: `method[1,2]{..}`.
+If two problems have a property in common (e.g. the same background, or methods), we can assign the same property to two contributions using a comma between the arguments. Example: `\method[1,2]{..}`.
 
 ### Invisible Markup
 At some point, especially for advanced modeling, it will be desirable to add annotations to the metadata which are not explicitly rendered in text. This can be achieved using the starred variant of the defined or self-defined LaTeX commands.
@@ -144,7 +144,7 @@ Instead of using natural language to represent objects, we usually prefer URIs w
 
 ```latex
 \documentclass{article}
-\usepackage{orkg4latex}
+\usepackage{metasci}
 
 \begin{document}
 % adds a link to the URI of an entity as background
@@ -171,33 +171,36 @@ To add the entity without the hyperlink we can specify the entity with invisible
 The role of \background*{\uri{https://www.orkg.org/orkg/resource/R12259}} antibiotic therapy in managing acute bacterial sinusitis (ABS) in children is controversial...
 ```
 
-### Defining Custom Property Commands
-It is possible to declare new property commands in your document preamble with `\addmetaproperty`. These commands can then be used to describe a contribution just like the predefined commands. To avoid clashes with already existing commands, you should use a prefix like _MetaSci_ in the property name. 
-
-For example a minimal LaTeX file could look like this:
-
-```latex
-\documentclass{article}
-\usepackage{metasci}
-\addmetaproperty{MetaSciPrecision}
-\begin{document}
-We achieved a precision of \MetaSciPrecision{0.75}.
-...
-```
-
-In the XMP metadata file, the self-defined properties will be added to the namespace `http://orkg.org/property`. If you want to use a property which is already defined semantically on the web, it is also possible to give your own namespace.
-For example, suppose we want to use a property of an already existing ontology like the [argument model ontology](https://sparontologies.github.io/amo/current/amo.html). We can use their property `has_claim` by defining it in our preamble as follows.
+### Defining Custom Properties
+It is possible to declare new properties (with custom namespaces) in your document preamble with `\addmetaproperty`.
+The namespace specification must be added as a comma-separated pair of prefix and uri in the optional argument. If no namesapce is defined the self-defined properties will be added to the namespace `http://orkg.org/property` (which is also the case if you just use them with out defining).
+However, it might occur that you want to use a property which is already defined semantically in an ontology on the web. In this case you can add the namespace to the annotation schema und use the property in you text.
+For example, suppose we want to use a property of an already existing ontology like the [argument model ontology](https://sparontologies.github.io/amo/current/amo.html). We can use their property `has_claim` by defining it in our preamble with the `\addmetaproperty` command like this:
 
 ```latex
 \documentclass{article}
 \usepackage{metasci}
-\addmetaproperty[http://purl.org/spar/amo]{AMOhasclaim}
+\addmetaproperty[amo, http://purl.org/spar/amo/]{has_claim}
 \begin{document}
-We make the claim that the \AMOhasclaim{earth is round}.
+We make the claim that \contribution{has_claim}{the earth is round}.
 ...
 ```
 
-The metadata will list the custom namespace and correctly apply it to the annotations of the property.
+If there are properties with the same name but different meaning depending on the context we can specify the namespace in the actual annotation as well. For example there is a meaning of claim as a legal term denoting the extent of a patent application.
+Using two properties with the same name in a document can be handled like this:
+
+```latex
+\documentclass{article}
+\usepackage{metasci}
+\addmetaproperty[amo, http://purl.org/spar/amo/]{has_claim}
+\addmetaproperty[patent, https://other.type/of/]{has_claim}
+\begin{document}
+\contribution{amo:has_claim}{The earth is round}.
+Our patent has the following claim: \contribution{patent:has_claim}{An apparatus for catching mice, said apparatus comprising a base, a spring member coupled to the base, and a cage}.
+...
+```
+
+The metadata will list the custom namespacse and correctly apply it to the annotations of the property.
 
 ## Testing
 A number of integration tests can be run with:
