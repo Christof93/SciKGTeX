@@ -447,10 +447,7 @@ end
 
 function XMP:property_has_namespace(annotation_type)
     annotation_type_t = annotation_type:split(':')
-    print(#annotation_type_t)
-    for i,f in ipairs(annotation_type_t) do 
-        print(f)
-    end
+    
     if #annotation_type_t > 1 then
         annotation_type = annotation_type_t[2]
         prefix = annotation_type_t[1]
@@ -458,7 +455,6 @@ function XMP:property_has_namespace(annotation_type)
         annotation_type = annotation_type_t[1]
         prefix = nil
     end
-    print(prefix, annotation_type)
     return prefix, annotation_type 
 end
 

@@ -1,10 +1,12 @@
 <?xpacket begin="?" id="48fdc517-5814-4d0c-cd03-0c296941c6"?>
 <x:xmpmeta xmlns:x="adobe:ns:meta/">
 <rdf:RDF 
-  xmlns:ex="http://www.example.org"
-  xmlns:ex2="http://www.other-example.org"
+  xmlns:amo="http://purl.org/spar/amo/"
+  xmlns:ex="http://www.example.org/"
+  xmlns:ex2="http://www.other-example.org/"
   xmlns:orkg="http://orkg.org/core#"
   xmlns:orkg_property="http://orkg.org/property/"
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
   <rdf:Description rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6">
@@ -13,6 +15,8 @@
       <orkg:ResearchContribution rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6/contribution_ORKG_default">
           <ex2:example>This is an example.</ex2:example>
           <ex:example>this is another example.</ex:example>
+          <amo:has_claim>the earth is round.</amo:has_claim>
+          <owl:sameAs><rdf:Description rdf:about="https://www.wikidata.org/wiki/Q2"></rdf:Description></owl:sameAs>
       </orkg:ResearchContribution>
     </orkg:hasResearchContribution>
   </rdf:Description>
