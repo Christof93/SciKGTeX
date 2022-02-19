@@ -13,7 +13,7 @@ Additionally the contributions can easily be added to the actual ORKG knowledge 
     - [Contribution Numbering](#contribution-numbering)
     - [Invisible Markup](#invisible-markup)
     - [Referring to Entities](#referring-to-entities)
-    - [Defining Custom Properties](#defining-custom-property-commands)
+    - [Defining Custom Properties](#defining-custom-properties)
   - [Testing](#testing)
 
 ## Installation
@@ -174,6 +174,7 @@ The role of \background*{\uri{https://www.orkg.org/orkg/resource/R12259}} antibi
 ### Defining Custom Properties
 It is possible to declare new properties (with custom namespaces) in your document preamble with `\addmetaproperty`.
 The namespace specification must be added as a comma-separated pair of prefix and uri in the optional argument. If no namesapce is defined the self-defined properties will be added to the namespace `http://orkg.org/property` (which is also the case if you just use them with out defining).
+
 However, it might occur that you want to use a property which is already defined semantically in an ontology on the web. In this case you can add the namespace to the annotation schema und use the property in you text.
 For example, suppose we want to use a property of an already existing ontology like the [argument model ontology](https://sparontologies.github.io/amo/current/amo.html). We can use their property `has_claim` by defining it in our preamble with the `\addmetaproperty` command like this:
 
@@ -196,7 +197,8 @@ Using two properties with the same name in a document can be handled like this:
 \addmetaproperty[patent, https://other.type/of/]{has_claim}
 \begin{document}
 \contribution{amo:has_claim}{The earth is round}.
-Our patent has the following claim: \contribution{patent:has_claim}{An apparatus for catching mice, said apparatus comprising a base, a spring member coupled to the base, and a cage}.
+Our patent has the following claim: \contribution{patent:has_claim}{An apparatus for catching mice,
+said apparatus comprising a base, a spring member coupled to the base, and a cage}.
 ...
 ```
 
