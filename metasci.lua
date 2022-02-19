@@ -445,21 +445,43 @@ function XMP:process_content(c)
     return c
 end
 
+function XMP:property_has_namespace(annotation_type)
+    annotation_type_t = annotation_type:split(':')
+    print(#annotation_type_t)
+    for i,f in ipairs(annotation_type_t) do 
+        print(f)
+    end
+    if #annotation_type_t > 1 then
+        annotation_type = annotation_type_t[2]
+        prefix = annotation_type_t[1]
+    else
+        annotation_type = annotation_type_t[1]
+        prefix = nil
+    end
+    print(prefix, annotation_type)
+    return prefix, annotation_type 
+end
+
 function XMP:add_annotation(contribution_ids, annotation_type, content, annotation_id)
     local annotation = {}
-    if contribution_ids == '' then
-        contribution_ids = '<default_contribution>'
-    end
-    contributions_ids_t = contribution_ids:split(',%s+?')
+    -- check if a namespace is attached to the property specification
+    prefix, annotation_type = self:property_has_namespace(annotation_type)
 
     annotation.content = content
     annotation.id = annotation_id
     annotation.type = self:escape_xml_tags(annotation_type)
-    annotation.prefix = self.property_ns[annotation.type] or 'orkg_property'
+
+    -- take the prefix given, the prefix saved in the namespace dictionary or the default ns 
+    annotation.prefix = prefix or self.property_ns[annotation.type] or 'orkg_property'
 
     -- register the use of the property in text
     MetaSci:register_property(annotation.type)
 
+    -- check if the annotation was numbered
+    if contribution_ids == '' then
+        contribution_ids = '<default_contribution>'
+    end
+    contributions_ids_t = contribution_ids:split(',%s+?')
     -- add the annotations at the specified contribution
     for i, contribution_id in ipairs(contributions_ids_t) do
         -- add a new contribution if it has not been added yet
