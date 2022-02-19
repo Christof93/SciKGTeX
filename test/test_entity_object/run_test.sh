@@ -13,4 +13,4 @@ else
     exit 0
 fi
 
-printf "\n\033[0;32m----------------------------### entity as object test PASS: XMP as expected! Successful warning! ###----------------------------------------\033[0m\n"
+printf "\n\033[0;32m----------------------------### entity as object test PASS: XMP as expected! ###----------------------------------------\033[0m\n"

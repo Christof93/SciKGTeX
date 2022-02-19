@@ -1,17 +1,25 @@
 RANDOM_SEED = math.randomseed(os.time())
-MATRIX_AND = {{0,0},{0,1} }
+MATRIX_AND = {{0,0},{0,1}}
 MATRIX_OR = {{0,1},{1,1}}
 HEXES = '0123456789abcdef'
 local MetaSci = {}
 MetaSci.whole_string = ""
 MetaSci.properties_used = {}
 MetaSci.property_commands = {}
+MetaSci.mandatory_properties = {
+    'researchproblem',
+    'background',
+    'method',
+    'result',
+    'conclusion'
+}
 MetaSci.PRODUCE_XMP_FILE = true
 MetaSci.WARNING_LEVEL = 1
 
 local XMP = {}
 XMP.lines = {}
 XMP.namespaces = {}
+XMP.property_ns = {}
 XMP.XMP_TOP = [[<x:xmpmeta xmlns:x="adobe:ns:meta/">]]
 XMP.XMP_BOTTOM = [[</rdf:RDF>
 </x:xmpmeta>]]
@@ -82,12 +90,6 @@ function spaces_to_underscores(s)
     return s:gsub('%s+','_')
 end
 
-function escape_xml_content(s)
-    s = s:gsub('&', '&amp;')
-    return s:gsub('<', '&lt;')
-end
-
-
 function remove_environments(s)
     s,c = s:gsub('\\begin%s*{.-}{.-}%s*','')
     s,c = s:gsub('\\begin%s*{.-}%s*','')
@@ -150,7 +152,7 @@ function remove_latex_commands(s)
         -- contribution normal
         ['\\contribution%s*{.-}%s*{(.*)}'] = '%1',
     }
-    for i,cmd in ipairs(MetaSci.property_commands) do
+    for cmd, used in pairs(MetaSci.property_commands) do
         -- []
         replacements['\\'.. cmd .. '%s*%[%d*%]%s*{(.*)}'] = '%1'
         -- normal command 
@@ -197,7 +199,6 @@ end
 
 -- hwaddr is a string: hexes delimited by colons. e.g.: 00:0c:29:69:41:c6
 function UUID:initialize(hwaddr)
-    -- bytes are treated as 8bit unsigned bytes.
     self._bytes = {
       math.random(0, 255),
       math.random(0, 255),
@@ -209,7 +210,7 @@ function UUID:initialize(hwaddr)
       math.random(0, 255),
       math.random(0, 255),
       math.random(0, 255),
-      -- no split() in lua. :(
+      -- should come from mac address
       tonumber(hwaddr:sub(1, 2), 16),
       tonumber(hwaddr:sub(4, 5), 16),
       tonumber(hwaddr:sub(7, 8), 16),
@@ -247,13 +248,13 @@ end
 function MetaSci:warn(warning_message, ...)
     if self.WARNING_LEVEL > 0 then
         texio.write_nl("term and log", 
-                [[Package orkg4latex Warning: ]] .. string.format(warning_message, ...))
+                [[Package MetaSci Warning: ]] .. string.format(warning_message, ...))
         texio.write_nl("term and log","\n")
     end
 end
 
 function MetaSci:error(warning_message, ...)
-    tex.error([[Package orkg4latex Error: ]] .. string.format(warning_message, ...))
+    tex.error([[Package MetaSci Error: ]] .. string.format(warning_message, ...))
 end
 
 MetaSci.command_factory = {}
@@ -269,58 +270,74 @@ MetaSci.command_factory.cmd_top_star_override = [[\WithSuffix\renewcommand\%s*[2
 MetaSci.command_factory.directlua_part = [[  \directlua{
     local content = "\luaescapestring{\unexpanded{#2}}"
     local belongs_to_contribution = "\luaescapestring{\unexpanded{#1}}"
-    MetaSci.XMP:add_annotation(belongs_to_contribution, '%s', '%s', content, 'annotation-id')
+    MetaSci.XMP:add_annotation(belongs_to_contribution, '%s', content, 'annotation-id')
   }]]
 
 MetaSci.command_factory.cmd_bottom = [[}]]
 MetaSci.command_factory.cmd_bottom_star = [[\ignorespaces}]]
 
-function MetaSci.command_factory:build_command(command_name, property_URI)
+function MetaSci.command_factory:build_command(command_name)
     full_cmd = self.cmd_top .. "\n" .. self.directlua_part .. "\n  #2\n" .. self.cmd_bottom
-    formatted_cmd = string.format(full_cmd, command_name, command_name, property_URI)
+    formatted_cmd = string.format(full_cmd, command_name, command_name)
     for i, line in ipairs(formatted_cmd:split("\n")) do
         tex.print(line .. "%")
     end
 end
 
-function MetaSci.command_factory:build_star_command(command_name, property_URI)
+function MetaSci.command_factory:build_star_command(command_name)
     full_cmd = self.cmd_top_star .. "\n" .. self.directlua_part .. "\n" .. self.cmd_bottom_star
-    formatted_cmd = string.format(full_cmd, command_name, command_name, property_URI)
+    formatted_cmd = string.format(full_cmd, command_name, command_name)
     for i, line in ipairs(formatted_cmd:split("\n")) do
         tex.print(line .. "%")
     end
 end
 
-function MetaSci.command_factory:override_command(command_name, property_URI)
+function MetaSci.command_factory:override_command(command_name)
     full_cmd = self.cmd_top_override .. "\n" .. self.directlua_part .. "\n  #2\n" .. self.cmd_bottom
-    formatted_cmd = string.format(full_cmd, command_name, command_name, property_URI)
+    formatted_cmd = string.format(full_cmd, command_name, command_name)
     for i, line in ipairs(formatted_cmd:split("\n")) do
         tex.print(line .. "%")
     end
 end
 
-function MetaSci.command_factory:override_star_command(command_name, property_URI)
+function MetaSci.command_factory:override_star_command(command_name)
     full_cmd = self.cmd_top_star_override .. "\n" .. self.directlua_part .. "\n" .. self.cmd_bottom_star
-    formatted_cmd = string.format(full_cmd, command_name, command_name, property_URI)
+    formatted_cmd = string.format(full_cmd, command_name, command_name)
     for i, line in ipairs(formatted_cmd:split("\n")) do
         tex.print(line .. "%")
     end
 end
 
-function MetaSci:make_new_property(new_property, namespace)
+function MetaSci:make_new_command(new_property, namespace)
     -- check if property already exists
-    if self.properties_used[new_property]~=nil then
-        self:warn([[Method addmetaproperty: Repeated definition.
+    if self.property_commands[new_property]~=nil then
+        self:warn([[Method newpropertycommand: Repeated definition.
     Command %s already exists!
     Are you sure you want to override it?]], new_property)
+        self:add_property(new_property, namespace)
         self.command_factory:override_command(new_property, namespace)
         self.command_factory:override_star_command(new_property, namespace)
     else
-        self.properties_used[new_property] = false
-        table.insert(self.property_commands, new_property)
+        self.property_commands[new_property] = false
+        self:add_property(new_property, namespace)
         self.command_factory:build_command(new_property, namespace)
         self.command_factory:build_star_command(new_property, namespace)
     end
+end
+
+function MetaSci:add_property(new_property, namespace)
+    new_property = self.XMP:escape_xml_tags(new_property)
+    -- check if property already exists
+    if self.properties_used[new_property]~=nil then
+        self:warn([[Method addmetaproperty: Repeated definition.
+    Property %s already added!
+    Are you sure you want to replace it?]], new_property)
+    -- if not make it known to the object
+    else
+        self.properties_used[new_property] = false
+    end
+    ns_prefix = self.XMP:extract_namespace_prefix(namespace)
+    self.XMP.property_ns[new_property] = ns_prefix
 end
 
 function MetaSci:register_property(prop_type)
@@ -330,9 +347,10 @@ end
 function MetaSci:warn_unused_command()
     warning_message = [[No %s annotation found!
     Are you sure you don't want to mark an entity with %s?]]
-    for env, val in pairs(self.properties_used) do
-        if not val then
-            self:warn(warning_message, env, env);
+    for i, p in ipairs(self.mandatory_properties) do
+        used = self.properties_used[p]
+        if not used then
+            self:warn(warning_message, p, p);
         end
     end
 end
@@ -346,6 +364,28 @@ function MetaSci:print_entity(uri, label)
 end
 
 ---------------------------- XMP class methods -------------------------------
+
+function XMP:escape_xml_tags(s)
+    s = spaces_to_underscores(s)
+    s, i = s:gsub('[^%a%d%.-_]','')
+    if i > 0 then
+        MetaSci:warn([[Method escape_xml_tags: Forbidden characters.
+        Property %s can only contain letters, digits, underscores, hyphens and periods!
+        Forbidden characters removed.]], s)
+    end
+    s, i = s:gsub('^([Xx][Mm][Ll])','_%1')
+    if i > 0 then
+        MetaSci:warn([[Method escape_xml_tags: Forbidden characters.
+        Property %s can not start with xml!
+        Changed to _xml.]], s)
+    end
+    return s
+end
+
+function XMP:escape_xml_content(s)
+    s = s:gsub('&', '&amp;')
+    return s:gsub('<', '&lt;')
+end
 
 function XMP:add_line(...)
     table.insert(self.lines, string.format(...))
@@ -396,7 +436,7 @@ function XMP:extract_namespace_prefix(ns_arg)
 end
 
 function XMP:process_content(c)
-    c = escape_xml_content(c)
+    c = self:escape_xml_content(c)
     entity = resolve_entity(c)
     if entity ~= false then
         return entity
@@ -405,7 +445,7 @@ function XMP:process_content(c)
     return c
 end
 
-function XMP:add_annotation(contribution_ids, annotation_type, annotation_type_uri, content, annotation_id)
+function XMP:add_annotation(contribution_ids, annotation_type, content, annotation_id)
     local annotation = {}
     if contribution_ids == '' then
         contribution_ids = '<default_contribution>'
@@ -414,11 +454,11 @@ function XMP:add_annotation(contribution_ids, annotation_type, annotation_type_u
 
     annotation.content = content
     annotation.id = annotation_id
-    annotation.type = self:process_content(spaces_to_underscores(annotation_type))
-    annotation.prefix = self:extract_namespace_prefix(annotation_type_uri) or 'orkg_property'
+    annotation.type = self:escape_xml_tags(annotation_type)
+    annotation.prefix = self.property_ns[annotation.type] or 'orkg_property'
 
     -- register the use of the property in text
-    MetaSci:register_property(annotation_type)
+    MetaSci:register_property(annotation.type)
 
     -- add the annotations at the specified contribution
     for i, contribution_id in ipairs(contributions_ids_t) do
@@ -468,7 +508,7 @@ function XMP:generate_xmp_string(lb_char)
         for i, cb_id in pairs(sorted_contributions) do
             contribution = self.paper.contributions[cb_id]
             self:add_line('    <orkg:hasResearchContribution>')
-            self:add_line('      <orkg:ResearchContribution rdf:about=""https://www.orkg.org/orkg/paper/%s">', 
+            self:add_line('      <orkg:ResearchContribution rdf:about="https://www.orkg.org/orkg/paper/%s">', 
                 self.paper.id .. "/" ..contribution.id)
             for j, property in ipairs(contribution.properties) do
                 self:add_line('          <%s:%s>%s</%s:%s>', property.prefix, property.type, 

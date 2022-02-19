@@ -36,7 +36,16 @@
   \directlua{%
     local new_property = "\luaescapestring{\unexpanded{#2}}"%
     local ns = "\luaescapestring{\unexpanded{#1}}"%
-    MetaSci:make_new_property(new_property, ns)%
+    MetaSci:add_property(new_property, ns)%
+  }%
+  \ignorespaces
+}%
+
+\newcommand{\newpropertycommand}[2][]{%
+  \directlua{%
+    local new_property = "\luaescapestring{\unexpanded{#2}}"%
+    local ns = "\luaescapestring{\unexpanded{#1}}"%
+    MetaSci:make_new_command(new_property, ns)%
   }%
   \ignorespaces
 }%
@@ -54,7 +63,7 @@
     local contrib_n = "\luaescapestring{\unexpanded{#1}}"%
     local property = "\luaescapestring{\unexpanded{#2}}"%
     local value = "\luaescapestring{\unexpanded{#3}}"%
-    MetaSci.XMP:add_annotation(contrib_n, property, '', value, 'annotation-id')%
+    MetaSci.XMP:add_annotation(contrib_n, property, value, 'annotation-id')%
   }%
   #3%
 }%
@@ -64,16 +73,16 @@
     local contrib_n = "\luaescapestring{\unexpanded{#1}}"%
     local property = "\luaescapestring{\unexpanded{#2}}"%
     local value = "\luaescapestring{\unexpanded{#3}}"%
-    MetaSci.XMP:add_annotation(contrib_n, property, '', value, 'annotation-id')%
+    MetaSci.XMP:add_annotation(contrib_n, property, value, 'annotation-id')%
   }%
   \ignorespaces
 }%
 
-\addmetaproperty{researchproblem}
-\addmetaproperty{result}
-\addmetaproperty{method}
-\addmetaproperty{background}
-\addmetaproperty{conclusion}
+\newpropertycommand{researchproblem}
+\newpropertycommand{result}
+\newpropertycommand{method}
+\newpropertycommand{background}
+\newpropertycommand{conclusion}
  
 %% Copyright (C) 2021 by You christofbless@gmail.com
 %% 

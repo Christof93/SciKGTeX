@@ -10,9 +10,9 @@
     <rdf:type rdf:resource="http://orkg.org/core#Paper"/>
     <orkg:hasResearchContribution>
       <orkg:ResearchContribution rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6/contribution_ORKG_default">
-          <orkg_property:ORKGexampleI>This is an example.</orkg_property:ORKGexampleI>
-          <orkg_property:ORKGexampleII>This is another example.</orkg_property:ORKGexampleII>
-          <ex:ORKGexampleIII>This is another example.</ex:ORKGexampleIII>
+          <orkg_property:exampleI>This is an example.</orkg_property:exampleI>
+          <orkg_property:exampleII>This is another example.</orkg_property:exampleII>
+          <ex:exampleIII>This is another example.</ex:exampleIII>
       </orkg:ResearchContribution>
     </orkg:hasResearchContribution>
   </rdf:Description>

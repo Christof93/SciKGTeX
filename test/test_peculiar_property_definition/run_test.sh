@@ -13,7 +13,7 @@ else
     exit 0
 fi
 
-if grep -q "LaTeX Error: Command \\\section already defined" $1/test.log; then
+if grep -q "Warning: Method escape_xml_tags: Forbidden characters." $1/test.log; then
     printf "\n\033[0;32m----------------------------### peculiar property definition test PASS: XMP as expected! Successful error! ###----------------------------------------\033[0m\n"
 else
     printf "\n\033[0;31m----------------------------### peculiar property definition test FAIL: No error produced! ###------------------------------------\033[0m\n"

@@ -10,7 +10,7 @@
     <rdf:type rdf:resource="http://orkg.org/core#Paper"/>
     <orkg:hasResearchContribution>
       <orkg:ResearchContribution rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6/contribution_ORKG_default">
-          <ex:ORKGexample>This is an example.</ex:ORKGexample>
+          <ex:example>This is an example.</ex:example>
       </orkg:ResearchContribution>
     </orkg:hasResearchContribution>
   </rdf:Description>
