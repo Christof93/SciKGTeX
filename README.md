@@ -1,4 +1,4 @@
-<img src = "documentation/pictures/logo_without_doc.png?raw=true" alt="MetaSci Logo" width="50"/>
+<img src = "documentation/pictures/logo_without_doc.png?raw=true" alt="MetaSci Logo" width="50" align="right"/>
 
 # MetaSci
 MetaSci makes it possible to annotate specific **research contributions** directly in the LaTeX source code. The idea of extracting research contributions from scholarly publications is derived from the [Open Research Knowledge Graph (ORKG)](https://www.orkg.org/orkg/).
