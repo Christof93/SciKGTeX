@@ -1,6 +1,6 @@
 <img src = "documentation/pictures/logo_without_doc.png?raw=true" alt="MetaSci Logo" width="50" align="right"/>
 
-# MetaSci
+# SciKGTeX
 MetaSci makes it possible to annotate specific **research contributions** directly in the LaTeX source code. The idea of extracting research contributions from scholarly publications is derived from the [Open Research Knowledge Graph (ORKG)](https://www.orkg.org/orkg/).
 
 With MetaSci, authors of scientific publications can enrich their documents with structured, reduced and machine-readable information which represents the key points of the content they want to communicate.  The production of this additional information improves electronic archiving of the information for the future and boosts discoverability in search engines and recommendation engines.
