@@ -1,6 +1,6 @@
 #!/bin/bash
-cp metasci.sty test
-cp metasci.lua test
+cp scikgtex.sty test
+cp scikgtex.lua test
 cd test
 
 if [ ! -z $1 ] 

@@ -1,5 +1,5 @@
 %% ----------------------------------------------------------------
-%% metasci --- MetaSci makes it possible to annotate specific
+%% scikgtex --- SciKGTeX makes it possible to annotate specific
 %% research contributions directly in the LaTeX source code. The 
 %% idea of extracting research contributions from scholarly 
 %% publications is derived from the Open Research Knowledge Graph 
@@ -10,7 +10,7 @@
 %% ----------------------------------------------------------------
 %% 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{metasci}[2021/12/21 v1.0]
+\ProvidesPackage{SciKGTeX}[2021/12/21 v1.0]
 
 \def\useignorespacesandallpars#1\ignorespaces\fi{%
 #1\fi\ignorespacesandallpars}
@@ -29,14 +29,14 @@
 \errorcontextlines=5
 
 \directlua {
-  MetaSci = require('metasci')
+  SciKGTeX = require('scikgtex')
 }
 
 \newcommand{\addmetaproperty}[2][]{%
   \directlua{%
     local new_property = "\luaescapestring{\unexpanded{#2}}"%
     local ns = "\luaescapestring{\unexpanded{#1}}"%
-    MetaSci:add_property(new_property, ns)%
+    SciKGTeX:add_property(new_property, ns)%
   }%
   \ignorespaces
 }%
@@ -45,7 +45,7 @@
   \directlua{%
     local new_property = "\luaescapestring{\unexpanded{#2}}"%
     local ns = "\luaescapestring{\unexpanded{#1}}"%
-    MetaSci:make_new_command(new_property, ns)%
+    SciKGTeX:make_new_command(new_property, ns)%
   }%
   \ignorespaces
 }%
@@ -54,7 +54,7 @@
   \directlua{%
     local label = "\luaescapestring{\unexpanded{#2}}"%
     local uri = "\luaescapestring{\unexpanded{#1}}"%
-    MetaSci:print_entity(uri, label)%
+    SciKGTeX:print_entity(uri, label)%
   }%
 }%
 
@@ -63,7 +63,7 @@
     local contrib_n = "\luaescapestring{\unexpanded{#1}}"%
     local property = "\luaescapestring{\unexpanded{#2}}"%
     local value = "\luaescapestring{\unexpanded{#3}}"%
-    MetaSci.XMP:add_annotation(contrib_n, property, value, 'annotation-id')%
+    SciKGTeX.XMP:add_annotation(contrib_n, property, value, 'annotation-id')%
   }%
   #3%
 }%
@@ -73,7 +73,7 @@
     local contrib_n = "\luaescapestring{\unexpanded{#1}}"%
     local property = "\luaescapestring{\unexpanded{#2}}"%
     local value = "\luaescapestring{\unexpanded{#3}}"%
-    MetaSci.XMP:add_annotation(contrib_n, property, value, 'annotation-id')%
+    SciKGTeX.XMP:add_annotation(contrib_n, property, value, 'annotation-id')%
   }%
   \ignorespaces
 }%
@@ -96,8 +96,8 @@
 %% This work is "maintained" (as per LPPL maintenance status) by
 %% You.
 %% 
-%% This work consists of the file metasci.sty
-%% and the lua file               metasci.lua.
+%% This work consists of the file scikgtex.sty
+%% and the lua file               scikgtex.lua.
 %% 
 %%
-%% End of file `metasci.sty'.
+%% End of file `scikgtex.sty'.

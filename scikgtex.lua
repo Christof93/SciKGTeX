@@ -2,19 +2,19 @@ RANDOM_SEED = math.randomseed(os.time())
 MATRIX_AND = {{0,0},{0,1}}
 MATRIX_OR = {{0,1},{1,1}}
 HEXES = '0123456789abcdef'
-local MetaSci = {}
-MetaSci.whole_string = ""
-MetaSci.properties_used = {}
-MetaSci.property_commands = {}
-MetaSci.mandatory_properties = {
+local SciKGTeX = {}
+SciKGTeX.whole_string = ""
+SciKGTeX.properties_used = {}
+SciKGTeX.property_commands = {}
+SciKGTeX.mandatory_properties = {
     'researchproblem',
     'background',
     'method',
     'result',
     'conclusion'
 }
-MetaSci.PRODUCE_XMP_FILE = true
-MetaSci.WARNING_LEVEL = 1
+SciKGTeX.PRODUCE_XMP_FILE = true
+SciKGTeX.WARNING_LEVEL = 1
 
 local XMP = {}
 XMP.lines = {}
@@ -152,7 +152,7 @@ function remove_latex_commands(s)
         -- contribution normal
         ['\\contribution%s*{.-}%s*{(.*)}'] = '%1',
     }
-    for cmd, used in pairs(MetaSci.property_commands) do
+    for cmd, used in pairs(SciKGTeX.property_commands) do
         -- []
         replacements['\\'.. cmd .. '%s*%[%d*%]%s*{(.*)}'] = '%1'
         -- normal command 
@@ -241,42 +241,42 @@ function UUID:initialize(hwaddr)
 
 ---------------------------- Main class methods -------------------------------
 
-function MetaSci:set_warning_level(wl)
+function SciKGTeX:set_warning_level(wl)
     self.WARNING_LEVEL = wl
 end
 
-function MetaSci:warn(warning_message, ...)
+function SciKGTeX:warn(warning_message, ...)
     if self.WARNING_LEVEL > 0 then
         texio.write_nl("term and log", 
-                [[Package MetaSci Warning: ]] .. string.format(warning_message, ...))
+                [[Package SciKGTeX Warning: ]] .. string.format(warning_message, ...))
         texio.write_nl("term and log","\n")
     end
 end
 
-function MetaSci:error(warning_message, ...)
-    tex.error([[Package MetaSci Error: ]] .. string.format(warning_message, ...))
+function SciKGTeX:error(warning_message, ...)
+    tex.error([[Package SciKGTeX Error: ]] .. string.format(warning_message, ...))
 end
 
-MetaSci.command_factory = {}
+SciKGTeX.command_factory = {}
 
-MetaSci.command_factory.cmd_top = [[\newcommand{\%s}[2][]{]]
+SciKGTeX.command_factory.cmd_top = [[\newcommand{\%s}[2][]{]]
  
-MetaSci.command_factory.cmd_top_star = [[\WithSuffix\newcommand\%s*[2][]{]]
+SciKGTeX.command_factory.cmd_top_star = [[\WithSuffix\newcommand\%s*[2][]{]]
  
-MetaSci.command_factory.cmd_top_override = [[\renewcommand{\%s}[2][]{]]
+SciKGTeX.command_factory.cmd_top_override = [[\renewcommand{\%s}[2][]{]]
 
-MetaSci.command_factory.cmd_top_star_override = [[\WithSuffix\renewcommand\%s*[2][]{]]
+SciKGTeX.command_factory.cmd_top_star_override = [[\WithSuffix\renewcommand\%s*[2][]{]]
 
-MetaSci.command_factory.directlua_part = [[  \directlua{
+SciKGTeX.command_factory.directlua_part = [[  \directlua{
     local content = "\luaescapestring{\unexpanded{#2}}"
     local belongs_to_contribution = "\luaescapestring{\unexpanded{#1}}"
-    MetaSci.XMP:add_annotation(belongs_to_contribution, '%s', content, 'annotation-id')
+    SciKGTeX.XMP:add_annotation(belongs_to_contribution, '%s', content, 'annotation-id')
   }]]
 
-MetaSci.command_factory.cmd_bottom = [[}]]
-MetaSci.command_factory.cmd_bottom_star = [[\ignorespaces}]]
+SciKGTeX.command_factory.cmd_bottom = [[}]]
+SciKGTeX.command_factory.cmd_bottom_star = [[\ignorespaces}]]
 
-function MetaSci.command_factory:build_command(command_name)
+function SciKGTeX.command_factory:build_command(command_name)
     full_cmd = self.cmd_top .. "\n" .. self.directlua_part .. "\n  #2\n" .. self.cmd_bottom
     formatted_cmd = string.format(full_cmd, command_name, command_name)
     for i, line in ipairs(formatted_cmd:split("\n")) do
@@ -284,7 +284,7 @@ function MetaSci.command_factory:build_command(command_name)
     end
 end
 
-function MetaSci.command_factory:build_star_command(command_name)
+function SciKGTeX.command_factory:build_star_command(command_name)
     full_cmd = self.cmd_top_star .. "\n" .. self.directlua_part .. "\n" .. self.cmd_bottom_star
     formatted_cmd = string.format(full_cmd, command_name, command_name)
     for i, line in ipairs(formatted_cmd:split("\n")) do
@@ -292,7 +292,7 @@ function MetaSci.command_factory:build_star_command(command_name)
     end
 end
 
-function MetaSci.command_factory:override_command(command_name)
+function SciKGTeX.command_factory:override_command(command_name)
     full_cmd = self.cmd_top_override .. "\n" .. self.directlua_part .. "\n  #2\n" .. self.cmd_bottom
     formatted_cmd = string.format(full_cmd, command_name, command_name)
     for i, line in ipairs(formatted_cmd:split("\n")) do
@@ -300,7 +300,7 @@ function MetaSci.command_factory:override_command(command_name)
     end
 end
 
-function MetaSci.command_factory:override_star_command(command_name)
+function SciKGTeX.command_factory:override_star_command(command_name)
     full_cmd = self.cmd_top_star_override .. "\n" .. self.directlua_part .. "\n" .. self.cmd_bottom_star
     formatted_cmd = string.format(full_cmd, command_name, command_name)
     for i, line in ipairs(formatted_cmd:split("\n")) do
@@ -308,7 +308,7 @@ function MetaSci.command_factory:override_star_command(command_name)
     end
 end
 
-function MetaSci:make_new_command(new_property, namespace)
+function SciKGTeX:make_new_command(new_property, namespace)
     -- check if property already exists
     if self.property_commands[new_property]~=nil then
         self:warn([[Method newpropertycommand: Repeated definition.
@@ -325,7 +325,7 @@ function MetaSci:make_new_command(new_property, namespace)
     end
 end
 
-function MetaSci:add_property(new_property, namespace)
+function SciKGTeX:add_property(new_property, namespace)
     new_property = self.XMP:escape_xml_tags(new_property)
     -- check if property already exists
     if self.properties_used[new_property]~=nil then
@@ -340,11 +340,11 @@ function MetaSci:add_property(new_property, namespace)
     self.XMP.property_ns[new_property] = ns_prefix
 end
 
-function MetaSci:register_property(prop_type)
+function SciKGTeX:register_property(prop_type)
     self.properties_used[prop_type] = true
 end
 
-function MetaSci:warn_unused_command()
+function SciKGTeX:warn_unused_command()
     warning_message = [[No %s annotation found!
     Are you sure you don't want to mark an entity with %s?]]
     for i, p in ipairs(self.mandatory_properties) do
@@ -355,7 +355,7 @@ function MetaSci:warn_unused_command()
     end
 end
 
-function MetaSci:print_entity(uri, label)
+function SciKGTeX:print_entity(uri, label)
     if label ~= "" then
         tex.print(string.format('\\href{%s}{%s}',uri , label))
     else
@@ -369,13 +369,13 @@ function XMP:escape_xml_tags(s)
     s = spaces_to_underscores(s)
     s, i = s:gsub('[^%a%d%.-_]','')
     if i > 0 then
-        MetaSci:warn([[Method escape_xml_tags: Forbidden characters.
+        SciKGTeX:warn([[Method escape_xml_tags: Forbidden characters.
         Property %s can only contain letters, digits, underscores, hyphens and periods!
         Forbidden characters removed.]], s)
     end
     s, i = s:gsub('^([Xx][Mm][Ll])','_%1')
     if i > 0 then
-        MetaSci:warn([[Method escape_xml_tags: Forbidden characters.
+        SciKGTeX:warn([[Method escape_xml_tags: Forbidden characters.
         Property %s can not start with xml!
         Changed to _xml.]], s)
     end
@@ -411,12 +411,12 @@ function XMP:extract_namespace_prefix(ns_arg)
     uri_and_prefix = ns_arg:split(',%s+?')
 
     if #uri_and_prefix < 2 then
-        MetaSci:error([[Method addmetaproperty: No prefix found.
+        SciKGTeX:error([[Method addmetaproperty: No prefix found.
     Unknown prefix, URI specification: %s.
     Please specify the arguments as [prefix, URI]!]], ns_arg)
         return nil
     elseif #uri_and_prefix > 2 then
-        MetaSci:warn([[Method addmetaproperty: Too many arguments.
+        SciKGTeX:warn([[Method addmetaproperty: Too many arguments.
     Too many arguments in prefix, URI specification: %s.
     Excess arguments are ignored.]], ns_arg)
     end
@@ -425,7 +425,7 @@ function XMP:extract_namespace_prefix(ns_arg)
         message = [[Method addmetaproperty: Invalid URI.
     The given URI %s is not a valid choice!
     Please use a resolvable URI starting with 'http'.]]
-        MetaSci:error(message, uri_and_prefix[2])
+        SciKGTeX:error(message, uri_and_prefix[2])
         return nil
     end
     -- add the namespace if it has not been added yet    
@@ -471,7 +471,7 @@ function XMP:add_annotation(contribution_ids, annotation_type, content, annotati
     annotation.prefix = prefix or self.property_ns[annotation.type] or 'orkg_property'
 
     -- register the use of the property in text
-    MetaSci:register_property(annotation.type)
+    SciKGTeX:register_property(annotation.type)
 
     -- check if the annotation was numbered
     if contribution_ids == '' then
@@ -567,7 +567,7 @@ function XMP:dump_metadata()
 end
 
 luatexbase.add_to_callback('stop_run', function()
-    MetaSci:warn_unused_command()
+    SciKGTeX:warn_unused_command()
 end, 'at_end')
 
 --  Writing metadata packets
@@ -576,7 +576,7 @@ luatexbase.add_to_callback('finish_pdffile', function()
         local metadata_obj = XMP:attach_metadata_pdfstream()
         local catalog = pdf.getcatalog() or ''
         pdf.setcatalog(catalog..string.format('/Metadata %s 0 R', metadata_obj))
-        if MetaSci.PRODUCE_XMP_FILE then
+        if SciKGTeX.PRODUCE_XMP_FILE then
             XMP:dump_metadata()
         end
     end
@@ -599,5 +599,5 @@ XMP:add_namespace("rdfs","http://www.w3.org/2000/01/rdf-schema#")
 XMP:add_namespace("orkg","http://orkg.org/core#")
 XMP:add_namespace("orkg_property","http://orkg.org/property/")
 
-MetaSci.XMP = XMP
-return MetaSci
+SciKGTeX.XMP = XMP
+return SciKGTeX
