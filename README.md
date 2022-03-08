@@ -5,7 +5,7 @@ MetaSci makes it possible to annotate specific **research contributions** direct
 
 With MetaSci, authors of scientific publications can enrich their documents with structured, reduced and machine-readable information which represents the key points of the content they want to communicate.  The production of this additional information improves electronic archiving of the information for the future and boosts discoverability in search engines and recommendation engines.
 The contribution data is embedded into the PDF's XMP metadata where it can be retrieved by anyone who obtains the PDF document and persist for the lifetime of the document.
-Additionally the contributions can easily be added to the actual ORKG knowledge graph by just uploading the annotated document to the ORKG web portal.
+Additionally, the contributions can easily be added to scientific knowledge graphs like the ORKG.
 
 ##### Table of Contents
   - [Installation](#installation)
