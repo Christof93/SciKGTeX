@@ -1,9 +1,9 @@
-<img src = "documentation/pictures/logo_without_doc.png?raw=true" alt="MetaSci Logo" width="50" align="right"/>
+<img src = "documentation/pictures/logo_without_doc.png?raw=true" alt="SciKGTeX Logo" width="50" align="right"/>
 
 # SciKGTeX
-MetaSci makes it possible to annotate specific **research contributions** directly in the LaTeX source code. The idea of extracting research contributions from scholarly publications is derived from the [Open Research Knowledge Graph (ORKG)](https://www.orkg.org/orkg/).
+SciKGTeX makes it possible to annotate specific **research contributions** directly in the LaTeX source code. The idea of extracting research contributions from scholarly publications is derived from the [Open Research Knowledge Graph (ORKG)](https://www.orkg.org/orkg/).
 
-With MetaSci, authors of scientific publications can enrich their documents with structured, reduced and machine-readable information which represents the key points of the content they want to communicate.  The production of this additional information improves electronic archiving of the information for the future and boosts discoverability in search engines and recommendation engines.
+With SciKGTeX, authors of scientific publications can enrich their documents with structured, reduced and machine-readable information which represents the key points of the content they want to communicate.  The production of this additional information improves electronic archiving of the information for the future and boosts discoverability in search engines and recommendation engines.
 The contribution data is embedded into the PDF's XMP metadata where it can be retrieved by anyone who obtains the PDF document and persist for the lifetime of the document.
 Additionally, the contributions can easily be added to scientific knowledge graphs like the ORKG.
 
@@ -20,8 +20,8 @@ Additionally, the contributions can easily be added to scientific knowledge grap
 
 ## Installation
 1. Clone this repository
-2. Move the `metasci.lua` and `metasci.sty` files to your latex project
-3. Set `\usepackage{metasci}` in your document preamble to use the package
+2. Move the `scikgtex.lua` and `scikgtex.sty` files to your latex project
+3. Set `\usepackage{scikgtex}` in your document preamble to use the package
 
 It is necessary to compile your LaTeX source with LuaLaTeX for the package to work. This is typically straightforward with most modern LaTeX environments.
 In Overleaf it can be configured like this for example:
@@ -52,7 +52,7 @@ Wald, Ellen R., David Nash, and Jens Eickhoff. “Effectiveness of Amoxicillin/C
 
 ```latex
 \documentclass{article}
-\usepackage{metasci}
+\usepackage{scikgtex}
 
 \title{Effectiveness of Amoxicillin/Clavulanate Potassium in the Treatment of Acute Bacterial Sinusitis in Children.}
 \author{Ellen R. Wald \and David Nash \and Jens Eickhoff}
@@ -146,7 +146,7 @@ Instead of using natural language to represent objects, we usually prefer URIs w
 
 ```latex
 \documentclass{article}
-\usepackage{metasci}
+\usepackage{scikgtex}
 
 \begin{document}
 % adds a link to the URI of an entity as background
@@ -182,7 +182,7 @@ For example, suppose we want to use a property of an already existing ontology l
 
 ```latex
 \documentclass{article}
-\usepackage{metasci}
+\usepackage{scikgtex}
 \addmetaproperty[amo, http://purl.org/spar/amo/]{has_claim}
 \begin{document}
 We make the claim that \contribution{has_claim}{the earth is round}.
@@ -194,7 +194,7 @@ Using two properties with the same name in a document can be handled like this:
 
 ```latex
 \documentclass{article}
-\usepackage{metasci}
+\usepackage{scikgtex}
 \addmetaproperty[amo, http://purl.org/spar/amo/]{has_claim}
 \addmetaproperty[patent, https://other.type/of/]{has_claim}
 \begin{document}
