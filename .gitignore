@@ -5,7 +5,7 @@
 *.out
 *.idx
 *.hd
-test/*/xmp_metadata.xml
-test/orkg4latex.lua
-test/orkg4latex.sty
+test/*/test.xmp_metadata.xml
+test/scikgtex.lua
+test/scikgtex.sty
 .DS_Store
