@@ -151,6 +151,8 @@ function remove_latex_commands(s)
         ['\\contribution%s*%[%d*%]%s*{.-}{(.*)}'] = '%1',
         -- contribution normal
         ['\\contribution%s*{.-}%s*{(.*)}'] = '%1',
+
+        ['\\uri%s*{.-}%s*{(.*)}'] = '%1',
     }
     for cmd, used in pairs(SciKGTeX.property_commands) do
         -- []
@@ -179,6 +181,15 @@ function uri_valid(s)
 end 
 
 function resolve_entity(s)
+    -- make sure the entity is only resolved at the innermost of nested commands.
+    for _, cmd in ipairs(SciKGTeX.mandatory_properties) do
+        if s:find('\\' .. cmd) then
+            return false
+        end
+    end
+    if s:find('\\contribution') then
+        return false
+    end
     uri, found = s:gsub('\\uri%s*{(.*)}%s*{.*}', '%1')
     if found == 1 then
         label = s:gsub('\\uri%s*{.*}%s*{(.*)}', '%1')
@@ -561,7 +572,6 @@ function XMP:dump_metadata()
     local xmp_string = self:generate_xmp_string()
     f = io.open(tex.jobname .. '.xmp_metadata.xml','w')
     io.output(f)
-    --io.write([[<?xml version="1.0" encoding="UTF-8"?>\n]])
     io.write(xmp_string)
     io.close(f)
 end
