@@ -13,7 +13,7 @@
           <orkg_property:researchproblem>We present an ...Requirement Engineering (RE).</orkg_property:researchproblem>
           <orkg_property:background><rdf:Description rdf:about="https://acade..."><rdfs:label>Requirement Engineering (RE)</rdfs:label></rdf:Description></orkg_property:background>
           <orkg_property:method>These are the methods of our research. We used a wind turbine.</orkg_property:method>
-          <oeo:OEO_00000425><rdf:Description rdf:about="https://openenergy-platform.org/ontology/oeo/BFO_0000002."><rdfs:label>wind turbine.</rdfs:label></rdf:Description></oeo:OEO_00000425>
+          <oeo:OEO_00000425><rdf:Description rdf:about="https://openenergy-platform.org/ontology/oeo/BFO_0000002"><rdfs:label>wind turbine</rdfs:label></rdf:Description></oeo:OEO_00000425>
           <orkg_property:result>These are the results of our research.</orkg_property:result>
           <orkg_property:conclusion>This is the conclusion of our research.</orkg_property:conclusion>
       </orkg:ResearchContribution>

@@ -54,6 +54,19 @@ function INT2HEX(x)
   return s
 end
 
+function get_output_dir()
+    if arg ~= nil then
+        for k,v in ipairs(arg) do
+            val, is_output_argument = v:gsub('%-%-output%-directory=(.*)','%1')
+            if is_output_argument > 0 then
+                return val
+            end
+        end
+        return  nil
+    end
+    return nil
+end
+
 function read_header_of_file(path)
     local fh = io.open(path, "rb")
     if fh then
@@ -190,13 +203,13 @@ function resolve_entity(s)
     if s:find('\\contribution') then
         return false
     end
-    uri, found = s:gsub('\\uri%s*{(.*)}%s*{.*}', '%1')
+    uri, found = s:gsub('.*\\uri%s*{(.-)}%s*{.*}.*', '%1')
     if found == 1 then
-        label = s:gsub('\\uri%s*{.*}%s*{(.*)}', '%1')
+        label = s:gsub('.*\\uri%s*{.-}%s*{(.*)}.*', '%1')
         entity = string.format('<rdf:Description rdf:about=\"%s\"><rdfs:label>%s</rdfs:label></rdf:Description>', uri, label)
         return entity
     else
-        uri, found = s:gsub('\\uri%s*{(.*)}', '%1')
+        uri, found = s:gsub('.*\\uri%s*{(.-)}.*', '%1')
         if found == 1 then
             entity = string.format('<rdf:Description rdf:about=\"%s\"></rdf:Description>', uri)
             return entity
@@ -570,7 +583,8 @@ end
 
 function XMP:dump_metadata()
     local xmp_string = self:generate_xmp_string()
-    f = io.open(tex.jobname .. '.xmp_metadata.xml','w')
+    local dir = get_output_dir() or '.'
+    f = io.open(dir .. '/' .. tex.jobname .. '.xmp_metadata.xml','w')
     io.output(f)
     io.write(xmp_string)
     io.close(f)
@@ -578,6 +592,9 @@ end
 
 luatexbase.add_to_callback('stop_run', function()
     SciKGTeX:warn_unused_command()
+    if SciKGTeX.PRODUCE_XMP_FILE then
+        XMP:dump_metadata()
+    end
 end, 'at_end')
 
 --  Writing metadata packets
@@ -586,16 +603,17 @@ luatexbase.add_to_callback('finish_pdffile', function()
         local metadata_obj = XMP:attach_metadata_pdfstream()
         local catalog = pdf.getcatalog() or ''
         pdf.setcatalog(catalog..string.format('/Metadata %s 0 R', metadata_obj))
-        if SciKGTeX.PRODUCE_XMP_FILE then
-            XMP:dump_metadata()
-        end
+        --if SciKGTeX.PRODUCE_XMP_FILE then
+        --    XMP:dump_metadata()
+        --end
     end
 end, 'finish')
 
 -- TODO: real identifier assigned
 
 -- get the id or generate UUID
-local header = read_header_of_file(tex.jobname .. '.xmp_metadata.xml')
+local output_dir = get_output_dir() or '.'
+local header = read_header_of_file(output_dir .. '/' .. tex.jobname .. '.xmp_metadata.xml')
 if  header ~= nil then
     id = extract_uuid_from_header(header)
 end
