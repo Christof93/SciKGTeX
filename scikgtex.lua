@@ -126,7 +126,7 @@ function remove_any_latex_command(s)
     return s
 end
 
-function find_first_occurence(s, repls)
+function find_last_occurence(s, repls)
     occurences = {}
     for pattern, repl in pairs(repls) do
         i, j = s:find(pattern)
@@ -134,7 +134,7 @@ function find_first_occurence(s, repls)
             table.insert(occurences, {i,j,pattern})
         end
     end
-    table.sort(occurences, function(l, r) return l[1]<r[1] end)
+    table.sort(occurences, function(l, r) return l[1]>r[1] end)
     if #occurences > 0 then
         return occurences[1]
     else
@@ -142,16 +142,16 @@ function find_first_occurence(s, repls)
     end
 end
 
-function exhaustively_replace_first_occurence_of_pattern(s, repls)
-    first_occurence = find_first_occurence(s, repls)
-    if first_occurence ~= nil then
-        starts, ends, pattern = table.unpack(first_occurence)
+function exhaustively_replace_last_occurence_of_pattern(s, repls)
+    last_occurence = find_last_occurence(s, repls)
+    if last_occurence ~= nil then
+        starts, ends, pattern = table.unpack(last_occurence)
         to_replace = s:sub(starts,ends)
     else
         return s
     end
     new_string = s:sub(0,starts-1) .. to_replace:gsub(pattern, repls[pattern], 1) .. s:sub(ends+1)
-    return exhaustively_replace_first_occurence_of_pattern(new_string, repls)
+    return exhaustively_replace_last_occurence_of_pattern(new_string, repls)
 end
 
 function remove_latex_commands(s)
@@ -178,7 +178,7 @@ function remove_latex_commands(s)
         replacements['\\'.. cmd .. '%s*%*%s*{.*}%s*'] =''
     end
     s = remove_environments(s)
-    s = exhaustively_replace_first_occurence_of_pattern(s, replacements)    
+    s = exhaustively_replace_last_occurence_of_pattern(s, replacements)    
     s = remove_any_latex_command(s)
     -- remove escape chars
     s = s:gsub('\\','')
