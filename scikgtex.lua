@@ -509,7 +509,17 @@ function XMP:add_annotation(contribution_ids, annotation_type, content, annotati
             self:add_contribution(contribution_id, 'contribution_'..contribution_id)
         end
         -- add the property annotation to the list of properties of a contribution
-        table.insert(self.paper.contributions[contribution_id].properties, annotation)
+        -- check if the same annotation already exists (in case of double evaluation of the LaTeX command for example)
+        already_there = false
+        for _, prop in pairs(self.paper.contributions[contribution_id].properties) do
+            if prop.content == annotation.content and prop.type == annotation.type then
+                already_there = true
+                break
+            end
+        end
+        if not already_there then
+            table.insert(self.paper.contributions[contribution_id].properties, annotation)
+        end
     end
 end
 
