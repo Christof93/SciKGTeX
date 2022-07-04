@@ -8,7 +8,7 @@ SciKGTeX.properties_used = {}
 SciKGTeX.property_commands = {}
 SciKGTeX.mandatory_properties = {
     'researchproblem',
-    'background',
+    'objective',
     'method',
     'result',
     'conclusion'

@@ -14,7 +14,7 @@
     </orkg:hasResearchContribution>
     <orkg:hasResearchContribution>
       <orkg:ResearchContribution rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6/contribution_c1">
-          <orkg_property:background>This is the background of our research.</orkg_property:background>
+          <orkg_property:objective>This is the objective of our research.</orkg_property:objective>
           <orkg_property:researchproblem>This is the first problem statement of our research.</orkg_property:researchproblem>
           <orkg_property:method>These are the methods of our research.</orkg_property:method>
           <orkg_property:result>These are the results for the first research problem.</orkg_property:result>
@@ -22,7 +22,7 @@
     </orkg:hasResearchContribution>
     <orkg:hasResearchContribution>
       <orkg:ResearchContribution rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6/contribution_c2">
-          <orkg_property:background>This is the background of our research.</orkg_property:background>
+          <orkg_property:objective>This is the objective of our research.</orkg_property:objective>
           <orkg_property:researchproblem>This is the second problem statement of our research.</orkg_property:researchproblem>
           <orkg_property:method>These are the methods of our research.</orkg_property:method>
           <orkg_property:result>These are the results of the second research problem.</orkg_property:result>
