@@ -34,7 +34,7 @@ In Overleaf it can be configured like this for example:
 To create a minimal contribution we have to assign one of the 5 standard properties to sentences or statements in the text:
 
 * _research problem_ 
-* _background_
+* _objective_
 * _method_
 * _result_
 * _conclusion_
@@ -42,7 +42,7 @@ To create a minimal contribution we have to assign one of the 5 standard propert
 For each of these properties there exists a corresponding LaTeX command:
 
 * `\researchproblem{..}`
-* `\background{..}`
+* `\objective{..}`
 * `\method{..}`
 * `\result{..}`
 * `\conclusion{..}`
@@ -61,8 +61,8 @@ Wald, Ellen R., David Nash, and Jens Eickhoff. “Effectiveness of Amoxicillin/C
 \maketitle
 
 \begin{abstract}
-\background{The role of antibiotic therapy in managing acute bacterial sinusitis (ABS) in children is controversial}.
-The purpose of this study was to determine the \researchproblem{effectiveness of high-dose amoxicillin/potassium clavulanate in the treatment of children diagnosed with ABS}.
+The role of \researchproblem{antibiotic therapy in managing acute bacterial sinusitis (ABS) in children} is controversial.
+The purpose of this study was to \objective{determine the effectiveness of high-dose amoxicillin/potassium clavulanate in the treatment of children diagnosed with ABS}.
 
 This was a \method{randomized, double-blind, placebo-controlled study}.
 Children 1 to 10 years of age with a clinical presentation compatible with ABS were eligible for participation.
@@ -100,8 +100,8 @@ As can be seen in the rendered pdf the marked properties can not be distinguishe
     <rdf:type rdf:resource="http://orkg.org/core#Paper"/>
     <orkg:hasResearchContribution>
       <orkg:ResearchContribution rdf:about="contribution_ORKG_default">
-          <orkg_property:background>The role of antibiotic therapy in managing acute bacterial sinusitis (ABS) in children is controversial</orkg_property:background>
-          <orkg_property:researchproblem>effectiveness of high-dose amoxicillin/potassium clavulanate in the treatment of children diagnosed with ABS</orkg_property:researchproblem>
+          <orkg_property:researchproblem>antibiotic therapy in managing acute bacterial sinusitis (ABS) in children</orkg_property:researchproblem>
+          <orkg_property:objective>determine the effectiveness of high-dose amoxicillin/potassium clavulanate in the treatment of children diagnosed with ABS</orkg_property:objective>
           <orkg_property:method>randomized, double-blind, placebo-controlled study</orkg_property:method>
           <orkg_property:method>Patients were stratified according to age (&lt;6 or ≥6 years) and clinical severity and randomly assigned to receive either amoxicillin (90 mg/kg) with potassium clavulanate (6.4 mg/kg) or placebo</orkg_property:method>
           <orkg_property:result>Children receiving the antibiotic were more likely to be cured (50vs 14and less likely to have treatment failure (14vs 68than children receiving the placebo</orkg_property:result>
@@ -118,9 +118,9 @@ As can be seen in the rendered pdf the marked properties can not be distinguishe
 Additional to the 5 standard ones, there are a big number of more specific properties which are optional and are generally used in a specific domain of science. For example properties of _p-value_ or _accuracy_ are useful for studies that include statistical examinations and can be attached to a contribution with `\contribution{p-value}{0.05}` and `\contribution{accuracy}{0.876}`. It is far more valuabe to use properties which were also used by other people. Consult the [ORKG web portal](https://www.orkg.org/orkg/) to find properties which are already used on papers related to your work.  
 
 ### Contribution Numbering
-A scientific paper typically has a small number of distinct contributions. If we want to distinguish more than one contribution, we can number the contributions in the arguments of the marked properties. For example, an annotation of `\researchproblem[1]{..}` and `\researchproblem[2]{..}` adds two contributions with the respective research problems. These two contributions can have their own background, methods and results which must be numbered accordingly.
+A scientific paper typically has a small number of distinct contributions. If we want to distinguish more than one contribution, we can number the contributions in the arguments of the marked properties. For example, an annotation of `\researchproblem[1]{..}` and `\researchproblem[2]{..}` adds two contributions with the respective research problems. These two contributions can have their own objectives, methods and results which must be numbered accordingly.
 
-If two problems have a property in common (e.g. the same background, or methods), we can assign the same property to two contributions using a comma between the arguments. Example: `\method[1,2]{..}`.
+If two problems have a property in common (e.g. the same objective, or methods), we can assign the same property to two contributions using a comma between the arguments. Example: `\method[1,2]{..}`.
 
 ### Invisible Markup
 At some point, especially for advanced modeling, it will be desirable to add annotations to the metadata which are not explicitly rendered in text. This can be achieved using the starred variant of the defined or self-defined LaTeX commands.
@@ -149,8 +149,8 @@ Instead of using natural language to represent objects, we usually prefer URIs w
 \usepackage{scikgtex}
 
 \begin{document}
-% adds a link to the URI of an entity as background
-The role of \background{\uri{https://www.orkg.org/orkg/resource/R12259}{antibiotic therapy}} in managing acute bacterial sinusitis (ABS) in children is controversial...
+% adds a link to the URI of an entity as researchproblem
+The role of \researchproblem{\uri{https://www.orkg.org/orkg/resource/R12259}{antibiotic therapy}} in managing acute bacterial sinusitis (ABS) in children is controversial...
 \end{document}
 ```
 
@@ -160,17 +160,17 @@ The `\uri`command takes the URI of an entity as a first argument and an optional
 In the XMP metadata file this will result in a new node either with or without a label.
 ```xml
 ...
-<orkg_property:background>
+<orkg_property:researchproblem>
    <rdf:Description rdf:about="https://www.orkg.org/orkg/resource/R12259">
       <rdfs:label>antibiotic therapy</rdfs:label>
    </rdf:Description>
-</orkg_property:background>
+</orkg_property:researchproblem>
 ...
 ```
 To add the entity without the hyperlink we can specify the entity with invisible markup like this for example:
 
 ```latex
-The role of \background*{\uri{https://www.orkg.org/orkg/resource/R12259}} antibiotic therapy in managing acute bacterial sinusitis (ABS) in children is controversial...
+The role of \researchproblem*{\uri{https://www.orkg.org/orkg/resource/R12259}} antibiotic therapy in managing acute bacterial sinusitis (ABS) in children is controversial...
 ```
 
 ### Defining Custom Properties
