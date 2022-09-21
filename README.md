@@ -19,7 +19,7 @@ Additionally, the contributions can easily be added to scientific knowledge grap
   - [Testing](#testing)
 
 ## Installation
-1. Copy the files `scikgtex.lua` and `scikgtex.sty` files to your latex project 
+1. Copy the files `scikgtex.lua` and `scikgtex.sty` to your latex project 
  
    - latest stable release: https://github.com/Christof93/SciKGTeX/releases/tag/v2.0.0
 
