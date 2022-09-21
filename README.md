@@ -19,9 +19,8 @@ Additionally, the contributions can easily be added to scientific knowledge grap
   - [Testing](#testing)
 
 ## Installation
-1. Clone this repository
-2. Move the `scikgtex.lua` and `scikgtex.sty` files to your latex project
-3. Set `\usepackage{scikgtex}` in your document preamble to use the package
+1. Copy the files `scikgtex.lua` and `scikgtex.sty` files to your latex project (e.g. from this stable release: https://github.com/Christof93/SciKGTeX/releases/tag/v2.0.0)
+2. Set `\usepackage{scikgtex}` in your document preamble to use the package
 
 It is necessary to compile your LaTeX source with LuaLaTeX for the package to work. This is typically straightforward with most modern LaTeX environments.
 In Overleaf it can be configured like this for example:
