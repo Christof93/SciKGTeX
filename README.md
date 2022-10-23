@@ -56,8 +56,9 @@ Wald, Ellen R., David Nash, and Jens Eickhoff. “Effectiveness of Amoxicillin/C
 \documentclass{article}
 \usepackage{scikgtex}
 
-\title{Effectiveness of Amoxicillin/Clavulanate Potassium in the Treatment of Acute Bacterial Sinusitis in Children.}
-\author{Ellen R. Wald \and David Nash \and Jens Eickhoff}
+\title{\metatitle{Effectiveness of Amoxicillin/Clavulanate Potassium in the Treatment of Acute Bacterial Sinusitis in Children.}}
+\author{\metaauthor{Ellen R. Wald} \and \metaauthor{David Nash} \metaauthor{Jens Eickhoff}}
+\researchfield{antibiotic therapy}
 
 \begin{document}
 \maketitle
@@ -92,6 +93,7 @@ The produced document will then look like this:
 As can be seen in the rendered pdf the marked properties can not be distinguished from the other sentences in the text. The annotations can be inspected in the file `xmp_metadata.xml`. The XMP file can be used as an inspection possibility for the user but it is not necessary to distribute it since the whole content is also directly embedded into the produced PDF file in the creation process. For our example the content of the metadata will look as such:
 
 ```xml
+<?xpacket begin="?" id="48fdc517-5814-4d0c-cd03-0c296941c6"?>
 <x:xmpmeta xmlns:x="adobe:ns:meta/">
 <rdf:RDF 
   xmlns:orkg="http://orkg.org/core#"
@@ -100,19 +102,25 @@ As can be seen in the rendered pdf the marked properties can not be distinguishe
   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
   <rdf:Description rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6">
     <rdf:type rdf:resource="http://orkg.org/core#Paper"/>
+    <orkg:hasTitle>Effectiveness of Amoxicillin/Clavulanate Potassium in the Treatment of Acute Bacterial Sinusitis in Children.</orkg:hasTitle>
+    <orkg:hasAuthor>Ellen R. Wald</orkg:hasAuthor>
+    <orkg:hasAuthor>David Nash</orkg:hasAuthor>
+    <orkg:hasAuthor>Jens Eickhoff</orkg:hasAuthor>
+    <orkg:hasResearchField>antibiotic therapy</orkg:hasResearchField>
     <orkg:hasResearchContribution>
-      <orkg:ResearchContribution rdf:about="contribution_ORKG_default">
+      <orkg:ResearchContribution rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6/contribution_ORKG_default">
           <orkg_property:researchproblem>antibiotic therapy in managing acute bacterial sinusitis (ABS) in children</orkg_property:researchproblem>
-          <orkg_property:objective>determine the effectiveness of high-dose amoxicillin/potassium clavulanate in the treatment of children diagnosed with ABS</orkg_property:objective>
+          <orkg_property:objective>effectiveness of high-dose amoxicillin/potassium clavulanate in the treatment of children diagnosed with ABS</orkg_property:objective>
           <orkg_property:method>randomized, double-blind, placebo-controlled study</orkg_property:method>
           <orkg_property:method>Patients were stratified according to age (&lt;6 or ≥6 years) and clinical severity and randomly assigned to receive either amoxicillin (90 mg/kg) with potassium clavulanate (6.4 mg/kg) or placebo</orkg_property:method>
-          <orkg_property:result>Children receiving the antibiotic were more likely to be cured (50vs 14and less likely to have treatment failure (14vs 68than children receiving the placebo</orkg_property:result>
+          <orkg_property:result>Children receiving the antibiotic were more likely to be cured (50% vs 14%) and less likely to have treatment failure (14% vs 68%) than children receiving the placebo</orkg_property:result>
           <orkg_property:conclusion>Amoxicillin/potassium clavulanate results in significantly more cures and fewer failures than placebo</orkg_property:conclusion>
       </orkg:ResearchContribution>
     </orkg:hasResearchContribution>
   </rdf:Description>
 </rdf:RDF>
 </x:xmpmeta>
+<?xpacket end="r"?>
 ```
 
 ### Optional Properties
