@@ -50,6 +50,30 @@
   \ignorespaces
 }%
 
+\newcommand{\metatitle}[2][]{%
+  \directlua{%
+    local value = "\luaescapestring{\unexpanded{#2}}"%
+    SciKGTeX.XMP:set_title(value)%
+  }%
+  \ignorespaces
+}%
+
+\newcommand{\metaauthor}[2][]{%
+  \directlua{%
+    local value = "\luaescapestring{\unexpanded{#2}}"%
+    SciKGTeX.XMP:add_author(value)%
+  }%
+  \ignorespaces
+}%
+
+\newcommand{\researchfield}[2][]{%
+  \directlua{%
+    local value = "\luaescapestring{\unexpanded{#2}}"%
+    SciKGTeX.XMP:set_researchfield(value)%
+  }%
+  \ignorespaces
+}
+
 \newcommand{\uri}[2]{%
   \directlua{%
     local label = "\luaescapestring{\unexpanded{#2}}"%

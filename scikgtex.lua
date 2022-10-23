@@ -408,6 +408,7 @@ end
 
 function XMP:escape_xml_content(s)
     s = s:gsub('&', '&amp;')
+    s = s:gsub('>', '&gt;')
     return s:gsub('<', '&lt;')
 end
 
@@ -419,6 +420,9 @@ function XMP:add_paper_node(paper_iri)
     self.paper = {}
     self.paper.contributions = {}
     self.paper.id = paper_iri
+    self.paper.title = nil
+    self.paper.authors = {}
+    self.paper.researchfield = nil
 end
 
 function XMP:add_contribution(key, contribution_iri)
@@ -480,6 +484,18 @@ function XMP:property_has_namespace(annotation_type)
         prefix = nil
     end
     return prefix, annotation_type 
+end
+
+function XMP:set_title(title)
+    self.paper.title = title
+end
+
+function XMP:add_author(author)
+    table.insert(self.paper.authors, author)
+end
+
+function XMP:set_researchfield(researchfield)
+    self.paper.researchfield = researchfield
 end
 
 function XMP:add_annotation(contribution_ids, annotation_type, content, annotation_id)
@@ -555,16 +571,44 @@ function XMP:generate_xmp_string(lb_char)
     self:add_line(self:generate_rdf_root())
     --print(debug.traceback())
     if self.paper then
-        self:add_line('  <rdf:Description rdf:about="https://www.orkg.org/orkg/paper/%s">', self.paper.id)
+        self:add_line(
+            '  <rdf:Description rdf:about="https://www.orkg.org/orkg/paper/%s">',
+             self.paper.id
+        )
         self:add_line('    <rdf:type rdf:resource="http://orkg.org/core#Paper"/>')
+        if self.paper.title ~= nil then
+            self:add_line(
+                '    <orkg:hasTitle>%s</orkg:hasTitle>', 
+                self:process_content(self.paper.title)
+            )
+        end
+        for i, author in ipairs(self.paper.authors) do
+          self:add_line(
+            '    <orkg:hasAuthor>%s</orkg:hasAuthor>',
+            self:process_content(author))
+        end
+        if self.paper.researchfield ~= nil then
+            self:add_line(
+                '    <orkg:hasResearchField>%s</orkg:hasResearchField>',
+                self:process_content(self.paper.researchfield)
+            )
+        end
         for i, cb_id in pairs(sorted_contributions) do
             contribution = self.paper.contributions[cb_id]
             self:add_line('    <orkg:hasResearchContribution>')
-            self:add_line('      <orkg:ResearchContribution rdf:about="https://www.orkg.org/orkg/paper/%s">', 
-                self.paper.id .. "/" ..contribution.id)
+            self:add_line(
+                '      <orkg:ResearchContribution rdf:about="https://www.orkg.org/orkg/paper/%s">', 
+                self.paper.id .. "/" ..contribution.id
+            )
             for j, property in ipairs(contribution.properties) do
-                self:add_line('          <%s:%s>%s</%s:%s>', property.prefix, property.type, 
-                    self:process_content(property.content), property.prefix, property.type)
+                self:add_line(
+                    '          <%s:%s>%s</%s:%s>', 
+                    property.prefix,
+                    property.type, 
+                    self:process_content(property.content),
+                    property.prefix,
+                    property.type
+                )
             end
             self:add_line('      </orkg:ResearchContribution>')
             self:add_line('    </orkg:hasResearchContribution>')
