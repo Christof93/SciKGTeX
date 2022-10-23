@@ -49,8 +49,14 @@ For each of these properties there exists a corresponding LaTeX command:
 * `\result{..}`
 * `\conclusion{..}`
 
-Now we can mark passages in the text with these commands as illustrated by this example of a summarized research article.
-Wald, Ellen R., David Nash, and Jens Eickhoff. “Effectiveness of Amoxicillin/Clavulanate Potassium in the Treatment of Acute Bacterial Sinusitis in Children.” Pediatrics, vol. 124, no. 1, 2009, pp. 9-15.:
+Additionally we can mark title, authors and research field of the document with these three commands:
+
+* `\metatitle{..}`
+* `\metaauthor{..}`
+* `\researchfield{..}`
+
+Now we can surround passages in the text with these commands as illustrated by this example of a summarized research article by
+Wald, Ellen R., David Nash, and Jens Eickhoff on “Effectiveness of Amoxicillin/Clavulanate Potassium in the Treatment of Acute Bacterial Sinusitis in Children.” Pediatrics, vol. 124, no. 1, 2009, pp. 9-15.:
 
 ```latex
 \documentclass{article}
