@@ -7,6 +7,11 @@
   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
   <rdf:Description rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6">
     <rdf:type rdf:resource="http://orkg.org/core#Paper"/>
+    <orkg:hasTitle>Effectiveness of Amoxicillin/Clavulanate Potassium in the Treatment of Acute Bacterial Sinusitis in Children.</orkg:hasTitle>
+    <orkg:hasAuthor>Ellen R. Wald</orkg:hasAuthor>
+    <orkg:hasAuthor>David Nash</orkg:hasAuthor>
+    <orkg:hasAuthor>Jens Eickhoff</orkg:hasAuthor>
+    <orkg:hasResearchField>antibiotic therapy</orkg:hasResearchField>
     <orkg:hasResearchContribution>
       <orkg:ResearchContribution rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6/contribution_ORKG_default">
           <orkg_property:researchproblem>antibiotic therapy in managing acute bacterial sinusitis (ABS) in children</orkg_property:researchproblem>
