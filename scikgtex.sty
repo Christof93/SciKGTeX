@@ -55,10 +55,26 @@
     local value = "\luaescapestring{\unexpanded{#2}}"%
     SciKGTeX.XMP:set_title(value)%
   }%
+  #2%
+}%
+
+\WithSuffix\newcommand\metatitle*[2][]{%
+  \directlua{%
+    local value = "\luaescapestring{\unexpanded{#2}}"%
+    SciKGTeX.XMP:set_title(value)%
+  }%
   \ignorespaces
 }%
 
 \newcommand{\metaauthor}[2][]{%
+  \directlua{%
+    local value = "\luaescapestring{\unexpanded{#2}}"%
+    SciKGTeX.XMP:add_author(value)%
+  }%
+  #2%
+}%
+
+\WithSuffix\newcommand\metaauthor*[2][]{%
   \directlua{%
     local value = "\luaescapestring{\unexpanded{#2}}"%
     SciKGTeX.XMP:add_author(value)%
@@ -71,8 +87,16 @@
     local value = "\luaescapestring{\unexpanded{#2}}"%
     SciKGTeX.XMP:set_researchfield(value)%
   }%
+  #2%
+}%
+
+\WithSuffix\newcommand\researchfield*[2][]{%
+  \directlua{%
+    local value = "\luaescapestring{\unexpanded{#2}}"%
+    SciKGTeX.XMP:set_researchfield(value)%
+  }%
   \ignorespaces
-}
+}%
 
 \newcommand{\uri}[2]{%
   \directlua{%
