@@ -21,7 +21,7 @@ Additionally, the contributions can easily be added to scientific knowledge grap
 ## Installation
 1. Copy the files `scikgtex.lua` and `scikgtex.sty` from the latest stable release to your latex project 
  
-   - latest stable release: https://github.com/Christof93/SciKGTeX/releases/tag/v2.1.0
+   - latest stable release: https://github.com/Christof93/SciKGTeX/releases/tag/v2.1.1
 
 2. Set `\usepackage{scikgtex}` in your document preamble to use the package
 
