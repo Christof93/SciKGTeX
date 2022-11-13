@@ -25,12 +25,16 @@ Additionally, the contributions can easily be added to scientific knowledge grap
 
 2. Set `\usepackage{scikgtex}` in your document preamble to use the package
 
+#### Example on Overleaf
+
+You can use this link: https://www.overleaf.com/read/scvnyttgjbtz to view a working example in Overleaf with some explanation. Copy the project to make your own metadata annotations!
+
 It is necessary to compile your LaTeX source with LuaLaTeX for the package to work. This is typically straightforward with most modern LaTeX environments.
 In Overleaf it can be configured like this for example:
 
 <img src="documentation/pictures/lualatex_overleaf.png?raw=true" alt="setting lualatex on overleaf" width="500"/>
 
-  
+
 ## Using the LaTeX Package
 ### Minimal Example
 To create a minimal contribution we have to assign one of the 5 standard properties to sentences or statements in the text:
