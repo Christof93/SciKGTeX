@@ -8,10 +8,10 @@
   <rdf:Description rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6">
     <rdf:type rdf:resource="http://orkg.org/core#Paper"/>
     <orkg:hasTitle>The title of our research</orkg:hasTitle>
-    <orkg:hasAuthor>Me, myself and I</orkg:hasAuthor>
     <orkg:hasAuthor>Myself</orkg:hasAuthor>
     <orkg:hasAuthor>&amp;&lt;I&gt;</orkg:hasAuthor>
     <orkg:hasAuthor>Me</orkg:hasAuthor>
+    <orkg:hasAuthor>Me, myself and I</orkg:hasAuthor>
     <orkg:hasResearchField>cancer research</orkg:hasResearchField>
     <orkg:hasResearchContribution>
       <orkg:ResearchContribution rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6/contribution_ORKG_default">
