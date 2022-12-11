@@ -1,22 +1,24 @@
-<img src = "documentation/pictures/logo_without_doc.png?raw=true" alt="SciKGTeX Logo" width="50" align="right"/>
+<img src = "pictures/logo_without_doc.png?raw=true" alt="SciKGTeX Logo" width="50" align="right"/>
 
 # SciKGTeX
-SciKGTeX makes it possible to annotate specific **research contributions** directly in the LaTeX source code. The idea of extracting research contributions from scholarly publications is derived from the [Open Research Knowledge Graph (ORKG)](https://www.orkg.org/orkg/).
+Scientific Knowledge Graph TeX (SciKgTeX) makes it possible to annotate specific **research contributions** directly in the LaTeX source code. The idea of extracting research contributions from scholarly publications is derived from the [Open Research Knowledge Graph (ORKG)](https://www.orkg.org/orkg/).
 
-With SciKGTeX, authors of scientific publications can enrich their documents with structured, reduced and machine-readable information which represents the key points of the content they want to communicate.  The production of this additional information improves electronic archiving of the information for the future and boosts discoverability in search engines and recommendation engines.
-The contribution data is embedded into the PDF's XMP metadata where it can be retrieved by anyone who obtains the PDF document and persist for the lifetime of the document.
-Additionally, the contributions can easily be added to scientific knowledge graphs like the ORKG.
+With SciKGTeX, authors of scientific publications can enrich their documents with structured, reduced and machine-readable information which represents the key points of the content they want to communicate.  The production of this additional information improves electronic archiving of the information for the future and boosts discoverability in search engines and recommender systems.
+The contribution data is embedded into the PDF's XMP metadata where it can be retrieved by anyone who obtains the PDF document and persists for the lifetime of the document.
+Additionally, the contributions can easily be added automatically to scientific knowledge graphs like the ORKG.
 
 ##### Table of Contents
-  - [Installation](#installation)
-  - [Using the LaTeX Package](#using-the-latex-package)
-    - [Minimal Example](#minimal-example)
-    - [Optional Properties](#optional-properties)
-    - [Contribution Numbering](#contribution-numbering)
-    - [Invisible Markup](#invisible-markup)
-    - [Referring to Entities](#referring-to-entities)
-    - [Defining Custom Properties](#defining-custom-properties)
-  - [Testing](#testing)
+- [Installation](#installation)
+    - [Template on Overleaf](#template-on-overleaf)
+- [Using the LaTeX Package](#using-the-latex-package)
+  - [Minimal Example](#minimal-example)
+  - [Optional Properties](#optional-properties)
+  - [Contribution Numbering](#contribution-numbering)
+  - [Invisible Markup](#invisible-markup)
+  - [Referring to Entities](#referring-to-entities)
+  - [Defining Custom Properties](#defining-custom-properties)
+- [Testing](#testing)
+- [License](#license)
 
 ## Installation
 1. Copy the files `scikgtex.lua` and `scikgtex.sty` from the latest stable release to your latex project 
@@ -32,7 +34,7 @@ You can use this link: https://www.overleaf.com/latex/examples/scikgtex-example/
 It is necessary to compile your LaTeX source with LuaLaTeX for the package to work. This is typically straightforward with most modern LaTeX environments.
 In Overleaf it can be configured like this for example:
 
-<img src="documentation/pictures/lualatex_overleaf.png?raw=true" alt="setting lualatex on overleaf" width="500"/>
+<img src="pictures/lualatex_overleaf.png?raw=true" alt="setting lualatex on overleaf" width="500"/>
 
 
 ## Using the LaTeX Package
@@ -98,7 +100,7 @@ ABS is a common complication of viral upper respiratory infections. \conclusion{
 
 The produced document will then look like this:
 
-<img src="documentation/pictures/rendered_example.png?raw=true" alt="how it looks rendered" width="800"/>
+<img src="pictures/rendered_example.png?raw=true" alt="how it looks rendered" width="800"/>
 
 As can be seen in the rendered pdf the marked properties can not be distinguished from the other sentences in the text. The annotations can be inspected in the file `xmp_metadata.xml`. The XMP file can be used as an inspection possibility for the user but it is not necessary to distribute it since the whole content is also directly embedded into the produced PDF file in the creation process. For our example the content of the metadata will look as such:
 
@@ -175,7 +177,7 @@ The role of \researchproblem{\uri{https://www.orkg.org/orkg/resource/R12259}{ant
 ```
 
 The `\uri`command takes the URI of an entity as a first argument and an optional label as the second. If a label is given, it is rendered as a hyperlink to the URI as can be seen in the picture.
-<img src="documentation/pictures/entity_linking_rendered.png?raw=true" alt="how it looks rendered" width="800"/>
+<img src="pictures/entity_linking_rendered.png?raw=true" alt="how it looks rendered" width="800"/>
 
 In the XMP metadata file this will result in a new node either with or without a label.
 ```xml
@@ -203,7 +205,7 @@ For example, suppose we want to use a property of an already existing ontology l
 ```latex
 \documentclass{article}
 \usepackage{scikgtex}
-\addmetaproperty[amo, http://purl.org/spar/amo/]{has_claim}
+\addmetaproperty[amo, http://purl.org/spar/amo#]{has_claim}
 \begin{document}
 We make the claim that \contribution{has_claim}{the earth is round}.
 ...
@@ -215,7 +217,7 @@ Using two properties with the same name in a document can be handled like this:
 ```latex
 \documentclass{article}
 \usepackage{scikgtex}
-\addmetaproperty[amo, http://purl.org/spar/amo/]{has_claim}
+\addmetaproperty[amo, http://purl.org/spar/amo#]{has_claim}
 \addmetaproperty[patent, https://other.type/of/]{has_claim}
 \begin{document}
 \contribution{amo:has_claim}{The earth is round}.
@@ -236,3 +238,12 @@ If desired individual test can be run with:
 sh test/run.sh <directory_name_of_test>
 ```
 To create a new test, make a new directory starting with the word test and copy the `run_test.sh` script into it. Then, add your LaTeX file called `test.tex` and a file with the expected metadata you want to test against (`xmp_metadata_expected.xml`). Make changes to `run_test.sh` to change the integration test as you see fit.
+
+## License
+This work is published under [MIT License](https://opensource.org/licenses/MIT).
+
+Copyright (C) 2022 by Christof Bless
+
+Email: christofbless@gmail.com
+
+Github: https://github.com/Christof93
