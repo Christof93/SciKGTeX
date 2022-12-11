@@ -1,0 +1,15 @@
+SciKGTeX
+-------------
+AUTHOR
+    Christof Bless, christofbless@gmail.com
+
+DESCRIPTION
+    Scientific Knowledge Graph TeX (SciKgTeX) is a LuaLaTeX package which makes it possible to annotate specific research contributions in scientific documents.
+    SciKGTeX will enrich the document by adding marked contributions to PDF metadata in a structured XMP format which can be picked up by Search Engines and Knowledge Graphs.
+    More information on how to use the package can be found here: https://github.com/Christof93/SciKGTeX#readme
+
+VERSION
+    2.1.1 (13.11.2022)
+
+LICENSE
+    This work is published under MIT License. https://opensource.org/licenses/MIT
