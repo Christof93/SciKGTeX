@@ -25,9 +25,9 @@ Additionally, the contributions can easily be added to scientific knowledge grap
 
 2. Set `\usepackage{scikgtex}` in your document preamble to use the package
 
-#### Example on Overleaf
+#### Template on Overleaf
 
-You can use this link: https://www.overleaf.com/read/scvnyttgjbtz to view a working example in Overleaf with some explanation. Copy the project to make your own metadata annotations!
+You can use this link: https://www.overleaf.com/latex/examples/scikgtex-example/wrhmyrwfgrgw to view a working example in Overleaf with some explanation. Open the template and start making your own metadata annotations right away!
 
 It is necessary to compile your LaTeX source with LuaLaTeX for the package to work. This is typically straightforward with most modern LaTeX environments.
 In Overleaf it can be configured like this for example:
@@ -59,7 +59,7 @@ Additionally we can mark title, authors and research field of the document with 
 * `\metaauthor{..}`
 * `\researchfield{..}`
 
-Now we can surround passages in the text with these commands as illustrated by this example of a summarized research article by
+We can surround expressions and passages in the text with these commands as illustrated by this example of a summarized research article by
 Wald, Ellen R., David Nash, and Jens Eickhoff on “Effectiveness of Amoxicillin/Clavulanate Potassium in the Treatment of Acute Bacterial Sinusitis in Children.” Pediatrics, vol. 124, no. 1, 2009, pp. 9-15.:
 
 ```latex
