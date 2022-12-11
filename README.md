@@ -37,7 +37,7 @@ In Overleaf it can be configured like this for example:
 
 ## Using the LaTeX Package
 ### Minimal Example
-To create a minimal contribution we have to assign one of the 5 standard properties to sentences or statements in the text:
+To create a minimal contribution we have to assign one of the 5 standard contribution properties to sentences or statements in the text:
 
 * _research problem_ 
 * _objective_
