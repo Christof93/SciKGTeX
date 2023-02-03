@@ -1,10 +1,10 @@
-*.log
-*.aux
-*.pdf
-*.glo
-*.out
-*.idx
-*.hd
+test/*.log
+test/*.aux
+test/*.pdf
+test/*.glo
+test/*.out
+test/*.idx
+test/*.hd
 test/*/test.xmp_metadata.xml
 test/scikgtex.lua
 test/scikgtex.sty
