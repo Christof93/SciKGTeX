@@ -1,0 +1,28 @@
+<x:xmpmeta xmlns:x="adobe:ns:meta/">
+<rdf:RDF 
+  xmlns:orkg="http://orkg.org/core#"
+  xmlns:orkg_property="http://orkg.org/property/"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+  <rdf:Description rdf:about="https://www.orkg.org/orkg/paper/82a7300f-519b-4e03-ce62-0c296941c6">
+    <rdf:type rdf:resource="http://orkg.org/core#Paper"/>
+    <orkg:hasTitle>SciKGTeX - A  Package to Semantically Annotate Contributions in Scientific Publications</orkg:hasTitle>
+    <orkg:hasAuthor>Christof Bless</orkg:hasAuthor>
+    <orkg:hasAuthor>Ildar Baimuratov</orkg:hasAuthor>
+    <orkg:hasAuthor>Oliver Karras</orkg:hasAuthor>
+    <orkg:hasResearchField><rdf:Description rdf:about="https://orkg.org/resource/R278"><rdfs:label>Information Science</rdfs:label></rdf:Description></orkg:hasResearchField>
+    <orkg:hasResearchContribution>
+      <orkg:ResearchContribution rdf:about="https://www.orkg.org/orkg/paper/82a7300f-519b-4e03-ce62-0c296941c6/contribution_ORKG_default">
+          <orkg_property:researchproblem>crowd-sourcing for scientific knowledge graphs</orkg_property:researchproblem>
+          <orkg_property:objective>workflow for authors of scientific documents to specify their contributions</orkg_property:objective>
+          <orkg_property:objective>automatically upload contributions to a knowledge graph</orkg_property:objective>
+          <orkg_property:method>latex</orkg_property:method>
+          <orkg_property:method>luatex</orkg_property:method>
+          <orkg_property:result>score of 79 out of 100 on the System Usability Scale</orkg_property:result>
+          <orkg_property:result>7 minutes on average to annotate the main contributions</orkg_property:result>
+          <orkg_property:conclusion>SciKGTeX simplifies the process of manual semantic annotation of research contributions in scientific articles. Our workflow demonstrates how a scientific knowledge graph can automatically ingest research contributions from document metadata.</orkg_property:conclusion>
+      </orkg:ResearchContribution>
+    </orkg:hasResearchContribution>
+  </rdf:Description>
+</rdf:RDF>
+</x:xmpmeta>
