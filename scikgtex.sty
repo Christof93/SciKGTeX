@@ -33,9 +33,16 @@
 
 \errorcontextlines=5
 
-\directlua {
-  SciKGTeX = require('scikgtex')
+\directlua {%
+  SciKGTeX = require('scikgtex')%
+  CONFORM_TO_PDFA = false%
 }
+\DeclareOption{pdfa}{
+  \directlua {% 
+    CONFORM_TO_PDFA = true%
+  }
+}
+\ProcessOptions\relax
 
 \newcommand{\addmetaproperty}[2][]{%
   \directlua{%

@@ -654,9 +654,14 @@ end, 'at_end')
 --  Writing metadata packets
 luatexbase.add_to_callback('finish_pdffile', function()
     if XMP.paper then
+        if CONFORM_TO_PDFA then
+            catalog_key='SciKGMetadata'
+        else
+            catalog_key='Metadata'
+        end
         local metadata_obj = XMP:attach_metadata_pdfstream()
         local catalog = pdf.getcatalog() or ''
-        pdf.setcatalog(catalog..string.format('/Metadata %s 0 R', metadata_obj))
+        pdf.setcatalog(catalog..string.format('/%s %s 0 R', catalog_key, metadata_obj))
         --if SciKGTeX.PRODUCE_XMP_FILE then
         --    XMP:dump_metadata()
         --end
