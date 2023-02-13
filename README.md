@@ -241,7 +241,7 @@ SciKGTeX offers a PDF/A compatibility mode which can be activated by importing t
 
 In PDF/A compatibility mode the metadata stream is linked to a new key in the PDF catalog called `SciKGMetadata`. Still, the metadata can be easily retrieved from the file by locating and extracting the uncompressed metadata stream.
 
-This way the metadata can exist besides teh standard metadata objects. Also, it will usually not be erased by any PDF to PDF/A conversion tools.
+This way the metadata can exist besides the standard metadata objects. Also, it will usually not be erased by any PDF to PDF/A conversion tools.
 
 An example of how to retrieve SciKGTeX metadata written in PDF/A compatibility mode can be found [here]().
 
