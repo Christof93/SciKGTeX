@@ -231,17 +231,17 @@ The metadata will list the custom namespace and correctly apply it to the annota
 
 ## Compatibility
 By default SciKGTeX overwrites the PDF metadata catalog and is not fully compatible with other metadata specification packages such as hyperxmp or pdfx.
-On top of that the generated metadata currently can not comply with the PDF/A standard because of the userdefined properties. 
+On top of that, the generated metadata currently can not comply with the PDF/A standard because of the user-defined properties. 
 
-SciKGTeX offers a PDF/A compatibility mode which can be activated by importing the package like this:
+SciKGTeX offers a PDF/A compatibility mode which can be activated by importing the package with the pdfa parameter:
 
 ```
 \usepackage[pdfa]{scikgtex}
 ```
 
-In PDF/A compatibility mode the metadata stream is linked to a new key in the PDF catalog called SciKGMetadata. Still, the metadata can be easily retrieved from the file as the uncompressed metadata stream can be located and extracted.
+In PDF/A compatibility mode the metadata stream is linked to a new key in the PDF catalog called `SciKGMetadata`. Still, the metadata can be easily retrieved from the file by locating and extracting the uncompressed metadata stream.
 
-This way the metdata will also not be overwritten by any PDF/A conversion tools.
+This way the metadata can exist besides teh standard metadata objects. Also, it will usually not be erased by any PDF to PDF/A conversion tools.
 
 An example of how to retrieve SciKGTeX metadata written in PDF/A compatibility mode can be found [here]().
 
