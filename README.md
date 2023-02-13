@@ -17,6 +17,7 @@ Additionally, the contributions can easily be added automatically to scientific 
   - [Invisible Markup](#invisible-markup)
   - [Referring to Entities](#referring-to-entities)
   - [Defining Custom Properties](#defining-custom-properties)
+- [Compatibility](#compatibility)
 - [Testing](#testing)
 - [License](#license)
 
