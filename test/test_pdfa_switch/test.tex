@@ -1,6 +1,26 @@
 \documentclass{article}
 \usepackage[pdfa]{scikgtex}
+\usepackage[rgb]{xcolor}
+\usepackage{hyperxmp}
+\usepackage[pdfa, linktoc=none]{hyperref}
+\hypersetup{%
+    pdftitle=test
+    pdflang={en},
+    pdfapart=3, %set to 1 for PDF/A-1
+    pdfaconformance=B
+}
+%\embedfile[afrelationship={/Source},ucfilespec={\jobname.tex},mimetype={application/x-tex}]{\jobname.tex}
 
+\immediate\pdfobj stream attr{/N 3} file{eciRGB_v2.icc}
+\pdfcatalog{%
+    /OutputIntents [ <<
+        /Type /OutputIntent
+        /S/GTS_PDFA1
+        /DestOutputProfile \the\pdflastobj\space 0 R
+        /OutputConditionIdentifier (eciRGB v2)
+        /Info(eciRGB v2)
+    >> ]
+}
 
 \begin{document}
 \section{Our research}
