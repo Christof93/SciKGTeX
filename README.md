@@ -1,7 +1,7 @@
 <img src = "pictures/logo_without_doc.png?raw=true" alt="SciKGTeX Logo" width="50" align="right"/>
 
 # SciKGTeX
-Scientific Knowledge Graph TeX (SciKgTeX) makes it possible to annotate specific **research contributions** directly in the LaTeX source code. The idea of extracting research contributions from scholarly publications is derived from the [Open Research Knowledge Graph (ORKG)](https://www.orkg.org/orkg/).
+Scientific Knowledge Graph TeX (SciKGTeX) makes it possible to annotate specific **research contributions** directly in the LaTeX source code. The idea of extracting research contributions from scholarly publications is derived from the [Open Research Knowledge Graph (ORKG)](https://www.orkg.org/orkg/).
 
 With SciKGTeX, authors of scientific publications can enrich their documents with structured, reduced and machine-readable information which represents the key points of the content they want to communicate.  The production of this additional information improves electronic archiving of the information for the future and boosts discoverability in search engines and recommender systems.
 The contribution data is embedded into the PDF's XMP metadata where it can be retrieved by anyone who obtains the PDF document and persists for the lifetime of the document.
