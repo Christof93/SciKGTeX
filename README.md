@@ -71,7 +71,7 @@ Wald, Ellen R., David Nash, and Jens Eickhoff on “Effectiveness of Amoxicillin
 
 \title{\metatitle{Effectiveness of Amoxicillin/Clavulanate Potassium in the Treatment of Acute Bacterial Sinusitis in Children.}}
 \author{\metaauthor{Ellen R. Wald} \and \metaauthor{David Nash} \metaauthor{Jens Eickhoff}}
-\researchfield{antibiotic therapy}
+\researchfield*{antibiotic therapy}
 
 \begin{document}
 \maketitle
