@@ -1,6 +1,10 @@
 #!/bin/bash
 printf "\n---------------------------- Executing uuid generation test -----------------------------------.\n" 
 lualatex --interaction=batchmode $1/test.tex
+if [ $? -eq 1 ]; then
+    printf "\n\033[0;31m----------------------------### uuid generation test FAIL: Could not compile TeX file! ###------------------------------------\033[0m\n"  
+    exit 1
+fi
 mv test.aux $1
 mv test.log $1
 mv test.pdf $1

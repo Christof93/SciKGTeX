@@ -21,8 +21,7 @@ XMP.lines = {}
 XMP.namespaces = {}
 XMP.property_ns = {}
 XMP.XMP_TOP = [[<x:xmpmeta xmlns:x="adobe:ns:meta/">]]
-XMP.XMP_BOTTOM = [[</rdf:RDF>
-</x:xmpmeta>]]
+XMP.XMP_BOTTOM = [[</x:xmpmeta>]]
 XMP.PACKET_END = [[<?xpacket end="r"?>]]
 
 local UUID = {}
@@ -379,11 +378,15 @@ function SciKGTeX:warn_unused_command()
     end
 end
 
-function SciKGTeX:print_entity(uri, label)
-    if label ~= "" then
-        tex.print(string.format('\\href{%s}{%s}',uri , label))
-    else
+function SciKGTeX:print_entity(uri, label, hyperrefloaded)
+    if label ~= "" and hyperrefloaded then
+        tex.print(string.format('\\href{%s}{%s}', uri , label))
+    elseif label ~= "" then
+        tex.print(label)
+    elseif hyperrefloaded then
         tex.print(string.format('\\url{%s}',uri))
+    else
+        tex.print(uri)
     end
 end
 
@@ -615,6 +618,7 @@ function XMP:generate_xmp_string(lb_char)
         end
         self:add_line('  </rdf:Description>')
     end
+    self:add_line('</rdf:RDF>')
     self:add_line(self.XMP_BOTTOM)
     self:add_line(self.PACKET_END)
 
@@ -622,11 +626,11 @@ function XMP:generate_xmp_string(lb_char)
 
 end
 
-function XMP:attach_metadata_pdfstream()
+function XMP:attach_metadata_pdfstream(metadata_type)
     local xmp_string = self:generate_xmp_string()
     local new_pdf = pdf.obj {
         type = 'stream',
-        attr = '/Type/Metadata /Subtype/XML',
+        attr = '/Type/'..metadata_type..' /Subtype/XML',
         immediate = true,
         compresslevel = 0,
         string = xmp_string,
@@ -659,12 +663,9 @@ luatexbase.add_to_callback('finish_pdffile', function()
         else
             catalog_key='Metadata'
         end
-        local metadata_obj = XMP:attach_metadata_pdfstream()
+        local metadata_obj = XMP:attach_metadata_pdfstream(catalog_key)
         local catalog = pdf.getcatalog() or ''
         pdf.setcatalog(catalog..string.format('/%s %s 0 R', catalog_key, metadata_obj))
-        --if SciKGTeX.PRODUCE_XMP_FILE then
-        --    XMP:dump_metadata()
-        --end
     end
 end, 'finish')
 
