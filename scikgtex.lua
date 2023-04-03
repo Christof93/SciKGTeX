@@ -630,7 +630,7 @@ function XMP:attach_metadata_pdfstream(metadata_type)
     local xmp_string = self:generate_xmp_string()
     local new_pdf = pdf.obj {
         type = 'stream',
-        attr = '/Type/'..metadata_type..' /Subtype/XML',
+        attr = '/Type /'..metadata_type..' /Subtype /XML',
         immediate = true,
         compresslevel = 0,
         string = xmp_string,
