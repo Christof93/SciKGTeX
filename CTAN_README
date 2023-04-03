@@ -9,11 +9,10 @@ DESCRIPTION
     SciKGTeX will enrich the document by adding the marked contributions to PDF metadata
     in a structured XMP format which can be picked up by Search Engines and
     Knowledge Graphs.
-    More information on how to use the package can be found here: 
-    https://github.com/Christof93/SciKGTeX#readme
+    More information on how to use the package consult documentation SciKGTeX.pdf.
 
 VERSION
-    2.1.1 (13.11.2022)
+    2.2.0 (03.04.2023)
 
 LICENSE
     This work is published under MIT License. https://opensource.org/licenses/MIT
