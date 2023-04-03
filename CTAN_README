@@ -9,7 +9,7 @@ DESCRIPTION
     SciKGTeX will enrich the document by adding the marked contributions to PDF metadata
     in a structured XMP format which can be picked up by Search Engines and
     Knowledge Graphs.
-    More information on how to use the package consult documentation SciKGTeX.pdf.
+    For more information on how to use the package consult documentation SciKGTeX.pdf.
 
 VERSION
     2.2.0 (03.04.2023)
