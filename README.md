@@ -17,6 +17,7 @@ Additionally, the contributions can easily be added automatically to scientific 
   - [Invisible Markup](#invisible-markup)
   - [Referring to Entities](#referring-to-entities)
   - [Defining Custom Properties](#defining-custom-properties)
+- [Compatibility](#compatibility)
 - [Testing](#testing)
 - [License](#license)
 
@@ -70,7 +71,7 @@ Wald, Ellen R., David Nash, and Jens Eickhoff on “Effectiveness of Amoxicillin
 
 \title{\metatitle{Effectiveness of Amoxicillin/Clavulanate Potassium in the Treatment of Acute Bacterial Sinusitis in Children.}}
 \author{\metaauthor{Ellen R. Wald} \and \metaauthor{David Nash} \metaauthor{Jens Eickhoff}}
-\researchfield{antibiotic therapy}
+\researchfield*{antibiotic therapy}
 
 \begin{document}
 \maketitle
@@ -226,7 +227,25 @@ said apparatus comprising a base, a spring member coupled to the base, and a cag
 ...
 ```
 
-The metadata will list the custom namespacse and correctly apply it to the annotations of the property.
+The metadata will list the custom namespace and correctly apply it to the annotations of the property.
+
+## Compatibility
+By default SciKGTeX overwrites the PDF metadata catalog and is not fully compatible with other metadata specification packages such as hyperxmp or pdfx.
+On top of that, the generated metadata currently can not comply with the PDF/A standard because of the user-defined properties.
+When submitting to conferences or other subsequent processors data written in the standard PDF metadata field is often erased.
+To prevent this use the SciKGTeX compatibility mode.
+
+The compatibility mode can be activated by importing the package with the compatibility parameter:
+
+```
+\usepackage[compatibility]{scikgtex}
+```
+
+In compatibility mode the metadata stream is linked to a new key in the PDF catalog called `SciKGMetadata`. Still, the metadata can be easily retrieved from the file by locating and extracting the uncompressed metadata stream.
+
+This way the metadata can exist besides the standard metadata objects. Also, it will usually not be erased by any PDF to PDF/A conversion tools.
+
+An example of how to retrieve SciKGTeX metadata written in PDF/A compatibility mode can be found [here](https://github.com/Christof93/PDF2ORKG/blob/3c6e58076c437ef13d771c776a8243b3b3e56018/scikgmetadata.py#L35).
 
 ## Testing
 A number of integration tests can be run with:

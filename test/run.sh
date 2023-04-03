@@ -2,7 +2,7 @@
 cp scikgtex.sty test
 cp scikgtex.lua test
 cd test
-
+printf '%s\n' "pdf.setcompresslevel(0)" "$(cat scikgtex.lua)" > scikgtex.lua
 if [ ! -z $1 ] 
 then :
     ./$1/run_test.sh $1

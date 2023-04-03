@@ -16,10 +16,10 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{scikgtex}[2022/11/13 v2.1.1]
-
+%
 \def\useignorespacesandallpars#1\ignorespaces\fi{%
 #1\fi\ignorespacesandallpars}
-
+%
 \makeatletter
 \def\ignorespacesandallpars{%
   \@ifnextchar\par
@@ -27,15 +27,23 @@
     {}%
 }
 \makeatother
-
+%
 \RequirePackage{suffix}
-\RequirePackage{hyperref}
-
+%% init variable which checks if hyperref is loaded.
+\newcommand{\hyperrefloaded}{null}%
+%
 \errorcontextlines=5
-
-\directlua {
-  SciKGTeX = require('scikgtex')
+%
+\directlua {%
+  SciKGTeX = require('scikgtex')%
+  CONFORM_TO_PDFA = false%
 }
+\DeclareOption{compatibility}{
+  \directlua {% 
+    CONFORM_TO_PDFA = true%
+  }
+}
+\ProcessOptions\relax
 
 \newcommand{\addmetaproperty}[2][]{%
   \directlua{%
@@ -102,12 +110,18 @@
   }%
   \ignorespaces
 }%
-
+%
 \newcommand{\uri}[2]{%
+  \ifcsname href\endcsname%
+    \renewcommand{\hyperrefloaded}{true}%
+  \else%
+    \renewcommand{\hyperrefloaded}{false}%
+  \fi%
+%
   \directlua{%
     local label = "\luaescapestring{\unexpanded{#2}}"%
     local uri = "\luaescapestring{\unexpanded{#1}}"%
-    SciKGTeX:print_entity(uri, label)%
+    SciKGTeX:print_entity(uri, label, \hyperrefloaded)%
   }%
 }%
 

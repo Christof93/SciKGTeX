@@ -6,6 +6,13 @@ test/*.out
 test/*.idx
 test/*.hd
 test/*/test.xmp_metadata.xml
+test/test*/*.log
+test/test*/*.aux
+test/test*/*.pdf
+test/test*/*.glo
+test/test*/*.out
+test/test*/*.idx
+test/test*/*.hd
 test/scikgtex.lua
 test/scikgtex.sty
 .DS_Store

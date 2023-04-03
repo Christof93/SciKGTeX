@@ -10,7 +10,7 @@ if cmp --silent $1/test.xmp_metadata.xml $1/xmp_metadata_expected.xml; then
     :
 else
     printf "\n\033[0;31m----------------------------### wrong uri test FAIL: XMP not as expected! ###------------------------------------\033[0m\n"
-    exit 0
+    exit 1
 fi
 
 if grep -q "Warning: Method addmetaproperty: Too many arguments." $1/test.log; then
