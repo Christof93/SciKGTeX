@@ -599,7 +599,7 @@ function XMP:generate_xmp_string(lb_char)
         for i, cb_id in pairs(sorted_contributions) do
             contribution = self.paper.contributions[cb_id]
             if i==1 then
-                if table.getn(sorted_contributions) > 1 then
+                if #sorted_contributions > 1 then
                     self:add_line('    <orkg:hasResearchContribution rdf:parseType="Collection">')
                 else
                     self:add_line('    <orkg:hasResearchContribution>')
@@ -620,7 +620,7 @@ function XMP:generate_xmp_string(lb_char)
                 )
             end
             self:add_line('      </orkg:ResearchContribution>')
-            if i==table.getn(sorted_contributions) then
+            if i == #sorted_contributions then
                 self:add_line('    </orkg:hasResearchContribution>')
             end
         end
