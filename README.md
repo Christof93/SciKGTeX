@@ -7,6 +7,13 @@ With SciKGTeX, authors of scientific publications can enrich their documents wit
 The contribution data is embedded into the PDF's XMP metadata where it can be retrieved by anyone who obtains the PDF document and persists for the lifetime of the document.
 Additionally, the contributions can easily be added automatically to scientific knowledge graphs like the ORKG.
 
+# Publication
+If you want to cite this project, we suggest to use either the citation provided above or the following reference:
+
+>Christof Bless, Ildar Baimuratov, and Oliver Karras:<br/>
+>[__SciKGTeX - A LaTeX Package to Semantically Annotate Contributions in Scientific Publications__](https://arxiv.org/abs/2304.05327)<br/>
+>In: ACM/IEEE Joint Conference on Digital Libraries 2023 (JCDL2023), IEEE, 2023.
+
 ##### Table of Contents
 - [Installation](#installation)
     - [Template on Overleaf](#template-on-overleaf)
