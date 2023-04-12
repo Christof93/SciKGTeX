@@ -1,0 +1,67 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: SciKGTeX - Scientific Knowledge Graph TeX
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Christof
+    family-names: Bless
+    email: christof.bless@hslu.ch
+    affiliation: Lucerne University of Applied Sciences
+    orcid: 'https://orcid.org/0000-0001-9778-8495'
+  - given-names: Ildar
+    family-names: Baimuratov
+    email: baimuratov.i@gmail.com
+    affiliation: Leibniz University Hannover
+    orcid: 'https://orcid.org/0000-0002-6573-131X'
+  - given-names: Oliver
+    family-names: Karras
+    email: oliver.karras@tib.eu
+    affiliation: >-
+      TIB - Leibniz Information Centre for Science and
+      Technology
+    orcid: 'https://orcid.org/0000-0001-5336-6899'
+identifiers:
+  - type: doi
+    value: 10.48550/arXiv.2304.05327
+    description: The ArXiv deposit of the encompassing paper.
+  - type: doi
+    value: 10.5281/zenodo.7818558
+    description: The Zenodo deposit of the encompassing paper.
+repository-code: 'https://github.com/Christof93/SciKGTeX'
+url: 'https://orkg.org/about/33/SciKGTeX'
+repository: >-
+  https://www.overleaf.com/latex/examples/scikgtex-example/wrhmyrwfgrgw
+repository-artifact: 'https://ctan.org/pkg/scikgtex?lang=en'
+abstract: >-
+  Scientific Knowledge Graph TeX (SciKGTeX) makes it
+  possible to annotate specific research contributions
+  directly in the LaTeX source code. The idea of extracting
+  research contributions from scholarly publications is
+  derived from the Open Research Knowledge Graph (ORKG).
+
+
+  With SciKGTeX, authors of scientific publications can
+  enrich their documents with structured, reduced and
+  machine-readable information which represents the key
+  points of the content they want to communicate. The
+  production of this additional information improves
+  electronic archiving of the information for the future and
+  boosts discoverability in search engines and recommender
+  systems. The contribution data is embedded into the PDF's
+  XMP metadata where it can be retrieved by anyone who
+  obtains the PDF document and persists for the lifetime of
+  the document. Additionally, the contributions can easily
+  be added automatically to scientific knowledge graphs such
+  as the ORKG.
+keywords:
+  - Semantic annotation
+  - LaTeX
+  - Markup
+  - FAIR data
+  - Scientific knowledge graph
+license: MIT
