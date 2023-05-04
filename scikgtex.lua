@@ -610,6 +610,9 @@ function XMP:generate_xmp_string(lb_char)
                 self.paper.id .. "/" ..contribution.id
             )
             for j, property in ipairs(contribution.properties) do
+                if property.type == "researchproblem" then
+                    property.type = "research_problem"
+                end
                 self:add_line(
                     '          <%s:%s>%s</%s:%s>', 
                     property.prefix,
