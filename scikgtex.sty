@@ -145,7 +145,10 @@
   \ignorespaces
 }%
 
-\newpropertycommand{researchproblem}
+%make the researchproblem command which has a tag name differing from the command name
+\directlua{%
+    SciKGTeX:make_new_command('researchproblem', '', 'research_problem')%
+}%
 \newpropertycommand{result}
 \newpropertycommand{method}
 \newpropertycommand{objective}

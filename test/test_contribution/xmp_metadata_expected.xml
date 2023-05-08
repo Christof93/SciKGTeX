@@ -16,7 +16,7 @@
       </orkg:ResearchContribution>
       <orkg:ResearchContribution rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6/contribution_ORKG_default">
           <orkg_property:objective>This is the objective of our research.</orkg_property:objective>
-          <orkg_property:researchproblem>This is the problem statement of our research.</orkg_property:researchproblem>
+          <orkg_property:research_problem>This is the problem statement of our research.</orkg_property:research_problem>
           <orkg_property:method>These are the methods of our research.</orkg_property:method>
           <orkg_property:result>These are the results of our research.</orkg_property:result>
           <orkg_property:conclusion>This is the conclusion of our research.</orkg_property:conclusion>
