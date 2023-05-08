@@ -299,52 +299,55 @@ SciKGTeX.command_factory.directlua_part = [[  \directlua{
 SciKGTeX.command_factory.cmd_bottom = [[}]]
 SciKGTeX.command_factory.cmd_bottom_star = [[\ignorespaces}]]
 
-function SciKGTeX.command_factory:build_command(command_name)
+function SciKGTeX.command_factory:build_command(command_name, tag_name)
     full_cmd = self.cmd_top .. "\n" .. self.directlua_part .. "\n  #2\n" .. self.cmd_bottom
-    formatted_cmd = string.format(full_cmd, command_name, command_name)
+    formatted_cmd = string.format(full_cmd, command_name, tag_name)
     for i, line in ipairs(formatted_cmd:split("\n")) do
         tex.print(line .. "%")
     end
 end
 
-function SciKGTeX.command_factory:build_star_command(command_name)
+function SciKGTeX.command_factory:build_star_command(command_name, tag_name)
     full_cmd = self.cmd_top_star .. "\n" .. self.directlua_part .. "\n" .. self.cmd_bottom_star
-    formatted_cmd = string.format(full_cmd, command_name, command_name)
+    formatted_cmd = string.format(full_cmd, command_name, tag_name)
     for i, line in ipairs(formatted_cmd:split("\n")) do
         tex.print(line .. "%")
     end
 end
 
-function SciKGTeX.command_factory:override_command(command_name)
+function SciKGTeX.command_factory:override_command(command_name, tag_name)
     full_cmd = self.cmd_top_override .. "\n" .. self.directlua_part .. "\n  #2\n" .. self.cmd_bottom
-    formatted_cmd = string.format(full_cmd, command_name, command_name)
+    formatted_cmd = string.format(full_cmd, command_name, tag_name)
     for i, line in ipairs(formatted_cmd:split("\n")) do
         tex.print(line .. "%")
     end
 end
 
-function SciKGTeX.command_factory:override_star_command(command_name)
+function SciKGTeX.command_factory:override_star_command(command_name, tag_name)
     full_cmd = self.cmd_top_star_override .. "\n" .. self.directlua_part .. "\n" .. self.cmd_bottom_star
-    formatted_cmd = string.format(full_cmd, command_name, command_name)
+    formatted_cmd = string.format(full_cmd, command_name, tag_name)
     for i, line in ipairs(formatted_cmd:split("\n")) do
         tex.print(line .. "%")
     end
 end
 
-function SciKGTeX:make_new_command(new_property, namespace)
+function SciKGTeX:make_new_command(new_property, namespace, tag_name)
+    if tag_name==nil then
+        tag_name=new_property
+    end
     -- check if property already exists
     if self.property_commands[new_property]~=nil then
         self:warn([[Method newpropertycommand: Repeated definition.
     Command %s already exists!
     Are you sure you want to override it?]], new_property)
         self:add_property(new_property, namespace)
-        self.command_factory:override_command(new_property, namespace)
-        self.command_factory:override_star_command(new_property, namespace)
+        self.command_factory:override_command(new_property, tag_name)
+        self.command_factory:override_star_command(new_property, tag_name)
     else
         self.property_commands[new_property] = false
         self:add_property(new_property, namespace)
-        self.command_factory:build_command(new_property, namespace)
-        self.command_factory:build_star_command(new_property, namespace)
+        self.command_factory:build_command(new_property, tag_name)
+        self.command_factory:build_star_command(new_property, tag_name)
     end
 end
 
