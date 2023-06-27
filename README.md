@@ -260,7 +260,7 @@ sh test/run.sh <directory_name_of_test>
 To create a new test, make a new directory starting with the word test and copy the `run_test.sh` script into it. Then, add your LaTeX file called `test.tex` and a file with the expected metadata you want to test against (`xmp_metadata_expected.xml`). Make changes to `run_test.sh` to change the integration test as you see fit.
 
 ## Cite Us
-If you want to cite this project, we suggest to use either the citation provided above or the following reference:
+If you want to cite this project, we suggest to use either the citation provided in the link or the following reference:
 
 >Christof Bless, Ildar Baimuratov, and Oliver Karras:<br/>
 >[__SciKGTeX - A LaTeX Package to Semantically Annotate Contributions in Scientific Publications__](https://arxiv.org/abs/2304.05327)<br/>
