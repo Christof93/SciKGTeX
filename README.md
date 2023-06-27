@@ -7,13 +7,6 @@ With SciKGTeX, authors of scientific publications can enrich their documents wit
 The contribution data is embedded into the PDF's XMP metadata where it can be retrieved by anyone who obtains the PDF document and persists for the lifetime of the document.
 Additionally, the contributions can easily be added automatically to scientific knowledge graphs like the ORKG.
 
-# Publication
-If you want to cite this project, we suggest to use either the citation provided above or the following reference:
-
->Christof Bless, Ildar Baimuratov, and Oliver Karras:<br/>
->[__SciKGTeX - A LaTeX Package to Semantically Annotate Contributions in Scientific Publications__](https://arxiv.org/abs/2304.05327)<br/>
->In: ACM/IEEE Joint Conference on Digital Libraries 2023 (JCDL2023), IEEE, 2023.
-
 ##### Table of Contents
 - [Installation](#installation)
     - [Template on Overleaf](#template-on-overleaf)
@@ -26,6 +19,7 @@ If you want to cite this project, we suggest to use either the citation provided
   - [Defining Custom Properties](#defining-custom-properties)
 - [Compatibility](#compatibility)
 - [Testing](#testing)
+- [Cite Us](#cite-us)
 - [License](#license)
 
 ## Installation
@@ -264,6 +258,13 @@ If desired individual test can be run with:
 sh test/run.sh <directory_name_of_test>
 ```
 To create a new test, make a new directory starting with the word test and copy the `run_test.sh` script into it. Then, add your LaTeX file called `test.tex` and a file with the expected metadata you want to test against (`xmp_metadata_expected.xml`). Make changes to `run_test.sh` to change the integration test as you see fit.
+
+## Cite Us
+If you want to cite this project, we suggest to use either the citation provided above or the following reference:
+
+>Christof Bless, Ildar Baimuratov, and Oliver Karras:<br/>
+>[__SciKGTeX - A LaTeX Package to Semantically Annotate Contributions in Scientific Publications__](https://arxiv.org/abs/2304.05327)<br/>
+>In: ACM/IEEE Joint Conference on Digital Libraries 2023 (JCDL2023), IEEE, 2023.
 
 ## License
 This work is published under [MIT License](https://opensource.org/licenses/MIT).
