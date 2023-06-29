@@ -7,7 +7,7 @@ SciKGTeX.whole_string = ""
 SciKGTeX.properties_used = {}
 SciKGTeX.property_commands = {}
 SciKGTeX.mandatory_properties = {
-    'researchproblem',
+    'research_problem',
     'objective',
     'method',
     'result',
@@ -357,7 +357,7 @@ function SciKGTeX:add_property(new_property, namespace)
     if self.properties_used[new_property]~=nil then
         self:warn([[Method addmetaproperty: Repeated definition.
     Property %s already added!
-    Are you sure you want to replace it?]], new_property)
+    Are you sure you want to replace it?]], new_property:gsub('_', ''))
     -- if not make it known to the object
     else
         self.properties_used[new_property] = false
@@ -376,6 +376,7 @@ function SciKGTeX:warn_unused_command()
     for i, p in ipairs(self.mandatory_properties) do
         used = self.properties_used[p]
         if not used then
+            p=p:gsub('_', '')
             self:warn(warning_message, p, p);
         end
     end

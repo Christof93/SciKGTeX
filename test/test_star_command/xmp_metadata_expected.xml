@@ -13,6 +13,7 @@
           <orkg_property:research_problem>This is the secret problem statement of our research.</orkg_property:research_problem>
           <orkg_property:method>These are the secret methods of our research.</orkg_property:method>
           <orkg_property:result>These are the secret results of our research.</orkg_property:result>
+          <orkg_property:conclusion>This is the conclusion.</orkg_property:conclusion>
       </orkg:ResearchContribution>
     </orkg:hasResearchContribution>
   </rdf:Description>
