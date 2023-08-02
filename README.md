@@ -27,7 +27,7 @@ Additionally, the contributions can easily be added automatically to scientific 
  
    - latest stable release: https://github.com/Christof93/SciKGTeX/releases/tag/v2.2.0
 
-2. Set `\usepackage{scikgtex}` in your document preamble to use the package
+2. Set `\usepackage[compatibility]{scikgtex}` in your document preamble to use the package
 
 #### Template on Overleaf
 
