@@ -1,6 +1,9 @@
-<img src = "pictures/logo_without_doc.png?raw=true" alt="SciKGTeX Logo" width="50" align="right"/>
+<p align="center">
+<img src = "pictures/logo_without_doc.png?raw=true" alt="SciKGTeX Logo" width="80"/>
+</p>
 
-# SciKGTeX
+<h1 align="center">SciKGTeX</h1>
+<h4 align="center">A LaTeX package to semantically describe research contributions and embed them into PDF</h4>
 
 ![CI workflow](https://github.com/Christof93/SciKGTeX/actions/workflows/test_all.yml/badge.svg?branch=main)
 
