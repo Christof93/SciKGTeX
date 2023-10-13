@@ -14,12 +14,12 @@
     <orkg:hasResearchField>antibiotic therapy</orkg:hasResearchField>
     <orkg:hasResearchContribution>
       <orkg:ResearchContribution rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6/contribution_ORKG_default">
-          <orkg_property:research_problem>antibiotic therapy in managing acute bacterial sinusitis (ABS) in children</orkg_property:research_problem>
-          <orkg_property:objective>effectiveness of high-dose amoxicillin/potassium clavulanate in the treatment of children diagnosed with ABS</orkg_property:objective>
-          <orkg_property:method>randomized, double-blind, placebo-controlled study</orkg_property:method>
-          <orkg_property:method>Patients were stratified according to age (&lt;6 or ≥6 years) and clinical severity and randomly assigned to receive either amoxicillin (90 mg/kg) with potassium clavulanate (6.4 mg/kg) or placebo</orkg_property:method>
-          <orkg_property:result>Children receiving the antibiotic were more likely to be cured (50% vs 14%) and less likely to have treatment failure (14% vs 68%) than children receiving the placebo</orkg_property:result>
-          <orkg_property:conclusion>Amoxicillin/potassium clavulanate results in significantly more cures and fewer failures than placebo</orkg_property:conclusion>
+          <orkg_property:P32>antibiotic therapy in managing acute bacterial sinusitis (ABS) in children</orkg_property:P32>
+          <orkg_property:P15051>effectiveness of high-dose amoxicillin/potassium clavulanate in the treatment of children diagnosed with ABS</orkg_property:P15051>
+          <orkg_property:P1005>randomized, double-blind, placebo-controlled study</orkg_property:P1005>
+          <orkg_property:P1005>Patients were stratified according to age (&lt;6 or ≥6 years) and clinical severity and randomly assigned to receive either amoxicillin (90 mg/kg) with potassium clavulanate (6.4 mg/kg) or placebo</orkg_property:P1005>
+          <orkg_property:P1006>Children receiving the antibiotic were more likely to be cured (50% vs 14%) and less likely to have treatment failure (14% vs 68%) than children receiving the placebo</orkg_property:P1006>
+          <orkg_property:P15419>Amoxicillin/potassium clavulanate results in significantly more cures and fewer failures than placebo</orkg_property:P15419>
       </orkg:ResearchContribution>
     </orkg:hasResearchContribution>
   </rdf:Description>

@@ -1,3 +1,4 @@
+pdf.setcompresslevel(0)
 RANDOM_SEED = math.randomseed(os.time())
 MATRIX_AND = {{0,0},{0,1}}
 MATRIX_OR = {{0,1},{1,1}}
@@ -12,6 +13,13 @@ SciKGTeX.mandatory_properties = {
     'method',
     'result',
     'conclusion'
+}
+SciKGTeX.orkg_property_uri_map = {
+    research_problem = 'P32',
+    objective = 'P15051',
+    method = 'P1005',
+    result = 'P1006',
+    conclusion = 'P15419'
 }
 SciKGTeX.PRODUCE_XMP_FILE = true
 SciKGTeX.WARNING_LEVEL = 1
@@ -253,11 +261,14 @@ function UUID:initialize(hwaddr)
   -- lazy string creation.
   function UUID:toString()
     if self._string == nil then
-      self._string = INT2HEX(self._bytes[1])..INT2HEX(self._bytes[2])..INT2HEX(self._bytes[3])..INT2HEX(self._bytes[4]).."-"..
+      self._string = INT2HEX(self._bytes[1])..INT2HEX(self._bytes[2])..
+           INT2HEX(self._bytes[3])..INT2HEX(self._bytes[4]).."-"..
            INT2HEX(self._bytes[5])..INT2HEX(self._bytes[6]).."-"..
            INT2HEX(self._bytes[7])..INT2HEX(self._bytes[8]).."-"..
            INT2HEX(self._bytes[9])..INT2HEX(self._bytes[10]).."-"..
-           INT2HEX(self._bytes[11])..INT2HEX(self._bytes[12])..INT2HEX(self._bytes[13])..INT2HEX(self._bytes[14])..INT2HEX(self._bytes[15])..INT2HEX(self._bytes[16])
+           INT2HEX(self._bytes[11])..INT2HEX(self._bytes[12])..
+           INT2HEX(self._bytes[13])..INT2HEX(self._bytes[14])..
+           INT2HEX(self._bytes[15])..INT2HEX(self._bytes[16])
     end
     return self._string
   end
@@ -509,14 +520,19 @@ function XMP:add_annotation(contribution_ids, annotation_type, content, annotati
     local annotation = {}
     -- check if a namespace is attached to the property specification
     prefix, annotation_type = self:property_has_namespace(annotation_type)
-
+    annotation.type = annotation_type
     annotation.content = content
     annotation.id = annotation_id
     annotation.type = self:escape_xml_tags(annotation_type)
 
     -- take the prefix given, the prefix saved in the namespace dictionary or the default ns 
     annotation.prefix = prefix or self.property_ns[annotation.type] or 'orkg_property'
-
+    if annotation.prefix == 'orkg_property' then
+        annotation.id = SciKGTeX.orkg_property_uri_map[annotation_type] or 
+                        self:escape_xml_tags(annotation.type)
+    else
+        annotation.id = self:escape_xml_tags(annotation.type)
+    end
     -- register the use of the property in text
     SciKGTeX:register_property(annotation.type)
 
@@ -617,10 +633,10 @@ function XMP:generate_xmp_string(lb_char)
                 self:add_line(
                     '          <%s:%s>%s</%s:%s>', 
                     property.prefix,
-                    property.type, 
+                    property.id, 
                     self:process_content(property.content),
                     property.prefix,
-                    property.type
+                    property.id
                 )
             end
             self:add_line('      </orkg:ResearchContribution>')

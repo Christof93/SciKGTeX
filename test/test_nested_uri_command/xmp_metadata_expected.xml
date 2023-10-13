@@ -10,14 +10,14 @@
     <rdf:type rdf:resource="http://orkg.org/core#Paper"/>
     <orkg:hasResearchContribution>
       <orkg:ResearchContribution rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6/contribution_ORKG_default">
-          <orkg_property:research_problem>We present an ...Requirement Engineering (RE).</orkg_property:research_problem>
-          <orkg_property:objective><rdf:Description rdf:about="https://acade..."><rdfs:label>Requirement Engineering (RE)</rdfs:label></rdf:Description></orkg_property:objective>
-          <orkg_property:method>These are the methods of our research. We used a wind turbine.</orkg_property:method>
+          <orkg_property:P32>We present an ...Requirement Engineering (RE).</orkg_property:P32>
+          <orkg_property:P15051><rdf:Description rdf:about="https://acade..."><rdfs:label>Requirement Engineering (RE)</rdfs:label></rdf:Description></orkg_property:P15051>
+          <orkg_property:P1005>These are the methods of our research. We used a wind turbine.</orkg_property:P1005>
           <oeo:OEO_00000425><rdf:Description rdf:about="https://openenergy-platform.org/ontology/oeo/BFO_0000002"><rdfs:label>wind turbine</rdfs:label></rdf:Description></oeo:OEO_00000425>
-          <orkg_property:result>These are the results of our research.</orkg_property:result>
-          <orkg_property:conclusion>This is the conclusion of our research.</orkg_property:conclusion>
-          <orkg_property:result>This information ... We evaluate ... 1680 user stories. improve the accuracy of the predictions, ca. 10%. </orkg_property:result>
-          <orkg_property:method>We evaluate ... 1680 user stories.</orkg_property:method>
+          <orkg_property:P1006>These are the results of our research.</orkg_property:P1006>
+          <orkg_property:P15419>This is the conclusion of our research.</orkg_property:P15419>
+          <orkg_property:P1006>This information ... We evaluate ... 1680 user stories. improve the accuracy of the predictions, ca. 10%. </orkg_property:P1006>
+          <orkg_property:P1005>We evaluate ... 1680 user stories.</orkg_property:P1005>
           <orkg_property:accuracy_improvement>10%.</orkg_property:accuracy_improvement>
       </orkg:ResearchContribution>
     </orkg:hasResearchContribution>

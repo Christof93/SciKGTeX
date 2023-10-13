@@ -9,13 +9,13 @@
     <rdf:type rdf:resource="http://orkg.org/core#Paper"/>
     <orkg:hasResearchContribution rdf:parseType="Collection">
       <orkg:ResearchContribution rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6/contribution_1">
-          <orkg_property:research_problem>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</orkg_property:research_problem>
+          <orkg_property:P32>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</orkg_property:P32>
       </orkg:ResearchContribution>
       <orkg:ResearchContribution rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6/contribution_2">
-          <orkg_property:research_problem>Pellentesque sed auctor lorem, ut finibus tellus. Nunc faucibus sapien eget eros lobortis tempor. Aenean semper, turpis at lacinia elementum, ante odio fermentum ipsum, vel porta ligula nibh ut dui. Aenean tristique, odio eu pretium accumsan, nibh sapien porta ipsum, eget dictum elit leo eget mauris. Suspendisse condimentum risus eget efficitur pulvinar. Aenean a quam purus. Nulla elit enim, ornare nec eleifend vitae, tincidunt eu neque. Duis dictum metus et eros semper, nec posuere dui facilisis. Suspendisse potenti. Nulla consequat laoreet convallis. Sed sagittis sem massa, non consequat risus egestas maximus. Duis rhoncus sem sit amet odio condimentum gravida vel a erat.</orkg_property:research_problem>
+          <orkg_property:P32>Pellentesque sed auctor lorem, ut finibus tellus. Nunc faucibus sapien eget eros lobortis tempor. Aenean semper, turpis at lacinia elementum, ante odio fermentum ipsum, vel porta ligula nibh ut dui. Aenean tristique, odio eu pretium accumsan, nibh sapien porta ipsum, eget dictum elit leo eget mauris. Suspendisse condimentum risus eget efficitur pulvinar. Aenean a quam purus. Nulla elit enim, ornare nec eleifend vitae, tincidunt eu neque. Duis dictum metus et eros semper, nec posuere dui facilisis. Suspendisse potenti. Nulla consequat laoreet convallis. Sed sagittis sem massa, non consequat risus egestas maximus. Duis rhoncus sem sit amet odio condimentum gravida vel a erat.</orkg_property:P32>
           <orkg_property:number_of_parts>5</orkg_property:number_of_parts>
           <orkg_property:number_of_tests>5</orkg_property:number_of_tests>
-          <orkg_property:research_problem>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</orkg_property:research_problem>
+          <orkg_property:P32>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</orkg_property:P32>
       </orkg:ResearchContribution>
     </orkg:hasResearchContribution>
   </rdf:Description>
