@@ -2,7 +2,7 @@ import json
 import requests
 
 def crawl_predicates():
-    host = "https://incubating.orkg.org"
+    host = "https://orkg.org"
     name_id_store = {}
     page_n = 0
     last = False
@@ -31,6 +31,8 @@ def crawl_predicates():
                     name_id_store[name] += [id]
                 else:
                     name_id_store[name] = [id]
+        else:
+            print(predicates_page_request)
     print(name_id_store)
     print(f"number of labels: {len(name_id_store)}")
     print(f"number of predicates: {pred_count}")
@@ -65,8 +67,8 @@ def save_lua_code_to_file(code_str, fn):
         f.write(code_str)
 
 if __name__=="__main__":
-    # name_id_store = crawl_predicates()
-    # save_json_to_file(name_id_store, "orkg_predicates.json")
+    name_id_store = crawl_predicates()
+    save_json_to_file(name_id_store, "orkg_predicates.json")
 
     code = make_lua_code(prettify_table=True)
     save_lua_code_to_file(code, "lua_table_code.lua")
