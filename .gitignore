@@ -15,4 +15,6 @@ test/test*/*.idx
 test/test*/*.hd
 test/scikgtex.lua
 test/scikgtex.sty
+build/scikgtex_build_env
+build/orkg_predicates.json
 .DS_Store
