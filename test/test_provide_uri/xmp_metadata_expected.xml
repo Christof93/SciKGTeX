@@ -13,6 +13,8 @@
     <rdf:type rdf:resource="http://orkg.org/core#Paper"/>
     <orkg:hasResearchContribution>
       <orkg:ResearchContribution rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6/contribution_ORKG_default">
+          <orkg_property:Modality>a new modality definition</orkg_property:Modality>
+          <orkg_property:P69003>old modality definition suppressing warning</orkg_property:P69003>
           <ex2:example>This is an example.</ex2:example>
           <ex:example>this is another example.</ex:example>
           <ex2:example>this is yet another example.</ex2:example>

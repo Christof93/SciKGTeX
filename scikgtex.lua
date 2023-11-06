@@ -360,8 +360,8 @@ function SciKGTeX:add_property(new_property, namespace)
     -- check if property already exists
     if self.properties_used[new_property]~=nil then
         self:warn([[Method addmetaproperty: Repeated definition.
-    Property %s already added!
-    Are you sure you want to replace it?]], new_property:gsub('_', ''))
+Property %s already added!
+Are you sure you want to replace it?]], new_property:gsub('_', ''))
     -- if not make it known to the object
     else
         self.properties_used[new_property] = false
@@ -376,7 +376,7 @@ end
 
 function SciKGTeX:warn_unused_command()
     warning_message = [[No %s annotation found!
-    Are you sure you don't want to mark an entity with %s?]]
+Are you sure you don't want to mark an entity with %s?]]
     for i, p in ipairs(self.mandatory_properties) do
         used = self.properties_used[p]
         if not used then
@@ -384,6 +384,37 @@ function SciKGTeX:warn_unused_command()
             self:warn(warning_message, p, p);
         end
     end
+end
+
+function SciKGTeX:warn_ambiguous_orkg_label(label, property_uris)
+    warning_message = [[The property '%s' you used has several possible correspondences in the ORKG!
+Currently this property is used %s.
+Please check if the URL to find out if that is the correct usage.
+If not check if any of the following are more suiting:
+%s
+
+To suppress this message add the following to your document preamble:
+
+\addmetaproperty{orkg_property, http://orkg.org/property/}{%s}
+
+and replace any use of the command with 
+
+\contribution{%s}
+
+To use a different URI, replace '%s' with the property name at the end any of the URLs above which fits your usage best. (If none of them fit just replace it with your original label.) 
+]]
+    uris = ""
+    current = "http://orkg.org/property/" .. property_uris[1]
+    for i, p in ipairs(property_uris) do
+        if i > 1 then 
+            uris = uris .. i-1 .. ". http://orkg.org/property/" .. p
+            if i < #property_uris then
+                uris = uris .. '\n'
+            end
+        end
+    end
+    how_to_use="\\addmetaproperty{http://orkg.org/property/}{" .. "}"
+    self:warn(warning_message, label, current, uris, property_uris[1], property_uris[1], property_uris[1])
 end
 
 function SciKGTeX:print_entity(uri, label, hyperrefloaded)
@@ -520,9 +551,23 @@ function XMP:add_annotation(contribution_ids, annotation_type, content, annotati
 
     -- take the prefix given, the prefix saved in the namespace dictionary or the default ns 
     annotation.prefix = prefix or self.property_ns[annotation.type] or 'orkg_property'
-    if annotation.prefix == 'orkg_property' then
-        annotation.id = SciKGTeX.orkg_property_uri_map[annotation_type] or 
-                        self:escape_xml_tags(annotation.type)
+    if not (prefix or self.property_ns[annotation.type]) then
+        orkg_entry = SciKGTeX.orkg_property_uri_map[annotation_type]
+        if orkg_entry then
+            -- property exists in ORKG
+            if type(orkg_entry) == 'table' then
+                -- more than two properties have this label
+                print(orkg_entry[1],orkg_entry[2])
+                annotation.id = orkg_entry[1]
+                SciKGTeX:warn_ambiguous_orkg_label(annotation_type, orkg_entry)
+            else
+                -- one property with this label
+                annotation.id = orkg_entry
+            end
+        else
+            -- make a new property with the label
+            annotation.id = self:escape_xml_tags(annotation.type)
+        end
     else
         annotation.id = self:escape_xml_tags(annotation.type)
     end

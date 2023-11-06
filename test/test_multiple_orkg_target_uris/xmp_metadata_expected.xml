@@ -1,0 +1,24 @@
+<?xpacket begin="?" id="48fdc517-5814-4d0c-cd03-0c296941c6"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/">
+<rdf:RDF 
+  xmlns:orkg="http://orkg.org/core#"
+  xmlns:orkg_property="http://orkg.org/property/"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+  <rdf:Description rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6">
+    <rdf:type rdf:resource="http://orkg.org/core#Paper"/>
+    <orkg:hasResearchContribution>
+      <orkg:ResearchContribution rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6/contribution_ORKG_default">
+          <orkg_property:P9008>sit amet</orkg_property:P9008>
+          <orkg_property:P32>antibiotic therapy in managing acute bacterial sinusitis (ABS) in children</orkg_property:P32>
+          <orkg_property:P15051>effectiveness of high-dose amoxicillin/potassium clavulanate in the treatment of children diagnosed with ABS</orkg_property:P15051>
+          <orkg_property:P1005>randomized, double-blind, placebo-controlled study</orkg_property:P1005>
+          <orkg_property:P1005>Patients were stratified according to age (&lt;6 or ≥6 years) and clinical severity and randomly assigned to receive either amoxicillin (90 mg/kg) with potassium clavulanate (6.4 mg/kg) or placebo</orkg_property:P1005>
+          <orkg_property:P1006>Children receiving the antibiotic were more likely to be cured (50% vs 14%) and less likely to have treatment failure (14% vs 68%) than children receiving the placebo</orkg_property:P1006>
+          <orkg_property:P15419>Amoxicillin/potassium clavulanate results in significantly more cures and fewer failures than placebo</orkg_property:P15419>
+      </orkg:ResearchContribution>
+    </orkg:hasResearchContribution>
+  </rdf:Description>
+</rdf:RDF>
+</x:xmpmeta>
+<?xpacket end="r"?>
