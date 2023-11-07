@@ -1,4 +1,4 @@
-RANDOM_SEED = math.randomseed(os.time())
+RANDOM_SEED = math.randomseed(os.time() + tonumber(string.sub(tostring(os.clock()), 3)))
 MATRIX_AND = {{0,0},{0,1}}
 MATRIX_OR = {{0,1},{1,1}}
 HEXES = '0123456789abcdef'
