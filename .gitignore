@@ -5,7 +5,7 @@ test/*.glo
 test/*.out
 test/*.idx
 test/*.hd
-test/*/test.xmp_metadata.xml
+test/*/test*.xmp_metadata.xml
 test/test*/*.log
 test/test*/*.aux
 test/test*/*.pdf
