@@ -1,4 +1,8 @@
-RANDOM_SEED = math.randomseed(os.time() + tonumber(string.sub(tostring(os.clock()), 3)))
+--  setting a seed for rng
+TIME = os.time()
+CLOCK = tostring(os.clock())
+CLOCK = tonumber(string.sub(CLOCK, string.find(CLOCK, "%.")+1))
+math.randomseed(TIME + CLOCK)
 MATRIX_AND = {{0,0},{0,1}}
 MATRIX_OR = {{0,1},{1,1}}
 HEXES = '0123456789abcdef'
