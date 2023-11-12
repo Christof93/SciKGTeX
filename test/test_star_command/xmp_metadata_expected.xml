@@ -9,11 +9,11 @@
     <rdf:type rdf:resource="http://orkg.org/core#Paper"/>
     <orkg:hasResearchContribution>
       <orkg:ResearchContribution rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6/contribution_ORKG_default">
-          <orkg_property:objective>This is the secret objective of our research.</orkg_property:objective>
-          <orkg_property:research_problem>This is the secret problem statement of our research.</orkg_property:research_problem>
-          <orkg_property:method>These are the secret methods of our research.</orkg_property:method>
-          <orkg_property:result>These are the secret results of our research.</orkg_property:result>
-          <orkg_property:conclusion>This is the conclusion.</orkg_property:conclusion>
+          <orkg_property:P15051>This is the secret objective of our research.</orkg_property:P15051>
+          <orkg_property:P32>This is the secret problem statement of our research.</orkg_property:P32>
+          <orkg_property:P1005>These are the secret methods of our research.</orkg_property:P1005>
+          <orkg_property:P1006>These are the secret results of our research.</orkg_property:P1006>
+          <orkg_property:P15419>This is the conclusion.</orkg_property:P15419>
       </orkg:ResearchContribution>
     </orkg:hasResearchContribution>
   </rdf:Description>

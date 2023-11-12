@@ -1,4 +1,4 @@
-name: CI
+name: test
 
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
@@ -28,7 +28,7 @@ jobs:
           
       # Runs a single command using the runners shell
       - name: run the testing environment
-        run: ./test/run.sh
+        run: make test
         
       - name: archive LaTeX logs
         uses: actions/upload-artifact@v2

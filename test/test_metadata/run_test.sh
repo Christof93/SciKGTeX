@@ -12,5 +12,5 @@ if [ $compile_success -eq 1 ]; then
     exit 1
 fi
 cmp --silent $1/test.xmp_metadata.xml $1/xmp_metadata_expected.xml && 
-printf "\n\033[0;32m----------------------------### simple test PASS: XMP as expected! ###----------------------------------------\033[0m\n" || 
-printf "\n\033[0;31m----------------------------### simple test FAIL: XMP not as expected! ###------------------------------------\033[0m\n"
+printf "\n\033[0;32m----------------------------### metadata test PASS: XMP as expected! ###----------------------------------------\033[0m\n" || 
+printf "\n\033[0;31m----------------------------### metadata test FAIL: XMP not as expected! ###------------------------------------\033[0m\n"

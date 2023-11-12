@@ -9,8 +9,8 @@
     <rdf:type rdf:resource="http://orkg.org/core#Paper"/>
     <orkg:hasResearchContribution>
       <orkg:ResearchContribution rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6/contribution_ORKG_default">
-          <orkg_property:refers_to><rdf:Description rdf:about="https://www.orkg.org/orkg/paper/R36109/R36112"></rdf:Description></orkg_property:refers_to>
-          <orkg_property:research_problem><rdf:Description rdf:about="https://www.orkg.org/orkg/resource/R12259"><rdfs:label>antibiotic therapy</rdfs:label></rdf:Description></orkg_property:research_problem>
+          <orkg_property:P4><rdf:Description rdf:about="https://www.orkg.org/orkg/paper/R36109/R36112"></rdf:Description></orkg_property:P4>
+          <orkg_property:P32><rdf:Description rdf:about="https://www.orkg.org/orkg/resource/R12259"><rdfs:label>antibiotic therapy</rdfs:label></rdf:Description></orkg_property:P32>
       </orkg:ResearchContribution>
     </orkg:hasResearchContribution>
   </rdf:Description>
