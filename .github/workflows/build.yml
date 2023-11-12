@@ -3,6 +3,8 @@ name: build
 on:
   schedule:
     - cron:  '0 0 * * SUN'
+  workflow_dispatch:
+
 permissions:
   contents: write
 jobs:
