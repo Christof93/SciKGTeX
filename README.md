@@ -129,12 +129,12 @@ As can be seen in the rendered pdf the marked properties can not be distinguishe
     <orkg:hasResearchField>antibiotic therapy</orkg:hasResearchField>
     <orkg:hasResearchContribution>
       <orkg:ResearchContribution rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6/contribution_ORKG_default">
-          <orkg_property:researchproblem>antibiotic therapy in managing acute bacterial sinusitis (ABS) in children</orkg_property:researchproblem>
-          <orkg_property:objective>effectiveness of high-dose amoxicillin/potassium clavulanate in the treatment of children diagnosed with ABS</orkg_property:objective>
-          <orkg_property:method>randomized, double-blind, placebo-controlled study</orkg_property:method>
-          <orkg_property:method>Patients were stratified according to age (&lt;6 or ≥6 years) and clinical severity and randomly assigned to receive either amoxicillin (90 mg/kg) with potassium clavulanate (6.4 mg/kg) or placebo</orkg_property:method>
-          <orkg_property:result>Children receiving the antibiotic were more likely to be cured (50% vs 14%) and less likely to have treatment failure (14% vs 68%) than children receiving the placebo</orkg_property:result>
-          <orkg_property:conclusion>Amoxicillin/potassium clavulanate results in significantly more cures and fewer failures than placebo</orkg_property:conclusion>
+          <orkg_property:P32>antibiotic therapy in managing acute bacterial sinusitis (ABS) in children</orkg_property:P32>
+          <orkg_property:P15051>effectiveness of high-dose amoxicillin/potassium clavulanate in the treatment of children diagnosed with ABS</orkg_property:P15051>
+          <orkg_property:P1005>randomized, double-blind, placebo-controlled study</orkg_property:P1005>
+          <orkg_property:P1005>Patients were stratified according to age (&lt;6 or ≥6 years) and clinical severity and randomly assigned to receive either amoxicillin (90 mg/kg) with potassium clavulanate (6.4 mg/kg) or placebo</orkg_property:P1005>
+          <orkg_property:P1006>Children receiving the antibiotic were more likely to be cured (50% vs 14%) and less likely to have treatment failure (14% vs 68%) than children receiving the placebo</orkg_property:P1006>
+          <orkg_property:P15419>Amoxicillin/potassium clavulanate results in significantly more cures and fewer failures than placebo</orkg_property:P15419>
       </orkg:ResearchContribution>
     </orkg:hasResearchContribution>
   </rdf:Description>
@@ -145,7 +145,7 @@ As can be seen in the rendered pdf the marked properties can not be distinguishe
 
 ### Optional Properties
 
-Additional to the 5 standard ones, there are a big number of more specific properties which are optional and are generally used in a specific domain of science. For example properties of _p-value_ or _accuracy_ are useful for studies that include statistical examinations and can be attached to a contribution with `\contribution{p-value}{0.05}` and `\contribution{accuracy}{0.876}`. It is far more valuabe to use properties which were also used by other people. Consult the [ORKG web portal](https://www.orkg.org/orkg/) to find properties which are already used on papers related to your work.  
+Additional to the 5 standard ones, there are a big number of more specific properties which are optional and are generally used in a specific domain of science. For example properties of _p-value_ or _accuracy_ are useful for studies that include statistical examinations and can be attached to a contribution with `\contribution{p-value}{0.05}` and `\contribution{accuracy}{0.876}`. It is far more valuabe to use properties which were also used by other people. Consult the [ORKG web portal](https://www.orkg.org/orkg/) to find properties which are already used on papers related to your work. SciKGTeX will check if a property with the provided exact name exists and replace it with the internal property ID in the ORKG namespace. 
 
 ### Contribution Numbering
 A scientific paper typically has a small number of distinct contributions. If we want to distinguish more than one contribution, we can number the contributions in the arguments of the marked properties. For example, an annotation of `\researchproblem[1]{..}` and `\researchproblem[2]{..}` adds two contributions with the respective research problems. These two contributions can have their own objectives, methods and results which must be numbered accordingly.
@@ -155,7 +155,7 @@ If two problems have a property in common (e.g. the same objective, or methods),
 ### Invisible Markup
 At some point, especially for advanced modeling, it will be desirable to add annotations to the metadata which are not explicitly rendered in text. This can be achieved using the starred variant of the defined or self-defined LaTeX commands.
 
-For example, in the sentence 'the p-value was 0.01% higher than in the earlier experiment', we may want to report the actual p-value in the metadata since it is more clean. There might be many more subtle examples where for some reason you want the information in the metadata to look slightly different than in text.
+For example, in the sentence 'the p-value was 0.01% higher than in the earlier experiment', we may want to report the actual p-value in the metadata since it is cleaner. There might be many more subtle examples where for some reason you want the information in the metadata to look slightly different than in the text.
 In such a case we can mark the p-value like this:
 
 ```latex
@@ -190,11 +190,11 @@ The `\uri`command takes the URI of an entity as a first argument and an optional
 In the XMP metadata file this will result in a new node either with or without a label.
 ```xml
 ...
-<orkg_property:researchproblem>
+<orkg_property:P32>
    <rdf:Description rdf:about="https://www.orkg.org/orkg/resource/R12259">
       <rdfs:label>antibiotic therapy</rdfs:label>
    </rdf:Description>
-</orkg_property:researchproblem>
+</orkg_property:P32>
 ...
 ```
 To add the entity without the hyperlink we can specify the entity with invisible markup like this for example:
@@ -239,7 +239,7 @@ The metadata will list the custom namespace and correctly apply it to the annota
 ## Compatibility
 By default SciKGTeX overwrites the PDF metadata catalog and is not fully compatible with other metadata specification packages such as hyperxmp or pdfx.
 On top of that, the generated metadata currently can not comply with the PDF/A standard because of the user-defined properties.
-When submitting to conferences or other subsequent processors data written in the standard PDF metadata field is often erased.
+When submitting to conferences or other subsequent processors data written in the standard PDF metadata field is often overwritten.
 To prevent this use the SciKGTeX compatibility mode.
 
 The compatibility mode can be activated by importing the package with the compatibility parameter:
