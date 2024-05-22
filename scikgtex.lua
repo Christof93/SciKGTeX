@@ -565,6 +565,7 @@ function XMP:add_annotation(contribution_ids, annotation_type, content, annotati
                 SciKGTeX:warn_ambiguous_orkg_label(annotation_type, orkg_entry)
             else
                 -- one property with this label
+                -- TODO: raise a warning message.
                 annotation.id = orkg_entry
             end
         else
