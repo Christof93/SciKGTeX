@@ -11,14 +11,16 @@ then :
     returncode=$?
 else :
     for folder in test*; do
-        ./$folder/run_test.sh $folder
-        if [ $? -ne 0 ]; then
-            echo 'TEST FAILED...'
+        ./$folder/run_test.sh $folder > /dev/null
+        code=$?
+        if [ $code -ne 0 ]; then
+            printf "\n\033[0;31m$folder FAILED with code $code. \033[0m\n"
             returncode=1
+        else
+            printf "\033[0;32m.\033[0m"
         fi
-        echo $returncode
     done
 fi
-echo "Tests finished with exit code: $returncode"
+echo "\nTests finished with exit code: $returncode"
 exit $returncode
 
