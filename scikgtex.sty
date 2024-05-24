@@ -79,7 +79,7 @@
   \ignorespaces
 }%
 
-\newcommand{\metaauthor}[2][]{%
+\newcommand{\metaauthor}[2][] {%
   \directlua{%
     local value = "\luaescapestring{\unexpanded{#2}}"%
     SciKGTeX.XMP:add_author(value)%

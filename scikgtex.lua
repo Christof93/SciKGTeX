@@ -157,6 +157,30 @@ function exhaustively_replace_last_occurence_of_pattern(s, repls)
     return exhaustively_replace_last_occurence_of_pattern(new_string, repls)
 end
 
+function collect_command_freqs(commands)
+    freqs = {}
+    local file = io.open(tex.jobname, "r")
+    if not file then
+      return nil, "File not found"
+    end
+    
+    local content = file:read("*all")
+    file:close()
+    for command in commands do 
+        freqs[command] = count_command_occurrences(source, command)
+
+    end
+end
+
+function count_command_occurrences(content, command)
+    local pattern = "\\" .. command
+    local _, count = string.gsub(content, pattern, pattern)
+
+    texio.write_nl("term and log", count .. "\n")
+
+    return count
+end
+
 function remove_latex_commands(s)
     replacements = {
         -- contribution with * and []

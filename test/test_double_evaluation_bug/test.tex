@@ -1,0 +1,86 @@
+% This is samplepaper.tex, a sample chapter demonstrating the
+% LLNCS macro package for Springer Computer Science proceedings;
+% Version 2.20 of 2017/10/04
+%
+\documentclass[runningheads]{llncs}
+%
+\usepackage{graphicx}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{textcomp}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\usepackage{xspace}
+\usepackage{url}
+\usepackage[compatibility]{scikgtex}
+\usepackage{multirow}
+
+\usepackage{hyperref}
+
+\usepackage{mathastext}
+
+% Used for displaying a sample figure. If possible, figure files should
+% be included in EPS format.
+%
+% If you use the hyperref package, please uncomment the following line
+% to display URLs in blue roman font according to Springer's eBook style:
+% \renewcommand\UrlFont{\color{blue}\rmfamily}
+
+\newcommand{\xf}[1] {\textcolor{teal}{#1}}
+\newcommand{\jm}[1] {\textcolor{blue}{#1}}
+\newcommand{\vg}[1] {\textcolor{orange}{#1}}
+\newcommand{\qm}[1] {\textcolor{purple}{#1}}
+\newcommand{\old}[1] {\textcolor{gray}{#1}}
+\newcommand{\hide}[1] {}
+
+
+\begin{document}
+%
+\title{Unveiling Competition Dynamics in Mobile App Markets through User Reviews}
+
+%
+\titlerunning{Unveiling Competition Dynamics in Mobile App Markets}
+% If the paper title is too long for the running head, you can set
+% an abbreviated paper title here
+%
+\author{%
+  Quim Motger\inst{1}\orcidID{0000-0002-4896-7515} \and
+  Xavier Franch\inst{1}\orcidID{0000-0001-9733-8830} \and
+  Vincenzo Gervasi\inst{2}\orcidID{0000-0002-8567-9328} \and Jordi Marco\inst{1}\orcidID{0000-0002-0078-7929}}
+%
+\authorrunning{Q. Motger et al.}
+% First names are abbreviated in the running head.
+% If there are more than two authors, 'et al.' is used.
+%
+\institute{
+Universitat Politècnica de Catalunya\\
+\email{\{joaquim.motger,xavier.franch,jordi.marco\}@upc.edu} \and Università di Pisa\\
+\email{vincenzo.gervasi@unipi.it} }
+%
+\maketitle              % typeset the header of the contribution
+%
+\vskip -6pt
+\begin{abstract}
+%Context
+\textbf{[Context and motivation]} User reviews published in mobile app repositories are essential for understanding user satisfaction and engagement within a specific market segment. 
+%Problem
+\textbf{[Question/problem]} Manual analysis of reviews is impractical due to the large data volume, and automated analysis faces challenges like data synthesis and reporting. This complicates the task for app providers in identifying patterns and significant events, especially in assessing the influence of competitor apps. 
+Furthermore, review-based research is mostly limited to a single app or a single app provider, excluding potential competition analysis. 
+Consequently, there is an open research challenge in leveraging user reviews to support cross-app analysis within a specific market segment.
+%Method/Solution
+\textbf{[Principal ideas/results]} Following a case-study research method in the microblogging app market, we introduce an automatic, novel approach to support mobile app market analysis. %processes. 
+Our approach leverages quantitative metrics and event detection techniques based on newly published user reviews. 
+Significant events are proactively identified and summarized by comparing metric deviations with historical baseline indicators within the lifecycle of a mobile app. 
+%Results
+\textbf{[Contribution]} Results from our case study show empirical evidence of the detection of relevant events within the selected market segment, including software- or release-based events, contextual events and the emergence of new competitors.
+\keywords{mobile apps\and market analysis\and competition dynamics\and user reviews\and  event detection\and microblogging}
+\end{abstract}
+
+\bibliographystyle{splncs04}
+\bibliography{main}
+
+\end{document}
