@@ -11,6 +11,9 @@ if [ $compile_success -eq 1 ]; then
     printf "\n\033[0;31m----------------------------### uncompressed metadata test FAIL: Could not compile TeX file! ###------------------------------------\033[0m\n"  
     exit 1
 fi
-grep SciKGMetadata $1/test.pdf && 
-printf "\n\033[0;32m----------------------------### uncompressed metadata test PASS: custom SciKGMetadata entry found in catalog! ###----------------------------------------\033[0m\n" || 
-printf "\n\033[0;31m----------------------------### uncompressed metadata test FAIL: custom SciKGMetadata entry not found in catalog! ###------------------------------------\033[0m\n"
+if grep SciKGMetadata $1/test.pdf; then 
+    printf "\n\033[0;32m----------------------------### uncompressed metadata test PASS: custom SciKGMetadata entry found in catalog! ###----------------------------------------\033[0m\n" || 
+else
+    printf "\n\033[0;31m----------------------------### uncompressed metadata test FAIL: custom SciKGMetadata entry not found in catalog! ###------------------------------------\033[0m\n"
+    exit 1;
+fi

@@ -11,7 +11,7 @@
       <orkg:ResearchContribution rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6/contribution_2">
           <orkg_property:number_of_iterations>10000</orkg_property:number_of_iterations>
           <orkg_property:P1006>52% accuracy </orkg_property:P1006>
-          <orkg_property:accuracy>0.52</orkg_property:accuracy>
+          <orkg_property:P18048>0.52</orkg_property:P18048>
           <orkg_property:P1005>Support Vector Machine</orkg_property:P1005>
           <orkg_property:P15419>No improvements</orkg_property:P15419>
       </orkg:ResearchContribution>

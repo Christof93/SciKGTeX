@@ -12,6 +12,9 @@ if [ $compile_success -eq 1 ]; then
     printf "\n\033[0;31m----------------------------### inside caption test FAIL: Could not compile TeX file! ###------------------------------------\033[0m\n"  
     exit 1
 fi
-cmp --silent $1/test.xmp_metadata.xml $1/xmp_metadata_expected.xml && 
-printf "\n\033[0;32m----------------------------### inside caption test PASS: XMP as expected! ###----------------------------------------\033[0m\n" || 
-printf "\n\033[0;31m----------------------------### inside caption test FAIL: XMP not as expected! ###------------------------------------\033[0m\n"
+if cmp --silent $1/test.xmp_metadata.xml $1/xmp_metadata_expected.xml; then 
+    printf "\n\033[0;32m----------------------------### inside caption test PASS: XMP as expected! ###----------------------------------------\033[0m\n";
+else
+    printf "\n\033[0;31m----------------------------### inside caption test FAIL: XMP not as expected! ###------------------------------------\033[0m\n";
+    exit 2;
+fi

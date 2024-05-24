@@ -8,6 +8,7 @@ returncode=0
 if [ ! -z $1 ] 
 then :
     ./$1/run_test.sh $1
+    returncode=$?
 else :
     for folder in test*; do
         ./$folder/run_test.sh $folder

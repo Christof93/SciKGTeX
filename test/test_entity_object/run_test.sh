@@ -12,10 +12,8 @@ if [ $compile_success -eq 1 ]; then
     exit 1
 fi
 if cmp --silent $1/test.xmp_metadata.xml $1/xmp_metadata_expected.xml; then
-    :
+    printf "\n\033[0;32m----------------------------### entity as object test PASS: XMP as expected! ###----------------------------------------\033[0m\n"
 else
     printf "\n\033[0;31m----------------------------### entity as object test FAIL: XMP not as expected! ###------------------------------------\033[0m\n" exit 0
     exit 1
 fi
-
-printf "\n\033[0;32m----------------------------### entity as object test PASS: XMP as expected! ###----------------------------------------\033[0m\n"
