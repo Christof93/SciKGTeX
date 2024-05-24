@@ -14,8 +14,9 @@ else :
         ./$folder/run_test.sh $folder
         if [ $? -ne 0 ]; then
             echo 'TEST FAILED...'
-            returncode=1 
+            returncode=1
         fi
+        echo $returncode
     done
 fi
 echo "Tests finished with exit code: $returncode"
