@@ -39,7 +39,7 @@ Additionally, the contributions can easily be added automatically to scientific 
 
 You can use this link: https://www.overleaf.com/latex/examples/scikgtex-example/wrhmyrwfgrgw to view a working example in Overleaf with some explanation. Open the template and start making your own metadata annotations right away!
 
-It is necessary to compile your LaTeX source with LuaLaTeX for the package to work. This is typically straightforward with most modern LaTeX environments.
+It is necessary to compile your LaTeX source  with LuaLaTeX for the package to work. This is typically straightforward with most modern LaTeX environments.
 In Overleaf it can be configured like this for example:
 
 <img src="pictures/lualatex_overleaf.png?raw=true" alt="setting lualatex on overleaf" width="500"/>
@@ -63,11 +63,11 @@ For each of these properties there exists a corresponding LaTeX command:
 * `\result{..}`
 * `\conclusion{..}`
 
-Additionally we can mark title, authors and research field of the document with these three commands:
+Additionally we should add metainformation about the document title, authors and research field with these three commands:
 
-* `\metatitle{..}`
-* `\metaauthor{..}`
-* `\researchfield{..}`
+* `\metatitle*{..}`
+* `\metaauthor*{..}`
+* `\researchfield*{..}`
 
 We can surround expressions and passages in the text with these commands as illustrated by this example of a summarized research article by
 Wald, Ellen R., David Nash, and Jens Eickhoff on “Effectiveness of Amoxicillin/Clavulanate Potassium in the Treatment of Acute Bacterial Sinusitis in Children.” Pediatrics, vol. 124, no. 1, 2009, pp. 9-15.:
@@ -75,10 +75,14 @@ Wald, Ellen R., David Nash, and Jens Eickhoff on “Effectiveness of Amoxicillin
 ```latex
 \documentclass{article}
 \usepackage{scikgtex}
-
-\title{\metatitle{Effectiveness of Amoxicillin/Clavulanate Potassium in the Treatment of Acute Bacterial Sinusitis in Children.}}
-\author{\metaauthor{Ellen R. Wald} \and \metaauthor{David Nash} \metaauthor{Jens Eickhoff}}
+\metatitle*{Effectiveness of Amoxicillin/Clavulanate Potassium in the Treatment of Acute Bacterial Sinusitis in Children.}
+\metaauthor*{Ellen R. Wald}
+\metaauthor*{David Nash}
+\metaauthor*{Jens Eickhoff}
 \researchfield*{antibiotic therapy}
+
+\title{Effectiveness of Amoxicillin/Clavulanate Potassium in the Treatment of Acute Bacterial Sinusitis in Children.}
+\author{Ellen R. Wald \and David Nash \and Jens Eickhoff}
 
 \begin{document}
 \maketitle
