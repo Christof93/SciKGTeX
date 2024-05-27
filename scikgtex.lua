@@ -554,7 +554,6 @@ function XMP:add_annotation(contribution_ids, annotation_type, content, annotati
 
     -- take the prefix given, the prefix saved in the namespace dictionary or the default ns 
     annotation.prefix = prefix or self.property_ns[annotation.type] or 'orkg_property'
-    print(self.property_ns[annotation.type])
     if not (prefix or self.property_ns[annotation.type]) then
         orkg_entry = SciKGTeX.orkg_property_uri_map[annotation_type]
         if orkg_entry then
@@ -572,10 +571,6 @@ function XMP:add_annotation(contribution_ids, annotation_type, content, annotati
             -- TODO: raise a warning message.
             SciKGTeX:warn([[The property '%s' does not have a correspondence in the ORKG!
 Consider reusing one of the properties by the ORKG or adding your paper through the paper wizard (https://orkg.org/add-paper) to create the property online.
-
-To suppress this message add the following to your document preamble:
-
-\addmetaproperty{orkg_property, http://orkg.org/property/}{%s} 
                 ]], annotation_type, annotation_type)
             annotation.id = self:escape_xml_tags(annotation.type)
         end
