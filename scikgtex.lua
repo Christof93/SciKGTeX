@@ -392,7 +392,7 @@ end
 function SciKGTeX:warn_ambiguous_orkg_label(label, property_uris)
     warning_message = [[The property '%s' you used has several possible correspondences in the ORKG!
 Currently this property is used %s.
-Please check if the URL to find out if that is the correct usage.
+Please check the URL to find out if that is the correct usage.
 If not check if any of the following are more suiting:
 %s
 
@@ -404,7 +404,7 @@ and replace any use of the command with
 
 \contribution{%s}
 
-To use a different URI, replace '%s' with the property name at the end any of the URLs above which fits your usage best. (If none of them fit just replace it with your original label.) 
+To use a different URI, replace '%s' with the property id at the end any of the URLs above which fits your usage best. 
 ]]
     uris = ""
     current = "http://orkg.org/property/" .. property_uris[1]
@@ -571,6 +571,8 @@ function XMP:add_annotation(contribution_ids, annotation_type, content, annotati
             -- TODO: raise a warning message.
             SciKGTeX:warn([[The property '%s' does not have a correspondence in the ORKG!
 Consider reusing one of the properties in the ORKG (orkg.org) or adding the property to the knowledge graph online (https://orkg.org/addProperty).
+To suppress this message use \addmetaproperty[orkg_property, http://orkg.org/property/]{<property id>}. Replace <property id> with the id of your newly created property.
+Annotate in the text by using the contribution command like this: \contribution{<property id>}{<your text>}.
                 ]], annotation_type, annotation_type)
             annotation.id = self:escape_xml_tags(annotation.type)
         end
@@ -656,7 +658,7 @@ function XMP:generate_xmp_string(lb_char)
         end
         if self.paper.researchfield ~= nil then
             self:add_line(
-                '    <orkg:hasResearchField>%s</orkg:hasResearchField>',
+                '    <orkg_property:P30>%s</orkg_property:P30>',
                 self:process_content(self.paper.researchfield)
             )
         end
