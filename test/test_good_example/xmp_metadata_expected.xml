@@ -11,7 +11,7 @@
     <orkg:hasAuthor>Ellen R. Wald</orkg:hasAuthor>
     <orkg:hasAuthor>David Nash</orkg:hasAuthor>
     <orkg:hasAuthor>Jens Eickhoff</orkg:hasAuthor>
-    <orkg:hasResearchField>antibiotic therapy</orkg:hasResearchField>
+    <orkg_property:P30>antibiotic therapy</orkg_property:P30>
     <orkg:hasResearchContribution>
       <orkg:ResearchContribution rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6/contribution_ORKG_default">
           <orkg_property:P32>antibiotic therapy in managing acute bacterial sinusitis (ABS) in children</orkg_property:P32>

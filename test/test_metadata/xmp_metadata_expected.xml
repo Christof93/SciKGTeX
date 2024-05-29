@@ -12,7 +12,7 @@
     <orkg:hasAuthor>&amp;&lt;I&gt;</orkg:hasAuthor>
     <orkg:hasAuthor>Me</orkg:hasAuthor>
     <orkg:hasAuthor>Me, myself and I</orkg:hasAuthor>
-    <orkg:hasResearchField>cancer research</orkg:hasResearchField>
+    <orkg_property:P30>cancer research</orkg_property:P30>
     <orkg:hasResearchContribution>
       <orkg:ResearchContribution rdf:about="https://www.orkg.org/orkg/paper/48fdc517-5814-4d0c-cd03-0c296941c6/contribution_ORKG_default">
           <orkg_property:P15051>This is the objective of our research.</orkg_property:P15051>
