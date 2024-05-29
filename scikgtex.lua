@@ -570,7 +570,7 @@ function XMP:add_annotation(contribution_ids, annotation_type, content, annotati
             -- make a new property with the label
             -- TODO: raise a warning message.
             SciKGTeX:warn([[The property '%s' does not have a correspondence in the ORKG!
-Consider reusing one of the properties by the ORKG or adding your paper through the paper wizard (https://orkg.org/add-paper) to create the property online.
+Consider reusing one of the properties in the ORKG (orkg.org) or adding the property to the knowledge graph online (https://orkg.org/addProperty).
                 ]], annotation_type, annotation_type)
             annotation.id = self:escape_xml_tags(annotation.type)
         end
