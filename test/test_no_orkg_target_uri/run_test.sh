@@ -15,13 +15,13 @@ if cmp --silent $1/test.xmp_metadata.xml $1/xmp_metadata_expected.xml; then
     :
 else
     printf "\n\033[0;31m----------------------------### multiple orkg target uris test FAIL: XMP not as expected! ###------------------------------------\033[0m\n"
-    exit 1
+    exit 2
 fi
 
-if grep -q "Package SciKGTeX Warning: The property 'xyz' does not have a correspondence in the ORKG!" $1/test.log; then
+if grep -q "Package SciKGTeX Warning: The property 'xyz' does not have a correspondence" $1/test.log && grep -q "https://orkg.org/addProperty" $1/test.log ; then
     printf "\n\033[0;32m----------------------------### multiple orkg target uris test PASS: XMP as expected! Successful warning! ###----------------------------------------\033[0m\n"
     exit 0
 else
     printf "\n\033[0;31m----------------------------### multiple orkg target uris test FAIL: No warning seen! ###------------------------------------\033[0m\n"
-    exit 1
+    exit 4
 fi
