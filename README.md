@@ -31,7 +31,7 @@ Additionally, the contributions can easily be added automatically to scientific 
 ## Installation
 1. Copy the files `scikgtex.lua` and `scikgtex.sty` from the latest stable release to your latex project 
  
-   - latest stable release: https://github.com/Christof93/SciKGTeX/releases/tag/v2.2.0
+   - latest stable release: https://github.com/Christof93/SciKGTeX/releases/tag/v3.0.0
 
 2. Set `\usepackage[compatibility]{scikgtex}` in your document preamble to use the package
 
