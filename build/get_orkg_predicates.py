@@ -33,9 +33,33 @@ def crawl_predicates():
                     name_id_store[name] = [id]
         else:
             print(predicates_page_request)
-    print(name_id_store)
     print(f"number of labels: {len(name_id_store)}")
     print(f"number of predicates: {pred_count}")
+    return name_id_store
+
+def get_predicates_from_dump():
+    host = "https://orkg.org"
+    name_id_store = {}
+
+    predicates_request = requests.get(
+        f"{host}/files/mappings/predicate-ids_to_label.json",
+        headers = {
+            "content-type": "application/json;charset=utf-8",
+            "Accept": "application/json",
+        }
+    )
+    if predicates_request.status_code==200:
+        pred_dict = predicates_request.json()
+        for pred_id, name in pred_dict.items():
+            if name in name_id_store:
+                name_id_store[name] += [pred_id]
+            else:
+                name_id_store[name] = [pred_id]
+    else:
+        return
+    
+    print(f"number of labels: {len(name_id_store)}")
+    print(f"number of predicates: {len(pred_dict)}")
     return name_id_store
 
 def save_json_to_file(obj, fn):
@@ -43,5 +67,6 @@ def save_json_to_file(obj, fn):
         json.dump(obj, f)
 
 if __name__=="__main__":
-    name_id_store = crawl_predicates()
-    save_json_to_file(name_id_store, "./build/orkg_predicates.json")
+    name_id_store = get_predicates_from_dump()
+    if name_id_store is not None:
+        save_json_to_file(name_id_store, "./build/orkg_predicates.json")

@@ -398,7 +398,7 @@ If not check if any of the following are more suiting:
 
 To suppress this message add the following to your document preamble:
 
-\addmetaproperty{orkg_property, http://orkg.org/property/}{%s}
+\addmetaproperty[orkg_property, http://orkg.org/property/]{%s}
 
 and replace any use of the command with 
 
@@ -560,16 +560,18 @@ function XMP:add_annotation(contribution_ids, annotation_type, content, annotati
             -- property exists in ORKG
             if type(orkg_entry) == 'table' then
                 -- more than two properties have this label
-                print(orkg_entry[1],orkg_entry[2])
                 annotation.id = orkg_entry[1]
                 SciKGTeX:warn_ambiguous_orkg_label(annotation_type, orkg_entry)
             else
                 -- one property with this label
-                -- TODO: raise a warning message.
                 annotation.id = orkg_entry
             end
         else
             -- make a new property with the label
+            -- TODO: raise a warning message.
+            SciKGTeX:warn([[The property '%s' does not have a correspondence in the ORKG!
+Consider reusing one of the properties in the ORKG (orkg.org) or adding the property to the knowledge graph online (https://orkg.org/addProperty).
+                ]], annotation_type, annotation_type)
             annotation.id = self:escape_xml_tags(annotation.type)
         end
     else
