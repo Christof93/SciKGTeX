@@ -1,3 +1,12 @@
+<h2 align="center">
+    
+This instance is a mirror of the [original repository](https://github.com/Christof93/SciKGTeX).
+    
+For development, the [original repository](https://github.com/Christof93/SciKGTeX) is used.
+
+For support and helpdesk requests, use the [NFDI4ING Help desk](https://nfdi4ing.de/home/25_services/25_helpdesk/).
+</h1>
+
 <p align="center">
 <img src = "pictures/logo_without_doc.png?raw=true" alt="SciKGTeX Logo" width="80"/>
 </p>
