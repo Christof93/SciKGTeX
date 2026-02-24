@@ -1,0 +1,166 @@
+%% ----------------------------------------------------------------
+%% scikgtex --- Scientific Knowledge Graph TeX (SciKgTeX) is a 
+%% LuaLaTeX package which makes it possible to annotate specific
+%% research contributions in scientific documents. SciKGTeX will 
+%% enrich the document by adding marked contributions to PDF
+%% metadata in a structured XMP format which can be picked up by 
+%% Search Engines and Knowledge Graphs.
+%% More information on how to use the package can be found here: 
+%% https://github.com/Christof93/SciKGTeX#readme
+%%
+%% Author: Christof Bless
+%% E-mail: christofbless@gmail.com
+%% Released under the MIT License 
+%% See https://opensource.org/licenses/MIT
+%% ----------------------------------------------------------------
+%% 
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{scikgtex}[2022/11/13 v2.1.1]
+%
+\def\useignorespacesandallpars#1\ignorespaces\fi{%
+#1\fi\ignorespacesandallpars}
+%
+\makeatletter
+\def\ignorespacesandallpars{%
+  \@ifnextchar\par
+    {\expandafter\ignorespacesandallpars\@gobble}%
+    {}%
+}
+\makeatother
+%
+\RequirePackage{suffix}
+%% init variable which checks if hyperref is loaded.
+\newcommand{\hyperrefloaded}{null}%
+%
+\errorcontextlines=5
+%
+\directlua {%
+  SciKGTeX = require('scikgtex')%
+  CONFORM_TO_PDFA = false%
+}
+\DeclareOption{compatibility}{
+  \directlua {% 
+    CONFORM_TO_PDFA = true%
+  }
+}
+\ProcessOptions\relax
+
+\newcommand{\addmetaproperty}[2][]{%
+  \directlua{%
+    local new_property = "\luaescapestring{\unexpanded{#2}}"%
+    local ns = "\luaescapestring{\unexpanded{#1}}"%
+    SciKGTeX:add_property(new_property, ns)%
+  }%
+  \ignorespaces
+}%
+
+\newcommand{\newpropertycommand}[2][]{%
+  \directlua{%
+    local new_property = "\luaescapestring{\unexpanded{#2}}"%
+    local ns = "\luaescapestring{\unexpanded{#1}}"%
+    SciKGTeX:make_new_command(new_property, ns)%
+  }%
+  \ignorespaces
+}%
+
+\newcommand{\metatitle}[2][]{%
+  \directlua{%
+    local value = "\luaescapestring{\unexpanded{#2}}"%
+    SciKGTeX.XMP:set_title(value)%
+  }%
+  #2%
+}%
+
+\WithSuffix\newcommand\metatitle*[2][]{%
+  \directlua{%
+    local value = "\luaescapestring{\unexpanded{#2}}"%
+    SciKGTeX.XMP:set_title(value)%
+  }%
+  \ignorespaces
+}%
+
+\newcommand{\metaauthor}[2][]{%
+  \directlua{%
+    local value = "\luaescapestring{\unexpanded{#2}}"%
+    SciKGTeX.XMP:add_author(value)%
+  }%
+  #2%
+}%
+
+\WithSuffix\newcommand\metaauthor*[2][]{%
+  \directlua{%
+    local value = "\luaescapestring{\unexpanded{#2}}"%
+    SciKGTeX.XMP:add_author(value)%
+  }%
+  \ignorespaces
+}%
+
+\newcommand{\researchfield}[2][]{%
+  \directlua{%
+    local value = "\luaescapestring{\unexpanded{#2}}"%
+    SciKGTeX.XMP:set_researchfield(value)%
+  }%
+  #2%
+}%
+
+\WithSuffix\newcommand\researchfield*[2][]{%
+  \directlua{%
+    local value = "\luaescapestring{\unexpanded{#2}}"%
+    SciKGTeX.XMP:set_researchfield(value)%
+  }%
+  \ignorespaces
+}%
+%
+\newcommand{\uri}[2]{%
+  \ifcsname href\endcsname%
+    \renewcommand{\hyperrefloaded}{true}%
+  \else%
+    \renewcommand{\hyperrefloaded}{false}%
+  \fi%
+%
+  \directlua{%
+    local label = "\luaescapestring{\unexpanded{#2}}"%
+    local uri = "\luaescapestring{\unexpanded{#1}}"%
+    SciKGTeX:print_entity(uri, label, \hyperrefloaded)%
+  }%
+}%
+
+\newcommand{\contribution}[3][]{%
+  \directlua{%
+    local contrib_n = "\luaescapestring{\unexpanded{#1}}"%
+    local property = "\luaescapestring{\unexpanded{#2}}"%
+    local value = "\luaescapestring{\unexpanded{#3}}"%
+    SciKGTeX.XMP:add_annotation(contrib_n, property, value, 'annotation-id')%
+  }%
+  #3%
+}%
+
+\WithSuffix\newcommand\contribution*[3][]{%
+  \directlua{%
+    local contrib_n = "\luaescapestring{\unexpanded{#1}}"%
+    local property = "\luaescapestring{\unexpanded{#2}}"%
+    local value = "\luaescapestring{\unexpanded{#3}}"%
+    SciKGTeX.XMP:add_annotation(contrib_n, property, value, 'annotation-id')%
+  }%
+  \ignorespaces
+}%
+
+%make the researchproblem command which has a tag name differing from the command name
+\directlua{%
+    SciKGTeX:make_new_command('researchproblem', '', 'research_problem')%
+}%
+\newpropertycommand{result}
+\newpropertycommand{method}
+\newpropertycommand{objective}
+\newpropertycommand{conclusion}
+ 
+%% Copyright (C) 2022 by Christof Bless <christofbless@gmail.com>
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the MIT License.
+%% 
+%% This work consists of the file scikgtex.sty
+%% and the lua file               scikgtex.lua.
+%% 
+%%
+%% End of file `scikgtex.sty'.
