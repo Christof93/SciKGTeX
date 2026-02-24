@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{url}
+
+% 0. Add scikgtex files (.lua and .sty) to the project: Already done
+% 1. Change compiler from pdfLaTeX to LuaLaTeX in the Overleaf settings
+
+% 2. Add SciKGTeX package
+\usepackage{scikgtex}
+
+\begin{document}
+
+% 3. Annotate the title of the paper using the command \metatitle{}
+\title{\metatitle{Divide and Conquer the EmpiRE:\\ A Community-Maintainable Knowledge Graph of Empirical Research in Requirements Engineering}
+}
+
+% 4. Annotate authors of the paper using the command \metaauthor{}
+\author{\metaauthor{Oliver Karras} \and \metaauthor{Felix Wernlein} \and \metaauthor{Jil Klünder} \and \metaauthor{Sören Auer}}
+
+\maketitle
+
+% 5. Annotate the research problem, objective, method, result, and conclusion of the paper using the commands\researchproblem{}, \objective{}, \method{}, \result{}, \conclusion{}
+\begin{abstract}
+[Background.] Empirical research in requirements engineering (RE) is a constantly evolving topic, with a growing number of publications. Several papers address this topic using literature reviews to provide a snapshot of its ``current'' state and evolution. However, these papers have never built on or updated earlier ones, resulting in overlap and redundancy. The underlying problem is the unavailability of data from earlier works. Researchers need technical infrastructures to conduct sustainable literature reviews. [Aims.] We examine the \objective{use of the Open Research Knowledge Graph (ORKG) as such an infrastructure to build and publish an initial Knowledge Graph of Empirical research in RE (KG-EmpiRE) whose data is openly available}. Our long-term goal is to continuously maintain KG-EmpiRE with the research community to synthesize a comprehensive, up-to-date, and long-term available overview of the state and evolution of empirical research in RE. [Method.] We conduct a \method{literature review using the ORKG} to build and publish KG-EmpiRE which we evaluate against competency questions derived from a published vision of empirical research in software (requirements) engineering for 2020 -- 2025. [Results.] \result{From 570 papers of the IEEE International Requirements Engineering Conference (2000 -- 2022), we extract and analyze data on the reported empirical research} and \result{answer 16 out of 77 competency questions}. These answers show a positive development towards the vision, but also the need for future improvements. [Conclusions.] \conclusion{The ORKG is a ready-to-use and advanced infrastructure to organize data from literature reviews as knowledge graphs}. The resulting knowledge graphs make the data openly available and maintainable by research communities, enabling sustainable literature reviews.
+\end{abstract}
+
+% 6. If written text is not suitable for annotation, we can also annotate invisible text using the *-notation
+\researchproblem*{unavailability of the extracted and analyzed data from literature reviews}
+\method*{evaluation against competency questions}
+
+% 7. Optional: Annotate research field of the paper
+\researchfield*{\uri{https://orkg.org/resource/R140}{Software Engineering}}
+
+% 8. Optional: Using REFSQ'24 annotations
+\contribution*{code repository}{\url{https://github.com/okarras/EmpiRE-Analysis}}
+\contribution*{dataset}{\url{https://orkg.org/api/rdf/dump}}
+
+\end{document}
